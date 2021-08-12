@@ -77,15 +77,23 @@ defmodule Wtclientrpc.TowerSession do
           num_backups: non_neg_integer,
           num_pending_backups: non_neg_integer,
           max_backups: non_neg_integer,
-          sweep_sat_per_byte: non_neg_integer
+          sweep_sat_per_byte: non_neg_integer,
+          sweep_sat_per_vbyte: non_neg_integer
         }
 
-  defstruct [:num_backups, :num_pending_backups, :max_backups, :sweep_sat_per_byte]
+  defstruct [
+    :num_backups,
+    :num_pending_backups,
+    :max_backups,
+    :sweep_sat_per_byte,
+    :sweep_sat_per_vbyte
+  ]
 
   field :num_backups, 1, type: :uint32
   field :num_pending_backups, 2, type: :uint32
   field :max_backups, 3, type: :uint32
-  field :sweep_sat_per_byte, 4, type: :uint32
+  field :sweep_sat_per_byte, 4, type: :uint32, deprecated: true
+  field :sweep_sat_per_vbyte, 5, type: :uint32
 end
 
 defmodule Wtclientrpc.Tower do
@@ -189,13 +197,15 @@ defmodule Wtclientrpc.PolicyResponse do
 
   @type t :: %__MODULE__{
           max_updates: non_neg_integer,
-          sweep_sat_per_byte: non_neg_integer
+          sweep_sat_per_byte: non_neg_integer,
+          sweep_sat_per_vbyte: non_neg_integer
         }
 
-  defstruct [:max_updates, :sweep_sat_per_byte]
+  defstruct [:max_updates, :sweep_sat_per_byte, :sweep_sat_per_vbyte]
 
   field :max_updates, 1, type: :uint32
-  field :sweep_sat_per_byte, 2, type: :uint32
+  field :sweep_sat_per_byte, 2, type: :uint32, deprecated: true
+  field :sweep_sat_per_vbyte, 3, type: :uint32
 end
 
 defmodule Wtclientrpc.WatchtowerClient.Service do

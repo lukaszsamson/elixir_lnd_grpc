@@ -1,3 +1,23 @@
+defmodule Walletrpc.AddressType do
+  @moduledoc false
+  use Protobuf, enum: true, syntax: :proto3
+
+  @type t ::
+          integer
+          | :UNKNOWN
+          | :WITNESS_PUBKEY_HASH
+          | :NESTED_WITNESS_PUBKEY_HASH
+          | :HYBRID_NESTED_WITNESS_PUBKEY_HASH
+
+  field :UNKNOWN, 0
+
+  field :WITNESS_PUBKEY_HASH, 1
+
+  field :NESTED_WITNESS_PUBKEY_HASH, 2
+
+  field :HYBRID_NESTED_WITNESS_PUBKEY_HASH, 3
+end
+
 defmodule Walletrpc.WitnessType do
   @moduledoc false
   use Protobuf, enum: true, syntax: :proto3
@@ -54,13 +74,15 @@ defmodule Walletrpc.ListUnspentRequest do
 
   @type t :: %__MODULE__{
           min_confs: integer,
-          max_confs: integer
+          max_confs: integer,
+          account: String.t()
         }
 
-  defstruct [:min_confs, :max_confs]
+  defstruct [:min_confs, :max_confs, :account]
 
   field :min_confs, 1, type: :int32
   field :max_confs, 2, type: :int32
+  field :account, 3, type: :string
 end
 
 defmodule Walletrpc.ListUnspentResponse do
@@ -82,13 +104,15 @@ defmodule Walletrpc.LeaseOutputRequest do
 
   @type t :: %__MODULE__{
           id: binary,
-          outpoint: Lnrpc.OutPoint.t() | nil
+          outpoint: Lnrpc.OutPoint.t() | nil,
+          expiration_seconds: non_neg_integer
         }
 
-  defstruct [:id, :outpoint]
+  defstruct [:id, :outpoint, :expiration_seconds]
 
   field :id, 1, type: :bytes
   field :outpoint, 2, type: Lnrpc.OutPoint
+  field :expiration_seconds, 3, type: :uint64
 end
 
 defmodule Walletrpc.LeaseOutputResponse do
@@ -145,9 +169,14 @@ end
 defmodule Walletrpc.AddrRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
-  @type t :: %__MODULE__{}
 
-  defstruct []
+  @type t :: %__MODULE__{
+          account: String.t()
+        }
+
+  defstruct [:account]
+
+  field :account, 1, type: :string
 end
 
 defmodule Walletrpc.AddrResponse do
@@ -161,6 +190,131 @@ defmodule Walletrpc.AddrResponse do
   defstruct [:addr]
 
   field :addr, 1, type: :string
+end
+
+defmodule Walletrpc.Account do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          name: String.t(),
+          address_type: Walletrpc.AddressType.t(),
+          extended_public_key: String.t(),
+          master_key_fingerprint: binary,
+          derivation_path: String.t(),
+          external_key_count: non_neg_integer,
+          internal_key_count: non_neg_integer,
+          watch_only: boolean
+        }
+
+  defstruct [
+    :name,
+    :address_type,
+    :extended_public_key,
+    :master_key_fingerprint,
+    :derivation_path,
+    :external_key_count,
+    :internal_key_count,
+    :watch_only
+  ]
+
+  field :name, 1, type: :string
+  field :address_type, 2, type: Walletrpc.AddressType, enum: true
+  field :extended_public_key, 3, type: :string
+  field :master_key_fingerprint, 4, type: :bytes
+  field :derivation_path, 5, type: :string
+  field :external_key_count, 6, type: :uint32
+  field :internal_key_count, 7, type: :uint32
+  field :watch_only, 8, type: :bool
+end
+
+defmodule Walletrpc.ListAccountsRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          name: String.t(),
+          address_type: Walletrpc.AddressType.t()
+        }
+
+  defstruct [:name, :address_type]
+
+  field :name, 1, type: :string
+  field :address_type, 2, type: Walletrpc.AddressType, enum: true
+end
+
+defmodule Walletrpc.ListAccountsResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          accounts: [Walletrpc.Account.t()]
+        }
+
+  defstruct [:accounts]
+
+  field :accounts, 1, repeated: true, type: Walletrpc.Account
+end
+
+defmodule Walletrpc.ImportAccountRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          name: String.t(),
+          extended_public_key: String.t(),
+          master_key_fingerprint: binary,
+          address_type: Walletrpc.AddressType.t(),
+          dry_run: boolean
+        }
+
+  defstruct [:name, :extended_public_key, :master_key_fingerprint, :address_type, :dry_run]
+
+  field :name, 1, type: :string
+  field :extended_public_key, 2, type: :string
+  field :master_key_fingerprint, 3, type: :bytes
+  field :address_type, 4, type: Walletrpc.AddressType, enum: true
+  field :dry_run, 5, type: :bool
+end
+
+defmodule Walletrpc.ImportAccountResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          account: Walletrpc.Account.t() | nil,
+          dry_run_external_addrs: [String.t()],
+          dry_run_internal_addrs: [String.t()]
+        }
+
+  defstruct [:account, :dry_run_external_addrs, :dry_run_internal_addrs]
+
+  field :account, 1, type: Walletrpc.Account
+  field :dry_run_external_addrs, 2, repeated: true, type: :string
+  field :dry_run_internal_addrs, 3, repeated: true, type: :string
+end
+
+defmodule Walletrpc.ImportPublicKeyRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          public_key: binary,
+          address_type: Walletrpc.AddressType.t()
+        }
+
+  defstruct [:public_key, :address_type]
+
+  field :public_key, 1, type: :bytes
+  field :address_type, 2, type: Walletrpc.AddressType, enum: true
+end
+
+defmodule Walletrpc.ImportPublicKeyResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+  @type t :: %__MODULE__{}
+
+  defstruct []
 end
 
 defmodule Walletrpc.Transaction do
@@ -264,6 +418,8 @@ defmodule Walletrpc.PendingSweep do
           next_broadcast_height: non_neg_integer,
           requested_conf_target: non_neg_integer,
           requested_sat_per_byte: non_neg_integer,
+          sat_per_vbyte: non_neg_integer,
+          requested_sat_per_vbyte: non_neg_integer,
           force: boolean
         }
 
@@ -276,17 +432,21 @@ defmodule Walletrpc.PendingSweep do
     :next_broadcast_height,
     :requested_conf_target,
     :requested_sat_per_byte,
+    :sat_per_vbyte,
+    :requested_sat_per_vbyte,
     :force
   ]
 
   field :outpoint, 1, type: Lnrpc.OutPoint
   field :witness_type, 2, type: Walletrpc.WitnessType, enum: true
   field :amount_sat, 3, type: :uint32
-  field :sat_per_byte, 4, type: :uint32
+  field :sat_per_byte, 4, type: :uint32, deprecated: true
   field :broadcast_attempts, 5, type: :uint32
   field :next_broadcast_height, 6, type: :uint32
   field :requested_conf_target, 8, type: :uint32
-  field :requested_sat_per_byte, 9, type: :uint32
+  field :requested_sat_per_byte, 9, type: :uint32, deprecated: true
+  field :sat_per_vbyte, 10, type: :uint64
+  field :requested_sat_per_vbyte, 11, type: :uint64
   field :force, 7, type: :bool
 end
 
@@ -319,15 +479,17 @@ defmodule Walletrpc.BumpFeeRequest do
           outpoint: Lnrpc.OutPoint.t() | nil,
           target_conf: non_neg_integer,
           sat_per_byte: non_neg_integer,
-          force: boolean
+          force: boolean,
+          sat_per_vbyte: non_neg_integer
         }
 
-  defstruct [:outpoint, :target_conf, :sat_per_byte, :force]
+  defstruct [:outpoint, :target_conf, :sat_per_byte, :force, :sat_per_vbyte]
 
   field :outpoint, 1, type: Lnrpc.OutPoint
   field :target_conf, 2, type: :uint32
-  field :sat_per_byte, 3, type: :uint32
+  field :sat_per_byte, 3, type: :uint32, deprecated: true
   field :force, 4, type: :bool
+  field :sat_per_vbyte, 5, type: :uint64
 end
 
 defmodule Walletrpc.BumpFeeResponse do
@@ -410,17 +572,23 @@ defmodule Walletrpc.FundPsbtRequest do
 
   @type t :: %__MODULE__{
           template: {atom, any},
-          fees: {atom, any}
+          fees: {atom, any},
+          account: String.t(),
+          min_confs: integer,
+          spend_unconfirmed: boolean
         }
 
-  defstruct [:template, :fees]
+  defstruct [:template, :fees, :account, :min_confs, :spend_unconfirmed]
 
   oneof :template, 0
   oneof :fees, 1
   field :psbt, 1, type: :bytes, oneof: 0
   field :raw, 2, type: Walletrpc.TxTemplate, oneof: 0
   field :target_conf, 3, type: :uint32, oneof: 1
-  field :sat_per_vbyte, 4, type: :uint32, oneof: 1
+  field :sat_per_vbyte, 4, type: :uint64, oneof: 1
+  field :account, 5, type: :string
+  field :min_confs, 6, type: :int32
+  field :spend_unconfirmed, 7, type: :bool
 end
 
 defmodule Walletrpc.FundPsbtResponse do
@@ -492,12 +660,14 @@ defmodule Walletrpc.FinalizePsbtRequest do
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
-          funded_psbt: binary
+          funded_psbt: binary,
+          account: String.t()
         }
 
-  defstruct [:funded_psbt]
+  defstruct [:funded_psbt, :account]
 
   field :funded_psbt, 1, type: :bytes
+  field :account, 5, type: :string
 end
 
 defmodule Walletrpc.FinalizePsbtResponse do
@@ -515,6 +685,27 @@ defmodule Walletrpc.FinalizePsbtResponse do
   field :raw_final_tx, 2, type: :bytes
 end
 
+defmodule Walletrpc.ListLeasesRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+  @type t :: %__MODULE__{}
+
+  defstruct []
+end
+
+defmodule Walletrpc.ListLeasesResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          locked_utxos: [Walletrpc.UtxoLease.t()]
+        }
+
+  defstruct [:locked_utxos]
+
+  field :locked_utxos, 1, repeated: true, type: Walletrpc.UtxoLease
+end
+
 defmodule Walletrpc.WalletKit.Service do
   @moduledoc false
   use GRPC.Service, name: "walletrpc.WalletKit"
@@ -525,11 +716,19 @@ defmodule Walletrpc.WalletKit.Service do
 
   rpc :ReleaseOutput, Walletrpc.ReleaseOutputRequest, Walletrpc.ReleaseOutputResponse
 
+  rpc :ListLeases, Walletrpc.ListLeasesRequest, Walletrpc.ListLeasesResponse
+
   rpc :DeriveNextKey, Walletrpc.KeyReq, Signrpc.KeyDescriptor
 
   rpc :DeriveKey, Signrpc.KeyLocator, Signrpc.KeyDescriptor
 
   rpc :NextAddr, Walletrpc.AddrRequest, Walletrpc.AddrResponse
+
+  rpc :ListAccounts, Walletrpc.ListAccountsRequest, Walletrpc.ListAccountsResponse
+
+  rpc :ImportAccount, Walletrpc.ImportAccountRequest, Walletrpc.ImportAccountResponse
+
+  rpc :ImportPublicKey, Walletrpc.ImportPublicKeyRequest, Walletrpc.ImportPublicKeyResponse
 
   rpc :PublishTransaction, Walletrpc.Transaction, Walletrpc.PublishResponse
 

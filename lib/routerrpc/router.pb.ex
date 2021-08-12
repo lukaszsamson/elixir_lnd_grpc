@@ -116,6 +116,18 @@ defmodule Routerrpc.ResolveHoldForwardAction do
   field :RESUME, 2
 end
 
+defmodule Routerrpc.ChanStatusAction do
+  @moduledoc false
+  use Protobuf, enum: true, syntax: :proto3
+  @type t :: integer | :ENABLE | :DISABLE | :AUTO
+
+  field :ENABLE, 0
+
+  field :DISABLE, 1
+
+  field :AUTO, 2
+end
+
 defmodule Routerrpc.HtlcEvent.EventType do
   @moduledoc false
   use Protobuf, enum: true, syntax: :proto3
@@ -170,7 +182,8 @@ defmodule Routerrpc.SendPaymentRequest do
           dest_features: [[Lnrpc.FeatureBit.t()]],
           max_parts: non_neg_integer,
           no_inflight_updates: boolean,
-          max_shard_size_msat: non_neg_integer
+          max_shard_size_msat: non_neg_integer,
+          amp: boolean
         }
 
   defstruct [
@@ -194,7 +207,8 @@ defmodule Routerrpc.SendPaymentRequest do
     :dest_features,
     :max_parts,
     :no_inflight_updates,
-    :max_shard_size_msat
+    :max_shard_size_msat,
+    :amp
   ]
 
   field :dest, 1, type: :bytes
@@ -223,6 +237,7 @@ defmodule Routerrpc.SendPaymentRequest do
   field :max_parts, 17, type: :uint32
   field :no_inflight_updates, 18, type: :bool
   field :max_shard_size_msat, 21, type: :uint64
+  field :amp, 22, type: :bool
 end
 
 defmodule Routerrpc.TrackPaymentRequest do
@@ -337,6 +352,27 @@ defmodule Routerrpc.QueryMissionControlResponse do
   field :pairs, 2, repeated: true, type: Routerrpc.PairHistory
 end
 
+defmodule Routerrpc.XImportMissionControlRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          pairs: [Routerrpc.PairHistory.t()]
+        }
+
+  defstruct [:pairs]
+
+  field :pairs, 1, repeated: true, type: Routerrpc.PairHistory
+end
+
+defmodule Routerrpc.XImportMissionControlResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+  @type t :: %__MODULE__{}
+
+  defstruct []
+end
+
 defmodule Routerrpc.PairHistory do
   @moduledoc false
   use Protobuf, syntax: :proto3
@@ -382,6 +418,75 @@ defmodule Routerrpc.PairData do
   field :success_time, 5, type: :int64
   field :success_amt_sat, 6, type: :int64
   field :success_amt_msat, 7, type: :int64
+end
+
+defmodule Routerrpc.GetMissionControlConfigRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+  @type t :: %__MODULE__{}
+
+  defstruct []
+end
+
+defmodule Routerrpc.GetMissionControlConfigResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          config: Routerrpc.MissionControlConfig.t() | nil
+        }
+
+  defstruct [:config]
+
+  field :config, 1, type: Routerrpc.MissionControlConfig
+end
+
+defmodule Routerrpc.SetMissionControlConfigRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          config: Routerrpc.MissionControlConfig.t() | nil
+        }
+
+  defstruct [:config]
+
+  field :config, 1, type: Routerrpc.MissionControlConfig
+end
+
+defmodule Routerrpc.SetMissionControlConfigResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+  @type t :: %__MODULE__{}
+
+  defstruct []
+end
+
+defmodule Routerrpc.MissionControlConfig do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          half_life_seconds: non_neg_integer,
+          hop_probability: float | :infinity | :negative_infinity | :nan,
+          weight: float | :infinity | :negative_infinity | :nan,
+          maximum_payment_results: non_neg_integer,
+          minimum_failure_relax_interval: non_neg_integer
+        }
+
+  defstruct [
+    :half_life_seconds,
+    :hop_probability,
+    :weight,
+    :maximum_payment_results,
+    :minimum_failure_relax_interval
+  ]
+
+  field :half_life_seconds, 1, type: :uint64
+  field :hop_probability, 2, type: :float
+  field :weight, 3, type: :float
+  field :maximum_payment_results, 4, type: :uint32
+  field :minimum_failure_relax_interval, 5, type: :uint64
 end
 
 defmodule Routerrpc.QueryProbabilityRequest do
@@ -670,6 +775,29 @@ defmodule Routerrpc.ForwardHtlcInterceptResponse do
   field :preimage, 3, type: :bytes
 end
 
+defmodule Routerrpc.UpdateChanStatusRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          chan_point: Lnrpc.ChannelPoint.t() | nil,
+          action: Routerrpc.ChanStatusAction.t()
+        }
+
+  defstruct [:chan_point, :action]
+
+  field :chan_point, 1, type: Lnrpc.ChannelPoint
+  field :action, 2, type: Routerrpc.ChanStatusAction, enum: true
+end
+
+defmodule Routerrpc.UpdateChanStatusResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+  @type t :: %__MODULE__{}
+
+  defstruct []
+end
+
 defmodule Routerrpc.Router.Service do
   @moduledoc false
   use GRPC.Service, name: "routerrpc.Router"
@@ -692,6 +820,18 @@ defmodule Routerrpc.Router.Service do
       Routerrpc.QueryMissionControlRequest,
       Routerrpc.QueryMissionControlResponse
 
+  rpc :XImportMissionControl,
+      Routerrpc.XImportMissionControlRequest,
+      Routerrpc.XImportMissionControlResponse
+
+  rpc :GetMissionControlConfig,
+      Routerrpc.GetMissionControlConfigRequest,
+      Routerrpc.GetMissionControlConfigResponse
+
+  rpc :SetMissionControlConfig,
+      Routerrpc.SetMissionControlConfigRequest,
+      Routerrpc.SetMissionControlConfigResponse
+
   rpc :QueryProbability, Routerrpc.QueryProbabilityRequest, Routerrpc.QueryProbabilityResponse
 
   rpc :BuildRoute, Routerrpc.BuildRouteRequest, Routerrpc.BuildRouteResponse
@@ -705,6 +845,8 @@ defmodule Routerrpc.Router.Service do
   rpc :HtlcInterceptor,
       stream(Routerrpc.ForwardHtlcInterceptResponse),
       stream(Routerrpc.ForwardHtlcInterceptRequest)
+
+  rpc :UpdateChanStatus, Routerrpc.UpdateChanStatusRequest, Routerrpc.UpdateChanStatusResponse
 end
 
 defmodule Routerrpc.Router.Stub do
