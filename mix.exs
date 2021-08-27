@@ -28,8 +28,8 @@ defmodule LndGrpc.MixProject do
       {:grpc, github: "elixir-grpc/grpc"},
       {:protobuf, "~> 0.7"},
       {:gun,
-       github: "ninenines/gun", ref: "b28950d5e701055f536f66c70b581c3cf806f3dd", override: true},
-      {:cowlib, "~> 2.9.1", override: true},
+       github: "ninenines/gun", ref: "f9175998687678e227bdd49669e2d83f0648fa57", override: true},
+      {:cowlib, "~> 2.11.0", override: true},
     ]
   end
 end
