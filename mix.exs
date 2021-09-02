@@ -26,10 +26,7 @@ defmodule LndGrpc.MixProject do
       # https://github.com/elixir-grpc/grpc/issues/188 fixed
       # {:grpc, github: "frekw/grpc", branch: "fix/handle-rpc-errors-in-recv"},
       {:grpc, github: "elixir-grpc/grpc"},
-      {:protobuf, "~> 0.7"},
-      {:gun,
-       github: "ninenines/gun", ref: "f9175998687678e227bdd49669e2d83f0648fa57", override: true},
-      {:cowlib, "~> 2.11.0", override: true},
+      {:protobuf, "~> 0.7"}
     ]
   end
 end
