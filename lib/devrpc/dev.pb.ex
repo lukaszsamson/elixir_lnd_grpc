@@ -1,14 +1,10 @@
 defmodule Devrpc.ImportGraphResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-  @type t :: %__MODULE__{}
-
-  defstruct []
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 end
-
 defmodule Devrpc.Dev.Service do
   @moduledoc false
-  use GRPC.Service, name: "devrpc.Dev"
+  use GRPC.Service, name: "devrpc.Dev", protoc_gen_elixir_version: "0.10.0"
 
   rpc :ImportGraph, Lnrpc.ChannelGraph, Devrpc.ImportGraphResponse
 end

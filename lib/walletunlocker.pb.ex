@@ -1,183 +1,89 @@
 defmodule Lnrpc.GenSeedRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          aezeed_passphrase: binary,
-          seed_entropy: binary
-        }
-
-  defstruct [:aezeed_passphrase, :seed_entropy]
-
-  field :aezeed_passphrase, 1, type: :bytes
-  field :seed_entropy, 2, type: :bytes
+  field :aezeed_passphrase, 1, type: :bytes, json_name: "aezeedPassphrase"
+  field :seed_entropy, 2, type: :bytes, json_name: "seedEntropy"
 end
-
 defmodule Lnrpc.GenSeedResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          cipher_seed_mnemonic: [String.t()],
-          enciphered_seed: binary
-        }
-
-  defstruct [:cipher_seed_mnemonic, :enciphered_seed]
-
-  field :cipher_seed_mnemonic, 1, repeated: true, type: :string
-  field :enciphered_seed, 2, type: :bytes
+  field :cipher_seed_mnemonic, 1, repeated: true, type: :string, json_name: "cipherSeedMnemonic"
+  field :enciphered_seed, 2, type: :bytes, json_name: "encipheredSeed"
 end
-
 defmodule Lnrpc.InitWalletRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          wallet_password: binary,
-          cipher_seed_mnemonic: [String.t()],
-          aezeed_passphrase: binary,
-          recovery_window: integer,
-          channel_backups: Lnrpc.ChanBackupSnapshot.t() | nil,
-          stateless_init: boolean,
-          extended_master_key: String.t(),
-          extended_master_key_birthday_timestamp: non_neg_integer,
-          watch_only: Lnrpc.WatchOnly.t() | nil
-        }
+  field :wallet_password, 1, type: :bytes, json_name: "walletPassword"
+  field :cipher_seed_mnemonic, 2, repeated: true, type: :string, json_name: "cipherSeedMnemonic"
+  field :aezeed_passphrase, 3, type: :bytes, json_name: "aezeedPassphrase"
+  field :recovery_window, 4, type: :int32, json_name: "recoveryWindow"
+  field :channel_backups, 5, type: Lnrpc.ChanBackupSnapshot, json_name: "channelBackups"
+  field :stateless_init, 6, type: :bool, json_name: "statelessInit"
+  field :extended_master_key, 7, type: :string, json_name: "extendedMasterKey"
 
-  defstruct [
-    :wallet_password,
-    :cipher_seed_mnemonic,
-    :aezeed_passphrase,
-    :recovery_window,
-    :channel_backups,
-    :stateless_init,
-    :extended_master_key,
-    :extended_master_key_birthday_timestamp,
-    :watch_only
-  ]
+  field :extended_master_key_birthday_timestamp, 8,
+    type: :uint64,
+    json_name: "extendedMasterKeyBirthdayTimestamp"
 
-  field :wallet_password, 1, type: :bytes
-  field :cipher_seed_mnemonic, 2, repeated: true, type: :string
-  field :aezeed_passphrase, 3, type: :bytes
-  field :recovery_window, 4, type: :int32
-  field :channel_backups, 5, type: Lnrpc.ChanBackupSnapshot
-  field :stateless_init, 6, type: :bool
-  field :extended_master_key, 7, type: :string
-  field :extended_master_key_birthday_timestamp, 8, type: :uint64
-  field :watch_only, 9, type: Lnrpc.WatchOnly
+  field :watch_only, 9, type: Lnrpc.WatchOnly, json_name: "watchOnly"
 end
-
 defmodule Lnrpc.InitWalletResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          admin_macaroon: binary
-        }
-
-  defstruct [:admin_macaroon]
-
-  field :admin_macaroon, 1, type: :bytes
+  field :admin_macaroon, 1, type: :bytes, json_name: "adminMacaroon"
 end
-
 defmodule Lnrpc.WatchOnly do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          master_key_birthday_timestamp: non_neg_integer,
-          master_key_fingerprint: binary,
-          accounts: [Lnrpc.WatchOnlyAccount.t()]
-        }
-
-  defstruct [:master_key_birthday_timestamp, :master_key_fingerprint, :accounts]
-
-  field :master_key_birthday_timestamp, 1, type: :uint64
-  field :master_key_fingerprint, 2, type: :bytes
+  field :master_key_birthday_timestamp, 1, type: :uint64, json_name: "masterKeyBirthdayTimestamp"
+  field :master_key_fingerprint, 2, type: :bytes, json_name: "masterKeyFingerprint"
   field :accounts, 3, repeated: true, type: Lnrpc.WatchOnlyAccount
 end
-
 defmodule Lnrpc.WatchOnlyAccount do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          purpose: non_neg_integer,
-          coin_type: non_neg_integer,
-          account: non_neg_integer,
-          xpub: String.t()
-        }
-
-  defstruct [:purpose, :coin_type, :account, :xpub]
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
   field :purpose, 1, type: :uint32
-  field :coin_type, 2, type: :uint32
+  field :coin_type, 2, type: :uint32, json_name: "coinType"
   field :account, 3, type: :uint32
   field :xpub, 4, type: :string
 end
-
 defmodule Lnrpc.UnlockWalletRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          wallet_password: binary,
-          recovery_window: integer,
-          channel_backups: Lnrpc.ChanBackupSnapshot.t() | nil,
-          stateless_init: boolean
-        }
-
-  defstruct [:wallet_password, :recovery_window, :channel_backups, :stateless_init]
-
-  field :wallet_password, 1, type: :bytes
-  field :recovery_window, 2, type: :int32
-  field :channel_backups, 3, type: Lnrpc.ChanBackupSnapshot
-  field :stateless_init, 4, type: :bool
+  field :wallet_password, 1, type: :bytes, json_name: "walletPassword"
+  field :recovery_window, 2, type: :int32, json_name: "recoveryWindow"
+  field :channel_backups, 3, type: Lnrpc.ChanBackupSnapshot, json_name: "channelBackups"
+  field :stateless_init, 4, type: :bool, json_name: "statelessInit"
 end
-
 defmodule Lnrpc.UnlockWalletResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-  @type t :: %__MODULE__{}
-
-  defstruct []
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 end
-
 defmodule Lnrpc.ChangePasswordRequest do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          current_password: binary,
-          new_password: binary,
-          stateless_init: boolean,
-          new_macaroon_root_key: boolean
-        }
-
-  defstruct [:current_password, :new_password, :stateless_init, :new_macaroon_root_key]
-
-  field :current_password, 1, type: :bytes
-  field :new_password, 2, type: :bytes
-  field :stateless_init, 3, type: :bool
-  field :new_macaroon_root_key, 4, type: :bool
+  field :current_password, 1, type: :bytes, json_name: "currentPassword"
+  field :new_password, 2, type: :bytes, json_name: "newPassword"
+  field :stateless_init, 3, type: :bool, json_name: "statelessInit"
+  field :new_macaroon_root_key, 4, type: :bool, json_name: "newMacaroonRootKey"
 end
-
 defmodule Lnrpc.ChangePasswordResponse do
   @moduledoc false
-  use Protobuf, syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
 
-  @type t :: %__MODULE__{
-          admin_macaroon: binary
-        }
-
-  defstruct [:admin_macaroon]
-
-  field :admin_macaroon, 1, type: :bytes
+  field :admin_macaroon, 1, type: :bytes, json_name: "adminMacaroon"
 end
-
 defmodule Lnrpc.WalletUnlocker.Service do
   @moduledoc false
-  use GRPC.Service, name: "lnrpc.WalletUnlocker"
+  use GRPC.Service, name: "lnrpc.WalletUnlocker", protoc_gen_elixir_version: "0.10.0"
 
   rpc :GenSeed, Lnrpc.GenSeedRequest, Lnrpc.GenSeedResponse
 
