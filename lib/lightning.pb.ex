@@ -1,3 +1,38 @@
+defmodule Lnrpc.OutputScriptType do
+  @moduledoc false
+  use Protobuf, enum: true, syntax: :proto3
+
+  @type t ::
+          integer
+          | :SCRIPT_TYPE_PUBKEY_HASH
+          | :SCRIPT_TYPE_SCRIPT_HASH
+          | :SCRIPT_TYPE_WITNESS_V0_PUBKEY_HASH
+          | :SCRIPT_TYPE_WITNESS_V0_SCRIPT_HASH
+          | :SCRIPT_TYPE_PUBKEY
+          | :SCRIPT_TYPE_MULTISIG
+          | :SCRIPT_TYPE_NULLDATA
+          | :SCRIPT_TYPE_NON_STANDARD
+          | :SCRIPT_TYPE_WITNESS_UNKNOWN
+
+  field :SCRIPT_TYPE_PUBKEY_HASH, 0
+
+  field :SCRIPT_TYPE_SCRIPT_HASH, 1
+
+  field :SCRIPT_TYPE_WITNESS_V0_PUBKEY_HASH, 2
+
+  field :SCRIPT_TYPE_WITNESS_V0_SCRIPT_HASH, 3
+
+  field :SCRIPT_TYPE_PUBKEY, 4
+
+  field :SCRIPT_TYPE_MULTISIG, 5
+
+  field :SCRIPT_TYPE_NULLDATA, 6
+
+  field :SCRIPT_TYPE_NON_STANDARD, 7
+
+  field :SCRIPT_TYPE_WITNESS_UNKNOWN, 8
+end
+
 defmodule Lnrpc.AddressType do
   @moduledoc false
   use Protobuf, enum: true, syntax: :proto3
@@ -8,6 +43,8 @@ defmodule Lnrpc.AddressType do
           | :NESTED_PUBKEY_HASH
           | :UNUSED_WITNESS_PUBKEY_HASH
           | :UNUSED_NESTED_PUBKEY_HASH
+          | :TAPROOT_PUBKEY
+          | :UNUSED_TAPROOT_PUBKEY
 
   field :WITNESS_PUBKEY_HASH, 0
 
@@ -16,20 +53,33 @@ defmodule Lnrpc.AddressType do
   field :UNUSED_WITNESS_PUBKEY_HASH, 2
 
   field :UNUSED_NESTED_PUBKEY_HASH, 3
+
+  field :TAPROOT_PUBKEY, 4
+
+  field :UNUSED_TAPROOT_PUBKEY, 5
 end
 
 defmodule Lnrpc.CommitmentType do
   @moduledoc false
   use Protobuf, enum: true, syntax: :proto3
-  @type t :: integer | :LEGACY | :STATIC_REMOTE_KEY | :ANCHORS | :UNKNOWN_COMMITMENT_TYPE
 
-  field :LEGACY, 0
+  @type t ::
+          integer
+          | :UNKNOWN_COMMITMENT_TYPE
+          | :LEGACY
+          | :STATIC_REMOTE_KEY
+          | :ANCHORS
+          | :SCRIPT_ENFORCED_LEASE
 
-  field :STATIC_REMOTE_KEY, 1
+  field :UNKNOWN_COMMITMENT_TYPE, 0
 
-  field :ANCHORS, 2
+  field :LEGACY, 1
 
-  field :UNKNOWN_COMMITMENT_TYPE, 999
+  field :STATIC_REMOTE_KEY, 2
+
+  field :ANCHORS, 3
+
+  field :SCRIPT_ENFORCED_LEASE, 4
 end
 
 defmodule Lnrpc.Initiator do
@@ -219,6 +269,29 @@ defmodule Lnrpc.FeatureBit do
   field :AMP_OPT, 31
 end
 
+defmodule Lnrpc.UpdateFailure do
+  @moduledoc false
+  use Protobuf, enum: true, syntax: :proto3
+
+  @type t ::
+          integer
+          | :UPDATE_FAILURE_UNKNOWN
+          | :UPDATE_FAILURE_PENDING
+          | :UPDATE_FAILURE_NOT_FOUND
+          | :UPDATE_FAILURE_INTERNAL_ERR
+          | :UPDATE_FAILURE_INVALID_PARAMETER
+
+  field :UPDATE_FAILURE_UNKNOWN, 0
+
+  field :UPDATE_FAILURE_PENDING, 1
+
+  field :UPDATE_FAILURE_NOT_FOUND, 2
+
+  field :UPDATE_FAILURE_INTERNAL_ERR, 3
+
+  field :UPDATE_FAILURE_INVALID_PARAMETER, 4
+end
+
 defmodule Lnrpc.ChannelCloseSummary.ClosureType do
   @moduledoc false
   use Protobuf, enum: true, syntax: :proto3
@@ -292,6 +365,7 @@ defmodule Lnrpc.ChannelEventUpdate.UpdateType do
           | :ACTIVE_CHANNEL
           | :INACTIVE_CHANNEL
           | :PENDING_OPEN_CHANNEL
+          | :FULLY_RESOLVED_CHANNEL
 
   field :OPEN_CHANNEL, 0
 
@@ -302,6 +376,8 @@ defmodule Lnrpc.ChannelEventUpdate.UpdateType do
   field :INACTIVE_CHANNEL, 3
 
   field :PENDING_OPEN_CHANNEL, 4
+
+  field :FULLY_RESOLVED_CHANNEL, 5
 end
 
 defmodule Lnrpc.Invoice.InvoiceState do
@@ -436,6 +512,56 @@ defmodule Lnrpc.Failure.FailureCode do
   field :UNREADABLE_FAILURE, 999
 end
 
+defmodule Lnrpc.SubscribeCustomMessagesRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+  @type t :: %__MODULE__{}
+
+  defstruct []
+end
+
+defmodule Lnrpc.CustomMessage do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          peer: binary,
+          type: non_neg_integer,
+          data: binary
+        }
+
+  defstruct [:peer, :type, :data]
+
+  field :peer, 1, type: :bytes
+  field :type, 2, type: :uint32
+  field :data, 3, type: :bytes
+end
+
+defmodule Lnrpc.SendCustomMessageRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          peer: binary,
+          type: non_neg_integer,
+          data: binary
+        }
+
+  defstruct [:peer, :type, :data]
+
+  field :peer, 1, type: :bytes
+  field :type, 2, type: :uint32
+  field :data, 3, type: :bytes
+end
+
+defmodule Lnrpc.SendCustomMessageResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+  @type t :: %__MODULE__{}
+
+  defstruct []
+end
+
 defmodule Lnrpc.Utxo do
   @moduledoc false
   use Protobuf, syntax: :proto3
@@ -459,6 +585,29 @@ defmodule Lnrpc.Utxo do
   field :confirmations, 6, type: :int64
 end
 
+defmodule Lnrpc.OutputDetail do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          output_type: Lnrpc.OutputScriptType.t(),
+          address: String.t(),
+          pk_script: String.t(),
+          output_index: integer,
+          amount: integer,
+          is_our_address: boolean
+        }
+
+  defstruct [:output_type, :address, :pk_script, :output_index, :amount, :is_our_address]
+
+  field :output_type, 1, type: Lnrpc.OutputScriptType, enum: true
+  field :address, 2, type: :string
+  field :pk_script, 3, type: :string
+  field :output_index, 4, type: :int64
+  field :amount, 5, type: :int64
+  field :is_our_address, 6, type: :bool
+end
+
 defmodule Lnrpc.Transaction do
   @moduledoc false
   use Protobuf, syntax: :proto3
@@ -472,6 +621,7 @@ defmodule Lnrpc.Transaction do
           time_stamp: integer,
           total_fees: integer,
           dest_addresses: [String.t()],
+          output_details: [Lnrpc.OutputDetail.t()],
           raw_tx_hex: String.t(),
           label: String.t()
         }
@@ -485,6 +635,7 @@ defmodule Lnrpc.Transaction do
     :time_stamp,
     :total_fees,
     :dest_addresses,
+    :output_details,
     :raw_tx_hex,
     :label
   ]
@@ -496,7 +647,8 @@ defmodule Lnrpc.Transaction do
   field :block_height, 5, type: :int32
   field :time_stamp, 6, type: :int64
   field :total_fees, 7, type: :int64
-  field :dest_addresses, 8, repeated: true, type: :string
+  field :dest_addresses, 8, repeated: true, type: :string, deprecated: true
+  field :output_details, 11, repeated: true, type: Lnrpc.OutputDetail
   field :raw_tx_hex, 9, type: :string
   field :label, 10, type: :string
 end
@@ -680,7 +832,8 @@ defmodule Lnrpc.ChannelAcceptRequest do
           fee_per_kw: non_neg_integer,
           csv_delay: non_neg_integer,
           max_accepted_htlcs: non_neg_integer,
-          channel_flags: non_neg_integer
+          channel_flags: non_neg_integer,
+          commitment_type: Lnrpc.CommitmentType.t()
         }
 
   defstruct [
@@ -696,7 +849,8 @@ defmodule Lnrpc.ChannelAcceptRequest do
     :fee_per_kw,
     :csv_delay,
     :max_accepted_htlcs,
-    :channel_flags
+    :channel_flags,
+    :commitment_type
   ]
 
   field :node_pubkey, 1, type: :bytes
@@ -712,6 +866,7 @@ defmodule Lnrpc.ChannelAcceptRequest do
   field :csv_delay, 11, type: :uint32
   field :max_accepted_htlcs, 12, type: :uint32
   field :channel_flags, 13, type: :uint32
+  field :commitment_type, 14, type: Lnrpc.CommitmentType, enum: true
 end
 
 defmodule Lnrpc.ChannelAcceptResponse do
@@ -1036,12 +1191,14 @@ defmodule Lnrpc.SignMessageRequest do
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
-          msg: binary
+          msg: binary,
+          single_hash: boolean
         }
 
-  defstruct [:msg]
+  defstruct [:msg, :single_hash]
 
   field :msg, 1, type: :bytes
+  field :single_hash, 2, type: :bool
 end
 
 defmodule Lnrpc.SignMessageResponse do
@@ -1472,7 +1629,8 @@ defmodule Lnrpc.Peer do
           features: %{non_neg_integer => Lnrpc.Feature.t() | nil},
           errors: [Lnrpc.TimestampedError.t()],
           flap_count: integer,
-          last_flap_ns: integer
+          last_flap_ns: integer,
+          last_ping_payload: binary
         }
 
   defstruct [
@@ -1488,7 +1646,8 @@ defmodule Lnrpc.Peer do
     :features,
     :errors,
     :flap_count,
-    :last_flap_ns
+    :last_flap_ns,
+    :last_ping_payload
   ]
 
   field :pub_key, 1, type: :string
@@ -1504,6 +1663,7 @@ defmodule Lnrpc.Peer do
   field :errors, 12, repeated: true, type: Lnrpc.TimestampedError
   field :flap_count, 13, type: :int32
   field :last_flap_ns, 14, type: :int64
+  field :last_ping_payload, 15, type: :bytes
 end
 
 defmodule Lnrpc.TimestampedError do
@@ -1615,7 +1775,8 @@ defmodule Lnrpc.GetInfoResponse do
           testnet: boolean,
           chains: [Lnrpc.Chain.t()],
           uris: [String.t()],
-          features: %{non_neg_integer => Lnrpc.Feature.t() | nil}
+          features: %{non_neg_integer => Lnrpc.Feature.t() | nil},
+          require_htlc_interceptor: boolean
         }
 
   defstruct [
@@ -1636,7 +1797,8 @@ defmodule Lnrpc.GetInfoResponse do
     :testnet,
     :chains,
     :uris,
-    :features
+    :features,
+    :require_htlc_interceptor
   ]
 
   field :version, 14, type: :string
@@ -1657,6 +1819,7 @@ defmodule Lnrpc.GetInfoResponse do
   field :chains, 16, repeated: true, type: Lnrpc.Chain
   field :uris, 12, repeated: true, type: :string
   field :features, 19, repeated: true, type: Lnrpc.GetInfoResponse.FeaturesEntry, map: true
+  field :require_htlc_interceptor, 21, type: :bool
 end
 
 defmodule Lnrpc.GetRecoveryInfoRequest do
@@ -1821,6 +1984,81 @@ defmodule Lnrpc.ReadyForPsbtFunding do
   field :psbt, 3, type: :bytes
 end
 
+defmodule Lnrpc.BatchOpenChannelRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          channels: [Lnrpc.BatchOpenChannel.t()],
+          target_conf: integer,
+          sat_per_vbyte: integer,
+          min_confs: integer,
+          spend_unconfirmed: boolean,
+          label: String.t()
+        }
+
+  defstruct [:channels, :target_conf, :sat_per_vbyte, :min_confs, :spend_unconfirmed, :label]
+
+  field :channels, 1, repeated: true, type: Lnrpc.BatchOpenChannel
+  field :target_conf, 2, type: :int32
+  field :sat_per_vbyte, 3, type: :int64
+  field :min_confs, 4, type: :int32
+  field :spend_unconfirmed, 5, type: :bool
+  field :label, 6, type: :string
+end
+
+defmodule Lnrpc.BatchOpenChannel do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          node_pubkey: binary,
+          local_funding_amount: integer,
+          push_sat: integer,
+          private: boolean,
+          min_htlc_msat: integer,
+          remote_csv_delay: non_neg_integer,
+          close_address: String.t(),
+          pending_chan_id: binary,
+          commitment_type: Lnrpc.CommitmentType.t()
+        }
+
+  defstruct [
+    :node_pubkey,
+    :local_funding_amount,
+    :push_sat,
+    :private,
+    :min_htlc_msat,
+    :remote_csv_delay,
+    :close_address,
+    :pending_chan_id,
+    :commitment_type
+  ]
+
+  field :node_pubkey, 1, type: :bytes
+  field :local_funding_amount, 2, type: :int64
+  field :push_sat, 3, type: :int64
+  field :private, 4, type: :bool
+  field :min_htlc_msat, 5, type: :int64
+  field :remote_csv_delay, 6, type: :uint32
+  field :close_address, 7, type: :string
+  field :pending_chan_id, 8, type: :bytes
+  field :commitment_type, 9, type: Lnrpc.CommitmentType, enum: true
+end
+
+defmodule Lnrpc.BatchOpenChannelResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          pending_channels: [Lnrpc.PendingUpdate.t()]
+        }
+
+  defstruct [:pending_channels]
+
+  field :pending_channels, 1, repeated: true, type: Lnrpc.PendingUpdate
+end
+
 defmodule Lnrpc.OpenChannelRequest do
   @moduledoc false
   use Protobuf, syntax: :proto3
@@ -1842,7 +2080,8 @@ defmodule Lnrpc.OpenChannelRequest do
           funding_shim: Lnrpc.FundingShim.t() | nil,
           remote_max_value_in_flight_msat: non_neg_integer,
           remote_max_htlcs: non_neg_integer,
-          max_local_csv: non_neg_integer
+          max_local_csv: non_neg_integer,
+          commitment_type: Lnrpc.CommitmentType.t()
         }
 
   defstruct [
@@ -1862,7 +2101,8 @@ defmodule Lnrpc.OpenChannelRequest do
     :funding_shim,
     :remote_max_value_in_flight_msat,
     :remote_max_htlcs,
-    :max_local_csv
+    :max_local_csv,
+    :commitment_type
   ]
 
   field :sat_per_vbyte, 1, type: :uint64
@@ -1882,6 +2122,7 @@ defmodule Lnrpc.OpenChannelRequest do
   field :remote_max_value_in_flight_msat, 15, type: :uint64
   field :remote_max_htlcs, 16, type: :uint32
   field :max_local_csv, 17, type: :uint32
+  field :commitment_type, 18, type: Lnrpc.CommitmentType, enum: true
 end
 
 defmodule Lnrpc.OpenStatusUpdate do
@@ -2006,13 +2247,15 @@ defmodule Lnrpc.FundingPsbtVerify do
 
   @type t :: %__MODULE__{
           funded_psbt: binary,
-          pending_chan_id: binary
+          pending_chan_id: binary,
+          skip_finalize: boolean
         }
 
-  defstruct [:funded_psbt, :pending_chan_id]
+  defstruct [:funded_psbt, :pending_chan_id, :skip_finalize]
 
   field :funded_psbt, 1, type: :bytes
   field :pending_chan_id, 2, type: :bytes
+  field :skip_finalize, 3, type: :bool
 end
 
 defmodule Lnrpc.FundingPsbtFinalize do
@@ -2101,7 +2344,10 @@ defmodule Lnrpc.PendingChannelsResponse.PendingChannel do
           local_chan_reserve_sat: integer,
           remote_chan_reserve_sat: integer,
           initiator: Lnrpc.Initiator.t(),
-          commitment_type: Lnrpc.CommitmentType.t()
+          commitment_type: Lnrpc.CommitmentType.t(),
+          num_forwarding_packages: integer,
+          chan_status_flags: String.t(),
+          private: boolean
         }
 
   defstruct [
@@ -2113,7 +2359,10 @@ defmodule Lnrpc.PendingChannelsResponse.PendingChannel do
     :local_chan_reserve_sat,
     :remote_chan_reserve_sat,
     :initiator,
-    :commitment_type
+    :commitment_type,
+    :num_forwarding_packages,
+    :chan_status_flags,
+    :private
   ]
 
   field :remote_node_pub, 1, type: :string
@@ -2125,6 +2374,9 @@ defmodule Lnrpc.PendingChannelsResponse.PendingChannel do
   field :remote_chan_reserve_sat, 7, type: :int64
   field :initiator, 8, type: Lnrpc.Initiator, enum: true
   field :commitment_type, 9, type: Lnrpc.CommitmentType, enum: true
+  field :num_forwarding_packages, 10, type: :int64
+  field :chan_status_flags, 11, type: :string
+  field :private, 12, type: :bool
 end
 
 defmodule Lnrpc.PendingChannelsResponse.PendingOpenChannel do
@@ -2133,16 +2385,14 @@ defmodule Lnrpc.PendingChannelsResponse.PendingOpenChannel do
 
   @type t :: %__MODULE__{
           channel: Lnrpc.PendingChannelsResponse.PendingChannel.t() | nil,
-          confirmation_height: non_neg_integer,
           commit_fee: integer,
           commit_weight: integer,
           fee_per_kw: integer
         }
 
-  defstruct [:channel, :confirmation_height, :commit_fee, :commit_weight, :fee_per_kw]
+  defstruct [:channel, :commit_fee, :commit_weight, :fee_per_kw]
 
   field :channel, 1, type: Lnrpc.PendingChannelsResponse.PendingChannel
-  field :confirmation_height, 2, type: :uint32
   field :commit_fee, 4, type: :int64
   field :commit_weight, 5, type: :int64
   field :fee_per_kw, 6, type: :int64
@@ -2155,14 +2405,16 @@ defmodule Lnrpc.PendingChannelsResponse.WaitingCloseChannel do
   @type t :: %__MODULE__{
           channel: Lnrpc.PendingChannelsResponse.PendingChannel.t() | nil,
           limbo_balance: integer,
-          commitments: Lnrpc.PendingChannelsResponse.Commitments.t() | nil
+          commitments: Lnrpc.PendingChannelsResponse.Commitments.t() | nil,
+          closing_txid: String.t()
         }
 
-  defstruct [:channel, :limbo_balance, :commitments]
+  defstruct [:channel, :limbo_balance, :commitments, :closing_txid]
 
   field :channel, 1, type: Lnrpc.PendingChannelsResponse.PendingChannel
   field :limbo_balance, 2, type: :int64
   field :commitments, 3, type: Lnrpc.PendingChannelsResponse.Commitments
+  field :closing_txid, 4, type: :string
 end
 
 defmodule Lnrpc.PendingChannelsResponse.Commitments do
@@ -2311,6 +2563,7 @@ defmodule Lnrpc.ChannelEventUpdate do
   field :active_channel, 3, type: Lnrpc.ChannelPoint, oneof: 0
   field :inactive_channel, 4, type: Lnrpc.ChannelPoint, oneof: 0
   field :pending_open_channel, 6, type: Lnrpc.PendingUpdate, oneof: 0
+  field :fully_resolved_channel, 7, type: Lnrpc.ChannelPoint, oneof: 0
   field :type, 5, type: Lnrpc.ChannelEventUpdate.UpdateType, enum: true
 end
 
@@ -2360,14 +2613,22 @@ defmodule Lnrpc.WalletBalanceResponse do
           total_balance: integer,
           confirmed_balance: integer,
           unconfirmed_balance: integer,
+          locked_balance: integer,
           account_balance: %{String.t() => Lnrpc.WalletAccountBalance.t() | nil}
         }
 
-  defstruct [:total_balance, :confirmed_balance, :unconfirmed_balance, :account_balance]
+  defstruct [
+    :total_balance,
+    :confirmed_balance,
+    :unconfirmed_balance,
+    :locked_balance,
+    :account_balance
+  ]
 
   field :total_balance, 1, type: :int64
   field :confirmed_balance, 2, type: :int64
   field :unconfirmed_balance, 3, type: :int64
+  field :locked_balance, 5, type: :int64
 
   field :account_balance, 4,
     repeated: true,
@@ -2469,7 +2730,8 @@ defmodule Lnrpc.QueryRoutesRequest do
           outgoing_chan_id: non_neg_integer,
           last_hop_pubkey: binary,
           route_hints: [Lnrpc.RouteHint.t()],
-          dest_features: [[Lnrpc.FeatureBit.t()]]
+          dest_features: [[Lnrpc.FeatureBit.t()]],
+          time_pref: float | :infinity | :negative_infinity | :nan
         }
 
   defstruct [
@@ -2488,7 +2750,8 @@ defmodule Lnrpc.QueryRoutesRequest do
     :outgoing_chan_id,
     :last_hop_pubkey,
     :route_hints,
-    :dest_features
+    :dest_features,
+    :time_pref
   ]
 
   field :pub_key, 1, type: :string
@@ -2512,6 +2775,7 @@ defmodule Lnrpc.QueryRoutesRequest do
   field :last_hop_pubkey, 15, type: :bytes
   field :route_hints, 16, repeated: true, type: Lnrpc.RouteHint
   field :dest_features, 17, repeated: true, type: Lnrpc.FeatureBit, enum: true
+  field :time_pref, 18, type: :double
 end
 
 defmodule Lnrpc.NodePair do
@@ -2590,7 +2854,8 @@ defmodule Lnrpc.Hop do
           tlv_payload: boolean,
           mpp_record: Lnrpc.MPPRecord.t() | nil,
           amp_record: Lnrpc.AMPRecord.t() | nil,
-          custom_records: %{non_neg_integer => binary}
+          custom_records: %{non_neg_integer => binary},
+          metadata: binary
         }
 
   defstruct [
@@ -2605,7 +2870,8 @@ defmodule Lnrpc.Hop do
     :tlv_payload,
     :mpp_record,
     :amp_record,
-    :custom_records
+    :custom_records,
+    :metadata
   ]
 
   field :chan_id, 1, type: :uint64
@@ -2616,10 +2882,11 @@ defmodule Lnrpc.Hop do
   field :amt_to_forward_msat, 6, type: :int64
   field :fee_msat, 7, type: :int64
   field :pub_key, 8, type: :string
-  field :tlv_payload, 9, type: :bool
+  field :tlv_payload, 9, type: :bool, deprecated: true
   field :mpp_record, 10, type: Lnrpc.MPPRecord
   field :amp_record, 12, type: Lnrpc.AMPRecord
   field :custom_records, 11, repeated: true, type: Lnrpc.Hop.CustomRecordsEntry, map: true
+  field :metadata, 13, type: :bytes
 end
 
 defmodule Lnrpc.MPPRecord do
@@ -3145,6 +3412,19 @@ defmodule Lnrpc.HopHint do
   field :cltv_expiry_delta, 5, type: :uint32
 end
 
+defmodule Lnrpc.SetID do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          set_id: binary
+        }
+
+  defstruct [:set_id]
+
+  field :set_id, 1, type: :bytes
+end
+
 defmodule Lnrpc.RouteHint do
   @moduledoc false
   use Protobuf, syntax: :proto3
@@ -3156,6 +3436,25 @@ defmodule Lnrpc.RouteHint do
   defstruct [:hop_hints]
 
   field :hop_hints, 1, repeated: true, type: Lnrpc.HopHint
+end
+
+defmodule Lnrpc.AMPInvoiceState do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          state: Lnrpc.InvoiceHTLCState.t(),
+          settle_index: non_neg_integer,
+          settle_time: integer,
+          amt_paid_msat: integer
+        }
+
+  defstruct [:state, :settle_index, :settle_time, :amt_paid_msat]
+
+  field :state, 1, type: Lnrpc.InvoiceHTLCState, enum: true
+  field :settle_index, 2, type: :uint64
+  field :settle_time, 3, type: :int64
+  field :amt_paid_msat, 5, type: :int64
 end
 
 defmodule Lnrpc.Invoice.FeaturesEntry do
@@ -3171,6 +3470,21 @@ defmodule Lnrpc.Invoice.FeaturesEntry do
 
   field :key, 1, type: :uint32
   field :value, 2, type: Lnrpc.Feature
+end
+
+defmodule Lnrpc.Invoice.AmpInvoiceStateEntry do
+  @moduledoc false
+  use Protobuf, map: true, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          key: String.t(),
+          value: Lnrpc.AMPInvoiceState.t() | nil
+        }
+
+  defstruct [:key, :value]
+
+  field :key, 1, type: :string
+  field :value, 2, type: Lnrpc.AMPInvoiceState
 end
 
 defmodule Lnrpc.Invoice do
@@ -3203,7 +3517,8 @@ defmodule Lnrpc.Invoice do
           features: %{non_neg_integer => Lnrpc.Feature.t() | nil},
           is_keysend: boolean,
           payment_addr: binary,
-          is_amp: boolean
+          is_amp: boolean,
+          amp_invoice_state: %{String.t() => Lnrpc.AMPInvoiceState.t() | nil}
         }
 
   defstruct [
@@ -3232,7 +3547,8 @@ defmodule Lnrpc.Invoice do
     :features,
     :is_keysend,
     :payment_addr,
-    :is_amp
+    :is_amp,
+    :amp_invoice_state
   ]
 
   field :memo, 1, type: :string
@@ -3261,6 +3577,11 @@ defmodule Lnrpc.Invoice do
   field :is_keysend, 25, type: :bool
   field :payment_addr, 26, type: :bytes
   field :is_amp, 27, type: :bool
+
+  field :amp_invoice_state, 28,
+    repeated: true,
+    type: Lnrpc.Invoice.AmpInvoiceStateEntry,
+    map: true
 end
 
 defmodule Lnrpc.InvoiceHTLC.CustomRecordsEntry do
@@ -3527,15 +3848,17 @@ defmodule Lnrpc.ListPaymentsRequest do
           include_incomplete: boolean,
           index_offset: non_neg_integer,
           max_payments: non_neg_integer,
-          reversed: boolean
+          reversed: boolean,
+          count_total_payments: boolean
         }
 
-  defstruct [:include_incomplete, :index_offset, :max_payments, :reversed]
+  defstruct [:include_incomplete, :index_offset, :max_payments, :reversed, :count_total_payments]
 
   field :include_incomplete, 1, type: :bool
   field :index_offset, 2, type: :uint64
   field :max_payments, 3, type: :uint64
   field :reversed, 4, type: :bool
+  field :count_total_payments, 5, type: :bool
 end
 
 defmodule Lnrpc.ListPaymentsResponse do
@@ -3545,14 +3868,31 @@ defmodule Lnrpc.ListPaymentsResponse do
   @type t :: %__MODULE__{
           payments: [Lnrpc.Payment.t()],
           first_index_offset: non_neg_integer,
-          last_index_offset: non_neg_integer
+          last_index_offset: non_neg_integer,
+          total_num_payments: non_neg_integer
         }
 
-  defstruct [:payments, :first_index_offset, :last_index_offset]
+  defstruct [:payments, :first_index_offset, :last_index_offset, :total_num_payments]
 
   field :payments, 1, repeated: true, type: Lnrpc.Payment
   field :first_index_offset, 2, type: :uint64
   field :last_index_offset, 3, type: :uint64
+  field :total_num_payments, 4, type: :uint64
+end
+
+defmodule Lnrpc.DeletePaymentRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          payment_hash: binary,
+          failed_htlcs_only: boolean
+        }
+
+  defstruct [:payment_hash, :failed_htlcs_only]
+
+  field :payment_hash, 1, type: :bytes
+  field :failed_htlcs_only, 2, type: :bool
 end
 
 defmodule Lnrpc.DeleteAllPaymentsRequest do
@@ -3568,6 +3908,14 @@ defmodule Lnrpc.DeleteAllPaymentsRequest do
 
   field :failed_payments_only, 1, type: :bool
   field :failed_htlcs_only, 2, type: :bool
+end
+
+defmodule Lnrpc.DeletePaymentResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+  @type t :: %__MODULE__{}
+
+  defstruct []
 end
 
 defmodule Lnrpc.DeleteAllPaymentsResponse do
@@ -3783,6 +4131,7 @@ defmodule Lnrpc.PolicyUpdateRequest do
           scope: {atom, any},
           base_fee_msat: integer,
           fee_rate: float | :infinity | :negative_infinity | :nan,
+          fee_rate_ppm: non_neg_integer,
           time_lock_delta: non_neg_integer,
           max_htlc_msat: non_neg_integer,
           min_htlc_msat: non_neg_integer,
@@ -3793,6 +4142,7 @@ defmodule Lnrpc.PolicyUpdateRequest do
     :scope,
     :base_fee_msat,
     :fee_rate,
+    :fee_rate_ppm,
     :time_lock_delta,
     :max_htlc_msat,
     :min_htlc_msat,
@@ -3804,18 +4154,41 @@ defmodule Lnrpc.PolicyUpdateRequest do
   field :chan_point, 2, type: Lnrpc.ChannelPoint, oneof: 0
   field :base_fee_msat, 3, type: :int64
   field :fee_rate, 4, type: :double
+  field :fee_rate_ppm, 9, type: :uint32
   field :time_lock_delta, 5, type: :uint32
   field :max_htlc_msat, 6, type: :uint64
   field :min_htlc_msat, 7, type: :uint64
   field :min_htlc_msat_specified, 8, type: :bool
 end
 
+defmodule Lnrpc.FailedUpdate do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          outpoint: Lnrpc.OutPoint.t() | nil,
+          reason: Lnrpc.UpdateFailure.t(),
+          update_error: String.t()
+        }
+
+  defstruct [:outpoint, :reason, :update_error]
+
+  field :outpoint, 1, type: Lnrpc.OutPoint
+  field :reason, 2, type: Lnrpc.UpdateFailure, enum: true
+  field :update_error, 3, type: :string
+end
+
 defmodule Lnrpc.PolicyUpdateResponse do
   @moduledoc false
   use Protobuf, syntax: :proto3
-  @type t :: %__MODULE__{}
 
-  defstruct []
+  @type t :: %__MODULE__{
+          failed_updates: [Lnrpc.FailedUpdate.t()]
+        }
+
+  defstruct [:failed_updates]
+
+  field :failed_updates, 1, repeated: true, type: Lnrpc.FailedUpdate
 end
 
 defmodule Lnrpc.ForwardingHistoryRequest do
@@ -4033,13 +4406,15 @@ defmodule Lnrpc.BakeMacaroonRequest do
 
   @type t :: %__MODULE__{
           permissions: [Lnrpc.MacaroonPermission.t()],
-          root_key_id: non_neg_integer
+          root_key_id: non_neg_integer,
+          allow_external_permissions: boolean
         }
 
-  defstruct [:permissions, :root_key_id]
+  defstruct [:permissions, :root_key_id, :allow_external_permissions]
 
   field :permissions, 1, repeated: true, type: Lnrpc.MacaroonPermission
   field :root_key_id, 2, type: :uint64
+  field :allow_external_permissions, 3, type: :bool
 end
 
 defmodule Lnrpc.BakeMacaroonResponse do
@@ -4270,6 +4645,143 @@ defmodule Lnrpc.Op do
   field :actions, 2, repeated: true, type: :string
 end
 
+defmodule Lnrpc.CheckMacPermRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          macaroon: binary,
+          permissions: [Lnrpc.MacaroonPermission.t()],
+          fullMethod: String.t()
+        }
+
+  defstruct [:macaroon, :permissions, :fullMethod]
+
+  field :macaroon, 1, type: :bytes
+  field :permissions, 2, repeated: true, type: Lnrpc.MacaroonPermission
+  field :fullMethod, 3, type: :string
+end
+
+defmodule Lnrpc.CheckMacPermResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          valid: boolean
+        }
+
+  defstruct [:valid]
+
+  field :valid, 1, type: :bool
+end
+
+defmodule Lnrpc.RPCMiddlewareRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          intercept_type: {atom, any},
+          request_id: non_neg_integer,
+          raw_macaroon: binary,
+          custom_caveat_condition: String.t(),
+          msg_id: non_neg_integer
+        }
+
+  defstruct [:intercept_type, :request_id, :raw_macaroon, :custom_caveat_condition, :msg_id]
+
+  oneof :intercept_type, 0
+  field :request_id, 1, type: :uint64
+  field :raw_macaroon, 2, type: :bytes
+  field :custom_caveat_condition, 3, type: :string
+  field :stream_auth, 4, type: Lnrpc.StreamAuth, oneof: 0
+  field :request, 5, type: Lnrpc.RPCMessage, oneof: 0
+  field :response, 6, type: Lnrpc.RPCMessage, oneof: 0
+  field :msg_id, 7, type: :uint64
+end
+
+defmodule Lnrpc.StreamAuth do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          method_full_uri: String.t()
+        }
+
+  defstruct [:method_full_uri]
+
+  field :method_full_uri, 1, type: :string
+end
+
+defmodule Lnrpc.RPCMessage do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          method_full_uri: String.t(),
+          stream_rpc: boolean,
+          type_name: String.t(),
+          serialized: binary
+        }
+
+  defstruct [:method_full_uri, :stream_rpc, :type_name, :serialized]
+
+  field :method_full_uri, 1, type: :string
+  field :stream_rpc, 2, type: :bool
+  field :type_name, 3, type: :string
+  field :serialized, 4, type: :bytes
+end
+
+defmodule Lnrpc.RPCMiddlewareResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          middleware_message: {atom, any},
+          ref_msg_id: non_neg_integer
+        }
+
+  defstruct [:middleware_message, :ref_msg_id]
+
+  oneof :middleware_message, 0
+  field :ref_msg_id, 1, type: :uint64
+  field :register, 2, type: Lnrpc.MiddlewareRegistration, oneof: 0
+  field :feedback, 3, type: Lnrpc.InterceptFeedback, oneof: 0
+end
+
+defmodule Lnrpc.MiddlewareRegistration do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          middleware_name: String.t(),
+          custom_macaroon_caveat_name: String.t(),
+          read_only_mode: boolean
+        }
+
+  defstruct [:middleware_name, :custom_macaroon_caveat_name, :read_only_mode]
+
+  field :middleware_name, 1, type: :string
+  field :custom_macaroon_caveat_name, 2, type: :string
+  field :read_only_mode, 3, type: :bool
+end
+
+defmodule Lnrpc.InterceptFeedback do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          error: String.t(),
+          replace_response: boolean,
+          replacement_serialized: binary
+        }
+
+  defstruct [:error, :replace_response, :replacement_serialized]
+
+  field :error, 1, type: :string
+  field :replace_response, 2, type: :bool
+  field :replacement_serialized, 3, type: :bytes
+end
+
 defmodule Lnrpc.Lightning.Service do
   @moduledoc false
   use GRPC.Service, name: "lnrpc.Lightning"
@@ -4320,6 +4832,8 @@ defmodule Lnrpc.Lightning.Service do
 
   rpc :OpenChannel, Lnrpc.OpenChannelRequest, stream(Lnrpc.OpenStatusUpdate)
 
+  rpc :BatchOpenChannel, Lnrpc.BatchOpenChannelRequest, Lnrpc.BatchOpenChannelResponse
+
   rpc :FundingStateStep, Lnrpc.FundingTransitionMsg, Lnrpc.FundingStateStepResp
 
   rpc :ChannelAcceptor, stream(Lnrpc.ChannelAcceptResponse), stream(Lnrpc.ChannelAcceptRequest)
@@ -4347,6 +4861,8 @@ defmodule Lnrpc.Lightning.Service do
   rpc :DecodePayReq, Lnrpc.PayReqString, Lnrpc.PayReq
 
   rpc :ListPayments, Lnrpc.ListPaymentsRequest, Lnrpc.ListPaymentsResponse
+
+  rpc :DeletePayment, Lnrpc.DeletePaymentRequest, Lnrpc.DeletePaymentResponse
 
   rpc :DeleteAllPayments, Lnrpc.DeleteAllPaymentsRequest, Lnrpc.DeleteAllPaymentsResponse
 
@@ -4391,6 +4907,16 @@ defmodule Lnrpc.Lightning.Service do
   rpc :DeleteMacaroonID, Lnrpc.DeleteMacaroonIDRequest, Lnrpc.DeleteMacaroonIDResponse
 
   rpc :ListPermissions, Lnrpc.ListPermissionsRequest, Lnrpc.ListPermissionsResponse
+
+  rpc :CheckMacaroonPermissions, Lnrpc.CheckMacPermRequest, Lnrpc.CheckMacPermResponse
+
+  rpc :RegisterRPCMiddleware,
+      stream(Lnrpc.RPCMiddlewareResponse),
+      stream(Lnrpc.RPCMiddlewareRequest)
+
+  rpc :SendCustomMessage, Lnrpc.SendCustomMessageRequest, Lnrpc.SendCustomMessageResponse
+
+  rpc :SubscribeCustomMessages, Lnrpc.SubscribeCustomMessagesRequest, stream(Lnrpc.CustomMessage)
 end
 
 defmodule Lnrpc.Lightning.Stub do

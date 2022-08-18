@@ -183,7 +183,8 @@ defmodule Routerrpc.SendPaymentRequest do
           max_parts: non_neg_integer,
           no_inflight_updates: boolean,
           max_shard_size_msat: non_neg_integer,
-          amp: boolean
+          amp: boolean,
+          time_pref: float | :infinity | :negative_infinity | :nan
         }
 
   defstruct [
@@ -208,7 +209,8 @@ defmodule Routerrpc.SendPaymentRequest do
     :max_parts,
     :no_inflight_updates,
     :max_shard_size_msat,
-    :amp
+    :amp,
+    :time_pref
   ]
 
   field :dest, 1, type: :bytes
@@ -238,6 +240,7 @@ defmodule Routerrpc.SendPaymentRequest do
   field :no_inflight_updates, 18, type: :bool
   field :max_shard_size_msat, 21, type: :uint64
   field :amp, 22, type: :bool
+  field :time_pref, 23, type: :double
 end
 
 defmodule Routerrpc.TrackPaymentRequest do
@@ -357,12 +360,14 @@ defmodule Routerrpc.XImportMissionControlRequest do
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
-          pairs: [Routerrpc.PairHistory.t()]
+          pairs: [Routerrpc.PairHistory.t()],
+          force: boolean
         }
 
-  defstruct [:pairs]
+  defstruct [:pairs, :force]
 
   field :pairs, 1, repeated: true, type: Routerrpc.PairHistory
+  field :force, 2, type: :bool
 end
 
 defmodule Routerrpc.XImportMissionControlResponse do
@@ -643,9 +648,14 @@ end
 defmodule Routerrpc.SettleEvent do
   @moduledoc false
   use Protobuf, syntax: :proto3
-  @type t :: %__MODULE__{}
 
-  defstruct []
+  @type t :: %__MODULE__{
+          preimage: binary
+        }
+
+  defstruct [:preimage]
+
+  field :preimage, 1, type: :bytes
 end
 
 defmodule Routerrpc.LinkFailEvent do
@@ -765,14 +775,18 @@ defmodule Routerrpc.ForwardHtlcInterceptResponse do
   @type t :: %__MODULE__{
           incoming_circuit_key: Routerrpc.CircuitKey.t() | nil,
           action: Routerrpc.ResolveHoldForwardAction.t(),
-          preimage: binary
+          preimage: binary,
+          failure_message: binary,
+          failure_code: Lnrpc.Failure.FailureCode.t()
         }
 
-  defstruct [:incoming_circuit_key, :action, :preimage]
+  defstruct [:incoming_circuit_key, :action, :preimage, :failure_message, :failure_code]
 
   field :incoming_circuit_key, 1, type: Routerrpc.CircuitKey
   field :action, 2, type: Routerrpc.ResolveHoldForwardAction, enum: true
   field :preimage, 3, type: :bytes
+  field :failure_message, 4, type: :bytes
+  field :failure_code, 5, type: Lnrpc.Failure.FailureCode, enum: true
 end
 
 defmodule Routerrpc.UpdateChanStatusRequest do

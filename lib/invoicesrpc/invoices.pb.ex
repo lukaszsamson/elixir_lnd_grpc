@@ -1,3 +1,15 @@
+defmodule Invoicesrpc.LookupModifier do
+  @moduledoc false
+  use Protobuf, enum: true, syntax: :proto3
+  @type t :: integer | :DEFAULT | :HTLC_SET_ONLY | :HTLC_SET_BLANK
+
+  field :DEFAULT, 0
+
+  field :HTLC_SET_ONLY, 1
+
+  field :HTLC_SET_BLANK, 2
+end
+
 defmodule Invoicesrpc.CancelInvoiceMsg do
   @moduledoc false
   use Protobuf, syntax: :proto3
@@ -66,12 +78,16 @@ defmodule Invoicesrpc.AddHoldInvoiceResp do
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
-          payment_request: String.t()
+          payment_request: String.t(),
+          add_index: non_neg_integer,
+          payment_addr: binary
         }
 
-  defstruct [:payment_request]
+  defstruct [:payment_request, :add_index, :payment_addr]
 
   field :payment_request, 1, type: :string
+  field :add_index, 2, type: :uint64
+  field :payment_addr, 3, type: :bytes
 end
 
 defmodule Invoicesrpc.SettleInvoiceMsg do
@@ -108,6 +124,24 @@ defmodule Invoicesrpc.SubscribeSingleInvoiceRequest do
   field :r_hash, 2, type: :bytes
 end
 
+defmodule Invoicesrpc.LookupInvoiceMsg do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          invoice_ref: {atom, any},
+          lookup_modifier: Invoicesrpc.LookupModifier.t()
+        }
+
+  defstruct [:invoice_ref, :lookup_modifier]
+
+  oneof :invoice_ref, 0
+  field :payment_hash, 1, type: :bytes, oneof: 0
+  field :payment_addr, 2, type: :bytes, oneof: 0
+  field :set_id, 3, type: :bytes, oneof: 0
+  field :lookup_modifier, 4, type: Invoicesrpc.LookupModifier, enum: true
+end
+
 defmodule Invoicesrpc.Invoices.Service do
   @moduledoc false
   use GRPC.Service, name: "invoicesrpc.Invoices"
@@ -119,6 +153,8 @@ defmodule Invoicesrpc.Invoices.Service do
   rpc :AddHoldInvoice, Invoicesrpc.AddHoldInvoiceRequest, Invoicesrpc.AddHoldInvoiceResp
 
   rpc :SettleInvoice, Invoicesrpc.SettleInvoiceMsg, Invoicesrpc.SettleInvoiceResp
+
+  rpc :LookupInvoiceV2, Invoicesrpc.LookupInvoiceMsg, Lnrpc.Invoice
 end
 
 defmodule Invoicesrpc.Invoices.Stub do

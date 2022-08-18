@@ -8,6 +8,7 @@ defmodule Walletrpc.AddressType do
           | :WITNESS_PUBKEY_HASH
           | :NESTED_WITNESS_PUBKEY_HASH
           | :HYBRID_NESTED_WITNESS_PUBKEY_HASH
+          | :TAPROOT_PUBKEY
 
   field :UNKNOWN, 0
 
@@ -16,6 +17,8 @@ defmodule Walletrpc.AddressType do
   field :NESTED_WITNESS_PUBKEY_HASH, 2
 
   field :HYBRID_NESTED_WITNESS_PUBKEY_HASH, 3
+
+  field :TAPROOT_PUBKEY, 4
 end
 
 defmodule Walletrpc.WitnessType do
@@ -75,14 +78,16 @@ defmodule Walletrpc.ListUnspentRequest do
   @type t :: %__MODULE__{
           min_confs: integer,
           max_confs: integer,
-          account: String.t()
+          account: String.t(),
+          unconfirmed_only: boolean
         }
 
-  defstruct [:min_confs, :max_confs, :account]
+  defstruct [:min_confs, :max_confs, :account, :unconfirmed_only]
 
   field :min_confs, 1, type: :int32
   field :max_confs, 2, type: :int32
   field :account, 3, type: :string
+  field :unconfirmed_only, 4, type: :bool
 end
 
 defmodule Walletrpc.ListUnspentResponse do
@@ -171,12 +176,16 @@ defmodule Walletrpc.AddrRequest do
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
-          account: String.t()
+          account: String.t(),
+          type: Walletrpc.AddressType.t(),
+          change: boolean
         }
 
-  defstruct [:account]
+  defstruct [:account, :type, :change]
 
   field :account, 1, type: :string
+  field :type, 2, type: Walletrpc.AddressType, enum: true
+  field :change, 3, type: :bool
 end
 
 defmodule Walletrpc.AddrResponse do
@@ -645,14 +654,44 @@ defmodule Walletrpc.UtxoLease do
   @type t :: %__MODULE__{
           id: binary,
           outpoint: Lnrpc.OutPoint.t() | nil,
-          expiration: non_neg_integer
+          expiration: non_neg_integer,
+          pk_script: binary,
+          value: non_neg_integer
         }
 
-  defstruct [:id, :outpoint, :expiration]
+  defstruct [:id, :outpoint, :expiration, :pk_script, :value]
 
   field :id, 1, type: :bytes
   field :outpoint, 2, type: Lnrpc.OutPoint
   field :expiration, 3, type: :uint64
+  field :pk_script, 4, type: :bytes
+  field :value, 5, type: :uint64
+end
+
+defmodule Walletrpc.SignPsbtRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          funded_psbt: binary
+        }
+
+  defstruct [:funded_psbt]
+
+  field :funded_psbt, 1, type: :bytes
+end
+
+defmodule Walletrpc.SignPsbtResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          signed_psbt: binary
+        }
+
+  defstruct [:signed_psbt]
+
+  field :signed_psbt, 1, type: :bytes
 end
 
 defmodule Walletrpc.FinalizePsbtRequest do
@@ -745,6 +784,8 @@ defmodule Walletrpc.WalletKit.Service do
   rpc :LabelTransaction, Walletrpc.LabelTransactionRequest, Walletrpc.LabelTransactionResponse
 
   rpc :FundPsbt, Walletrpc.FundPsbtRequest, Walletrpc.FundPsbtResponse
+
+  rpc :SignPsbt, Walletrpc.SignPsbtRequest, Walletrpc.SignPsbtResponse
 
   rpc :FinalizePsbt, Walletrpc.FinalizePsbtRequest, Walletrpc.FinalizePsbtResponse
 end

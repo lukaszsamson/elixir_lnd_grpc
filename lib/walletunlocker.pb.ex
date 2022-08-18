@@ -38,7 +38,10 @@ defmodule Lnrpc.InitWalletRequest do
           aezeed_passphrase: binary,
           recovery_window: integer,
           channel_backups: Lnrpc.ChanBackupSnapshot.t() | nil,
-          stateless_init: boolean
+          stateless_init: boolean,
+          extended_master_key: String.t(),
+          extended_master_key_birthday_timestamp: non_neg_integer,
+          watch_only: Lnrpc.WatchOnly.t() | nil
         }
 
   defstruct [
@@ -47,7 +50,10 @@ defmodule Lnrpc.InitWalletRequest do
     :aezeed_passphrase,
     :recovery_window,
     :channel_backups,
-    :stateless_init
+    :stateless_init,
+    :extended_master_key,
+    :extended_master_key_birthday_timestamp,
+    :watch_only
   ]
 
   field :wallet_password, 1, type: :bytes
@@ -56,6 +62,9 @@ defmodule Lnrpc.InitWalletRequest do
   field :recovery_window, 4, type: :int32
   field :channel_backups, 5, type: Lnrpc.ChanBackupSnapshot
   field :stateless_init, 6, type: :bool
+  field :extended_master_key, 7, type: :string
+  field :extended_master_key_birthday_timestamp, 8, type: :uint64
+  field :watch_only, 9, type: Lnrpc.WatchOnly
 end
 
 defmodule Lnrpc.InitWalletResponse do
@@ -69,6 +78,42 @@ defmodule Lnrpc.InitWalletResponse do
   defstruct [:admin_macaroon]
 
   field :admin_macaroon, 1, type: :bytes
+end
+
+defmodule Lnrpc.WatchOnly do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          master_key_birthday_timestamp: non_neg_integer,
+          master_key_fingerprint: binary,
+          accounts: [Lnrpc.WatchOnlyAccount.t()]
+        }
+
+  defstruct [:master_key_birthday_timestamp, :master_key_fingerprint, :accounts]
+
+  field :master_key_birthday_timestamp, 1, type: :uint64
+  field :master_key_fingerprint, 2, type: :bytes
+  field :accounts, 3, repeated: true, type: Lnrpc.WatchOnlyAccount
+end
+
+defmodule Lnrpc.WatchOnlyAccount do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          purpose: non_neg_integer,
+          coin_type: non_neg_integer,
+          account: non_neg_integer,
+          xpub: String.t()
+        }
+
+  defstruct [:purpose, :coin_type, :account, :xpub]
+
+  field :purpose, 1, type: :uint32
+  field :coin_type, 2, type: :uint32
+  field :account, 3, type: :uint32
+  field :xpub, 4, type: :string
 end
 
 defmodule Lnrpc.UnlockWalletRequest do
