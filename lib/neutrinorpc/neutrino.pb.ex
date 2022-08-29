@@ -1,10 +1,11 @@
 defmodule Neutrinorpc.StatusRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 end
+
 defmodule Neutrinorpc.StatusResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :active, 1, type: :bool
   field :synced, 2, type: :bool
@@ -12,47 +13,55 @@ defmodule Neutrinorpc.StatusResponse do
   field :block_hash, 4, type: :string, json_name: "blockHash"
   field :peers, 5, repeated: true, type: :string
 end
+
 defmodule Neutrinorpc.AddPeerRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :peer_addrs, 1, type: :string, json_name: "peerAddrs"
 end
+
 defmodule Neutrinorpc.AddPeerResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 end
+
 defmodule Neutrinorpc.DisconnectPeerRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :peer_addrs, 1, type: :string, json_name: "peerAddrs"
 end
+
 defmodule Neutrinorpc.DisconnectPeerResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 end
+
 defmodule Neutrinorpc.IsBannedRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :peer_addrs, 1, type: :string, json_name: "peerAddrs"
 end
+
 defmodule Neutrinorpc.IsBannedResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :banned, 1, type: :bool
 end
+
 defmodule Neutrinorpc.GetBlockHeaderRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :hash, 1, type: :string
 end
+
 defmodule Neutrinorpc.GetBlockHeaderResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :hash, 1, type: :string
   field :confirmations, 2, type: :int64
@@ -70,15 +79,17 @@ defmodule Neutrinorpc.GetBlockHeaderResponse do
   field :previous_block_hash, 14, type: :string, json_name: "previousBlockHash"
   field :raw_hex, 15, type: :bytes, json_name: "rawHex"
 end
+
 defmodule Neutrinorpc.GetBlockRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :hash, 1, type: :string
 end
+
 defmodule Neutrinorpc.GetBlockResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :hash, 1, type: :string
   field :confirmations, 2, type: :int64
@@ -97,21 +108,24 @@ defmodule Neutrinorpc.GetBlockResponse do
   field :previous_block_hash, 15, type: :string, json_name: "previousBlockHash"
   field :raw_hex, 16, type: :bytes, json_name: "rawHex"
 end
+
 defmodule Neutrinorpc.GetCFilterRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :hash, 1, type: :string
 end
+
 defmodule Neutrinorpc.GetCFilterResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :filter, 1, type: :bytes
 end
+
 defmodule Neutrinorpc.NeutrinoKit.Service do
   @moduledoc false
-  use GRPC.Service, name: "neutrinorpc.NeutrinoKit", protoc_gen_elixir_version: "0.10.0"
+  use GRPC.Service, name: "neutrinorpc.NeutrinoKit", protoc_gen_elixir_version: "0.11.0"
 
   rpc :Status, Neutrinorpc.StatusRequest, Neutrinorpc.StatusResponse
 

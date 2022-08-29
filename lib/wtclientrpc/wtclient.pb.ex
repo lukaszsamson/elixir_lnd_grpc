@@ -1,42 +1,48 @@
 defmodule Wtclientrpc.PolicyType do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :LEGACY, 0
   field :ANCHOR, 1
 end
+
 defmodule Wtclientrpc.AddTowerRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :pubkey, 1, type: :bytes
   field :address, 2, type: :string
 end
+
 defmodule Wtclientrpc.AddTowerResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 end
+
 defmodule Wtclientrpc.RemoveTowerRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :pubkey, 1, type: :bytes
   field :address, 2, type: :string
 end
+
 defmodule Wtclientrpc.RemoveTowerResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 end
+
 defmodule Wtclientrpc.GetTowerInfoRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :pubkey, 1, type: :bytes
   field :include_sessions, 2, type: :bool, json_name: "includeSessions"
 end
+
 defmodule Wtclientrpc.TowerSession do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :num_backups, 1, type: :uint32, json_name: "numBackups"
   field :num_pending_backups, 2, type: :uint32, json_name: "numPendingBackups"
@@ -44,9 +50,10 @@ defmodule Wtclientrpc.TowerSession do
   field :sweep_sat_per_byte, 4, type: :uint32, json_name: "sweepSatPerByte", deprecated: true
   field :sweep_sat_per_vbyte, 5, type: :uint32, json_name: "sweepSatPerVbyte"
 end
+
 defmodule Wtclientrpc.Tower do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :pubkey, 1, type: :bytes
   field :addresses, 2, repeated: true, type: :string
@@ -54,25 +61,29 @@ defmodule Wtclientrpc.Tower do
   field :num_sessions, 4, type: :uint32, json_name: "numSessions"
   field :sessions, 5, repeated: true, type: Wtclientrpc.TowerSession
 end
+
 defmodule Wtclientrpc.ListTowersRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :include_sessions, 1, type: :bool, json_name: "includeSessions"
 end
+
 defmodule Wtclientrpc.ListTowersResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :towers, 1, repeated: true, type: Wtclientrpc.Tower
 end
+
 defmodule Wtclientrpc.StatsRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 end
+
 defmodule Wtclientrpc.StatsResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :num_backups, 1, type: :uint32, json_name: "numBackups"
   field :num_pending_backups, 2, type: :uint32, json_name: "numPendingBackups"
@@ -80,23 +91,26 @@ defmodule Wtclientrpc.StatsResponse do
   field :num_sessions_acquired, 4, type: :uint32, json_name: "numSessionsAcquired"
   field :num_sessions_exhausted, 5, type: :uint32, json_name: "numSessionsExhausted"
 end
+
 defmodule Wtclientrpc.PolicyRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :policy_type, 1, type: Wtclientrpc.PolicyType, json_name: "policyType", enum: true
 end
+
 defmodule Wtclientrpc.PolicyResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :max_updates, 1, type: :uint32, json_name: "maxUpdates"
   field :sweep_sat_per_byte, 2, type: :uint32, json_name: "sweepSatPerByte", deprecated: true
   field :sweep_sat_per_vbyte, 3, type: :uint32, json_name: "sweepSatPerVbyte"
 end
+
 defmodule Wtclientrpc.WatchtowerClient.Service do
   @moduledoc false
-  use GRPC.Service, name: "wtclientrpc.WatchtowerClient", protoc_gen_elixir_version: "0.10.0"
+  use GRPC.Service, name: "wtclientrpc.WatchtowerClient", protoc_gen_elixir_version: "0.11.0"
 
   rpc :AddTower, Wtclientrpc.AddTowerRequest, Wtclientrpc.AddTowerResponse
 

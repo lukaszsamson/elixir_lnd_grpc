@@ -1,10 +1,11 @@
 defmodule Verrpc.VersionRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 end
+
 defmodule Verrpc.Version do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :commit, 1, type: :string
   field :commit_hash, 2, type: :string, json_name: "commitHash"
@@ -16,9 +17,10 @@ defmodule Verrpc.Version do
   field :build_tags, 8, repeated: true, type: :string, json_name: "buildTags"
   field :go_version, 9, type: :string, json_name: "goVersion"
 end
+
 defmodule Verrpc.Versioner.Service do
   @moduledoc false
-  use GRPC.Service, name: "verrpc.Versioner", protoc_gen_elixir_version: "0.10.0"
+  use GRPC.Service, name: "verrpc.Versioner", protoc_gen_elixir_version: "0.11.0"
 
   rpc :GetVersion, Verrpc.VersionRequest, Verrpc.Version
 end
