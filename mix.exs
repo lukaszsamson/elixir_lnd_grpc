@@ -21,15 +21,8 @@ defmodule LndGrpc.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # TODO switch to "elixir-grpc/grpc" when
-      # https://github.com/elixir-grpc/grpc/pull/175 merged or
-      # https://github.com/elixir-grpc/grpc/issues/188 fixed
-      # {:grpc, github: "frekw/grpc", branch: "fix/handle-rpc-errors-in-recv"},
-      {:grpc, github: "elixir-grpc/grpc"},
-      {:protobuf, "~> 0.11"},
-      {:gun,
-       github: "ninenines/gun", ref: "f9175998687678e227bdd49669e2d83f0648fa57", override: true},
-      {:cowlib, "~> 2.11.0", override: true}
+      {:grpc, "~> 0.5.0"},
+      {:protobuf, "~> 0.11"}
     ]
   end
 end
