@@ -5,6 +5,7 @@ PROTOC_ARGS="--elixir_out=plugins=grpc:./lib/"
 
 protoc $PROTOC_ARGS --proto_path=lnd/lnrpc lnd/lnrpc/autopilotrpc/autopilot.proto
 protoc $PROTOC_ARGS --proto_path=lnd/lnrpc lnd/lnrpc/chainrpc/chainnotifier.proto
+protoc $PROTOC_ARGS --proto_path=lnd/lnrpc lnd/lnrpc/chainrpc/chainkit.proto
 protoc $PROTOC_ARGS --proto_path=lnd/lnrpc lnd/lnrpc/devrpc/dev.proto
 protoc $PROTOC_ARGS --proto_path=lnd/lnrpc lnd/lnrpc/invoicesrpc/invoices.proto
 protoc $PROTOC_ARGS --proto_path=lnd/lnrpc lnd/lnrpc/lnclipb/lncli.proto

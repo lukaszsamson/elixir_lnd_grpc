@@ -31,6 +31,7 @@ defmodule Lnrpc.InitWalletRequest do
     json_name: "extendedMasterKeyBirthdayTimestamp"
 
   field :watch_only, 9, type: Lnrpc.WatchOnly, json_name: "watchOnly"
+  field :macaroon_root_key, 10, type: :bytes, json_name: "macaroonRootKey"
 end
 
 defmodule Lnrpc.InitWalletResponse do

@@ -38,6 +38,7 @@ defmodule Wtclientrpc.GetTowerInfoRequest do
 
   field :pubkey, 1, type: :bytes
   field :include_sessions, 2, type: :bool, json_name: "includeSessions"
+  field :exclude_exhausted_sessions, 3, type: :bool, json_name: "excludeExhaustedSessions"
 end
 
 defmodule Wtclientrpc.TowerSession do
@@ -57,9 +58,29 @@ defmodule Wtclientrpc.Tower do
 
   field :pubkey, 1, type: :bytes
   field :addresses, 2, repeated: true, type: :string
-  field :active_session_candidate, 3, type: :bool, json_name: "activeSessionCandidate"
-  field :num_sessions, 4, type: :uint32, json_name: "numSessions"
-  field :sessions, 5, repeated: true, type: Wtclientrpc.TowerSession
+
+  field :active_session_candidate, 3,
+    type: :bool,
+    json_name: "activeSessionCandidate",
+    deprecated: true
+
+  field :num_sessions, 4, type: :uint32, json_name: "numSessions", deprecated: true
+  field :sessions, 5, repeated: true, type: Wtclientrpc.TowerSession, deprecated: true
+
+  field :session_info, 6,
+    repeated: true,
+    type: Wtclientrpc.TowerSessionInfo,
+    json_name: "sessionInfo"
+end
+
+defmodule Wtclientrpc.TowerSessionInfo do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :active_session_candidate, 1, type: :bool, json_name: "activeSessionCandidate"
+  field :num_sessions, 2, type: :uint32, json_name: "numSessions"
+  field :sessions, 3, repeated: true, type: Wtclientrpc.TowerSession
+  field :policy_type, 4, type: Wtclientrpc.PolicyType, json_name: "policyType", enum: true
 end
 
 defmodule Wtclientrpc.ListTowersRequest do
@@ -67,6 +88,7 @@ defmodule Wtclientrpc.ListTowersRequest do
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :include_sessions, 1, type: :bool, json_name: "includeSessions"
+  field :exclude_exhausted_sessions, 2, type: :bool, json_name: "excludeExhaustedSessions"
 end
 
 defmodule Wtclientrpc.ListTowersResponse do

@@ -27,6 +27,23 @@ defmodule Walletrpc.WitnessType do
   field :WITNESS_KEY_HASH, 11
   field :NESTED_WITNESS_KEY_HASH, 12
   field :COMMITMENT_ANCHOR, 13
+  field :COMMITMENT_NO_DELAY_TWEAKLESS, 14
+  field :COMMITMENT_TO_REMOTE_CONFIRMED, 15
+  field :HTLC_OFFERED_TIMEOUT_SECOND_LEVEL_INPUT_CONFIRMED, 16
+  field :HTLC_ACCEPTED_SUCCESS_SECOND_LEVEL_INPUT_CONFIRMED, 17
+  field :LEASE_COMMITMENT_TIME_LOCK, 18
+  field :LEASE_COMMITMENT_TO_REMOTE_CONFIRMED, 19
+  field :LEASE_HTLC_OFFERED_TIMEOUT_SECOND_LEVEL, 20
+  field :LEASE_HTLC_ACCEPTED_SUCCESS_SECOND_LEVEL, 21
+  field :TAPROOT_PUB_KEY_SPEND, 22
+end
+
+defmodule Walletrpc.ChangeAddressType do
+  @moduledoc false
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :CHANGE_ADDRESS_TYPE_UNSPECIFIED, 0
+  field :CHANGE_ADDRESS_TYPE_P2TR, 1
 end
 
 defmodule Walletrpc.ListUnspentRequest do
@@ -113,6 +130,25 @@ defmodule Walletrpc.Account do
   field :watch_only, 8, type: :bool, json_name: "watchOnly"
 end
 
+defmodule Walletrpc.AddressProperty do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :address, 1, type: :string
+  field :is_internal, 2, type: :bool, json_name: "isInternal"
+  field :balance, 3, type: :int64
+end
+
+defmodule Walletrpc.AccountWithAddresses do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :name, 1, type: :string
+  field :address_type, 2, type: Walletrpc.AddressType, json_name: "addressType", enum: true
+  field :derivation_path, 3, type: :string, json_name: "derivationPath"
+  field :addresses, 4, repeated: true, type: Walletrpc.AddressProperty
+end
+
 defmodule Walletrpc.ListAccountsRequest do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -126,6 +162,70 @@ defmodule Walletrpc.ListAccountsResponse do
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :accounts, 1, repeated: true, type: Walletrpc.Account
+end
+
+defmodule Walletrpc.RequiredReserveRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :additional_public_channels, 1, type: :uint32, json_name: "additionalPublicChannels"
+end
+
+defmodule Walletrpc.RequiredReserveResponse do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :required_reserve, 1, type: :int64, json_name: "requiredReserve"
+end
+
+defmodule Walletrpc.ListAddressesRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :account_name, 1, type: :string, json_name: "accountName"
+  field :show_custom_accounts, 2, type: :bool, json_name: "showCustomAccounts"
+end
+
+defmodule Walletrpc.ListAddressesResponse do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :account_with_addresses, 1,
+    repeated: true,
+    type: Walletrpc.AccountWithAddresses,
+    json_name: "accountWithAddresses"
+end
+
+defmodule Walletrpc.SignMessageWithAddrRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :msg, 1, type: :bytes
+  field :addr, 2, type: :string
+end
+
+defmodule Walletrpc.SignMessageWithAddrResponse do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :signature, 1, type: :string
+end
+
+defmodule Walletrpc.VerifyMessageWithAddrRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :msg, 1, type: :bytes
+  field :signature, 2, type: :string
+  field :addr, 3, type: :string
+end
+
+defmodule Walletrpc.VerifyMessageWithAddrResponse do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :valid, 1, type: :bool
+  field :pubkey, 2, type: :bytes
 end
 
 defmodule Walletrpc.ImportAccountRequest do
@@ -167,6 +267,54 @@ end
 defmodule Walletrpc.ImportPublicKeyResponse do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+end
+
+defmodule Walletrpc.ImportTapscriptRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  oneof :script, 0
+
+  field :internal_public_key, 1, type: :bytes, json_name: "internalPublicKey"
+  field :full_tree, 2, type: Walletrpc.TapscriptFullTree, json_name: "fullTree", oneof: 0
+
+  field :partial_reveal, 3,
+    type: Walletrpc.TapscriptPartialReveal,
+    json_name: "partialReveal",
+    oneof: 0
+
+  field :root_hash_only, 4, type: :bytes, json_name: "rootHashOnly", oneof: 0
+  field :full_key_only, 5, type: :bool, json_name: "fullKeyOnly", oneof: 0
+end
+
+defmodule Walletrpc.TapscriptFullTree do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :all_leaves, 1, repeated: true, type: Walletrpc.TapLeaf, json_name: "allLeaves"
+end
+
+defmodule Walletrpc.TapLeaf do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :leaf_version, 1, type: :uint32, json_name: "leafVersion"
+  field :script, 2, type: :bytes
+end
+
+defmodule Walletrpc.TapscriptPartialReveal do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :revealed_leaf, 1, type: Walletrpc.TapLeaf, json_name: "revealedLeaf"
+  field :full_inclusion_proof, 2, type: :bytes, json_name: "fullInclusionProof"
+end
+
+defmodule Walletrpc.ImportTapscriptResponse do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :p2tr_address, 1, type: :string, json_name: "p2trAddress"
 end
 
 defmodule Walletrpc.Transaction do
@@ -329,6 +477,7 @@ defmodule Walletrpc.FundPsbtRequest do
   field :account, 5, type: :string
   field :min_confs, 6, type: :int32, json_name: "minConfs"
   field :spend_unconfirmed, 7, type: :bool, json_name: "spendUnconfirmed"
+  field :change_type, 8, type: Walletrpc.ChangeAddressType, json_name: "changeType", enum: true
 end
 
 defmodule Walletrpc.FundPsbtResponse do
@@ -379,6 +528,7 @@ defmodule Walletrpc.SignPsbtResponse do
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :signed_psbt, 1, type: :bytes, json_name: "signedPsbt"
+  field :signed_inputs, 2, repeated: true, type: :uint32, json_name: "signedInputs"
 end
 
 defmodule Walletrpc.FinalizePsbtRequest do
@@ -429,9 +579,23 @@ defmodule Walletrpc.WalletKit.Service do
 
   rpc :ListAccounts, Walletrpc.ListAccountsRequest, Walletrpc.ListAccountsResponse
 
+  rpc :RequiredReserve, Walletrpc.RequiredReserveRequest, Walletrpc.RequiredReserveResponse
+
+  rpc :ListAddresses, Walletrpc.ListAddressesRequest, Walletrpc.ListAddressesResponse
+
+  rpc :SignMessageWithAddr,
+      Walletrpc.SignMessageWithAddrRequest,
+      Walletrpc.SignMessageWithAddrResponse
+
+  rpc :VerifyMessageWithAddr,
+      Walletrpc.VerifyMessageWithAddrRequest,
+      Walletrpc.VerifyMessageWithAddrResponse
+
   rpc :ImportAccount, Walletrpc.ImportAccountRequest, Walletrpc.ImportAccountResponse
 
   rpc :ImportPublicKey, Walletrpc.ImportPublicKeyRequest, Walletrpc.ImportPublicKeyResponse
+
+  rpc :ImportTapscript, Walletrpc.ImportTapscriptRequest, Walletrpc.ImportTapscriptResponse
 
   rpc :PublishTransaction, Walletrpc.Transaction, Walletrpc.PublishResponse
 

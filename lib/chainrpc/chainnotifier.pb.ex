@@ -6,6 +6,7 @@ defmodule Chainrpc.ConfRequest do
   field :script, 2, type: :bytes
   field :num_confs, 3, type: :uint32, json_name: "numConfs"
   field :height_hint, 4, type: :uint32, json_name: "heightHint"
+  field :include_block, 5, type: :bool, json_name: "includeBlock"
 end
 
 defmodule Chainrpc.ConfDetails do
@@ -16,6 +17,7 @@ defmodule Chainrpc.ConfDetails do
   field :block_hash, 2, type: :bytes, json_name: "blockHash"
   field :block_height, 3, type: :uint32, json_name: "blockHeight"
   field :tx_index, 4, type: :uint32, json_name: "txIndex"
+  field :raw_block, 5, type: :bytes, json_name: "rawBlock"
 end
 
 defmodule Chainrpc.Reorg do

@@ -8,6 +8,15 @@ defmodule Signrpc.SignMethod do
   field :SIGN_METHOD_TAPROOT_SCRIPT_SPEND, 3
 end
 
+defmodule Signrpc.MuSig2Version do
+  @moduledoc false
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :MUSIG2_VERSION_UNDEFINED, 0
+  field :MUSIG2_VERSION_V040, 1
+  field :MUSIG2_VERSION_V100RC2, 2
+end
+
 defmodule Signrpc.KeyLocator do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -86,6 +95,8 @@ defmodule Signrpc.SignMessageReq do
   field :key_loc, 2, type: Signrpc.KeyLocator, json_name: "keyLoc"
   field :double_hash, 3, type: :bool, json_name: "doubleHash"
   field :compact_sig, 4, type: :bool, json_name: "compactSig"
+  field :schnorr_sig, 5, type: :bool, json_name: "schnorrSig"
+  field :schnorr_sig_tap_tweak, 6, type: :bytes, json_name: "schnorrSigTapTweak"
 end
 
 defmodule Signrpc.SignMessageResp do
@@ -102,6 +113,7 @@ defmodule Signrpc.VerifyMessageReq do
   field :msg, 1, type: :bytes
   field :signature, 2, type: :bytes
   field :pubkey, 3, type: :bytes
+  field :is_schnorr_sig, 4, type: :bool, json_name: "isSchnorrSig"
 end
 
 defmodule Signrpc.VerifyMessageResp do
@@ -150,6 +162,7 @@ defmodule Signrpc.MuSig2CombineKeysRequest do
   field :all_signer_pubkeys, 1, repeated: true, type: :bytes, json_name: "allSignerPubkeys"
   field :tweaks, 2, repeated: true, type: Signrpc.TweakDesc
   field :taproot_tweak, 3, type: Signrpc.TaprootTweakDesc, json_name: "taprootTweak"
+  field :version, 4, type: Signrpc.MuSig2Version, enum: true
 end
 
 defmodule Signrpc.MuSig2CombineKeysResponse do
@@ -158,6 +171,7 @@ defmodule Signrpc.MuSig2CombineKeysResponse do
 
   field :combined_key, 1, type: :bytes, json_name: "combinedKey"
   field :taproot_internal_key, 2, type: :bytes, json_name: "taprootInternalKey"
+  field :version, 4, type: Signrpc.MuSig2Version, enum: true
 end
 
 defmodule Signrpc.MuSig2SessionRequest do
@@ -174,6 +188,8 @@ defmodule Signrpc.MuSig2SessionRequest do
 
   field :tweaks, 4, repeated: true, type: Signrpc.TweakDesc
   field :taproot_tweak, 5, type: Signrpc.TaprootTweakDesc, json_name: "taprootTweak"
+  field :version, 6, type: Signrpc.MuSig2Version, enum: true
+  field :pregenerated_local_nonce, 7, type: :bytes, json_name: "pregeneratedLocalNonce"
 end
 
 defmodule Signrpc.MuSig2SessionResponse do
@@ -185,6 +201,7 @@ defmodule Signrpc.MuSig2SessionResponse do
   field :taproot_internal_key, 3, type: :bytes, json_name: "taprootInternalKey"
   field :local_public_nonces, 4, type: :bytes, json_name: "localPublicNonces"
   field :have_all_nonces, 5, type: :bool, json_name: "haveAllNonces"
+  field :version, 6, type: Signrpc.MuSig2Version, enum: true
 end
 
 defmodule Signrpc.MuSig2RegisterNoncesRequest do

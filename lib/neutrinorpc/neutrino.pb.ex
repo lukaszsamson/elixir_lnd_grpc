@@ -123,6 +123,20 @@ defmodule Neutrinorpc.GetCFilterResponse do
   field :filter, 1, type: :bytes
 end
 
+defmodule Neutrinorpc.GetBlockHashRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :height, 1, type: :int32
+end
+
+defmodule Neutrinorpc.GetBlockHashResponse do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :hash, 1, type: :string
+end
+
 defmodule Neutrinorpc.NeutrinoKit.Service do
   @moduledoc false
   use GRPC.Service, name: "neutrinorpc.NeutrinoKit", protoc_gen_elixir_version: "0.11.0"
@@ -140,6 +154,8 @@ defmodule Neutrinorpc.NeutrinoKit.Service do
   rpc :GetBlock, Neutrinorpc.GetBlockRequest, Neutrinorpc.GetBlockResponse
 
   rpc :GetCFilter, Neutrinorpc.GetCFilterRequest, Neutrinorpc.GetCFilterResponse
+
+  rpc :GetBlockHash, Neutrinorpc.GetBlockHashRequest, Neutrinorpc.GetBlockHashResponse
 end
 
 defmodule Neutrinorpc.NeutrinoKit.Stub do

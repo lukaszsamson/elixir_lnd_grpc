@@ -11,6 +11,7 @@ defmodule Lnrpc.OutputScriptType do
   field :SCRIPT_TYPE_NULLDATA, 6
   field :SCRIPT_TYPE_NON_STANDARD, 7
   field :SCRIPT_TYPE_WITNESS_UNKNOWN, 8
+  field :SCRIPT_TYPE_WITNESS_V1_TAPROOT, 9
 end
 
 defmodule Lnrpc.AddressType do
@@ -34,6 +35,7 @@ defmodule Lnrpc.CommitmentType do
   field :STATIC_REMOTE_KEY, 2
   field :ANCHORS, 3
   field :SCRIPT_ENFORCED_LEASE, 4
+  field :SIMPLE_TAPROOT, 5
 end
 
 defmodule Lnrpc.Initiator do
@@ -254,6 +256,22 @@ defmodule Lnrpc.Failure.FailureCode do
   field :UNREADABLE_FAILURE, 999
 end
 
+defmodule Lnrpc.LookupHtlcResolutionRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :chan_id, 1, type: :uint64, json_name: "chanId"
+  field :htlc_index, 2, type: :uint64, json_name: "htlcIndex"
+end
+
+defmodule Lnrpc.LookupHtlcResolutionResponse do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :settled, 1, type: :bool
+  field :offchain, 2, type: :bool
+end
+
 defmodule Lnrpc.SubscribeCustomMessagesRequest do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -327,6 +345,11 @@ defmodule Lnrpc.Transaction do
   field :output_details, 11, repeated: true, type: Lnrpc.OutputDetail, json_name: "outputDetails"
   field :raw_tx_hex, 9, type: :string, json_name: "rawTxHex"
   field :label, 10, type: :string
+
+  field :previous_outpoints, 12,
+    repeated: true,
+    type: Lnrpc.PreviousOutPoint,
+    json_name: "previousOutpoints"
 end
 
 defmodule Lnrpc.GetTransactionsRequest do
@@ -435,6 +458,8 @@ defmodule Lnrpc.ChannelAcceptRequest do
   field :max_accepted_htlcs, 12, type: :uint32, json_name: "maxAcceptedHtlcs"
   field :channel_flags, 13, type: :uint32, json_name: "channelFlags"
   field :commitment_type, 14, type: Lnrpc.CommitmentType, json_name: "commitmentType", enum: true
+  field :wants_zero_conf, 15, type: :bool, json_name: "wantsZeroConf"
+  field :wants_scid_alias, 16, type: :bool, json_name: "wantsScidAlias"
 end
 
 defmodule Lnrpc.ChannelAcceptResponse do
@@ -451,6 +476,7 @@ defmodule Lnrpc.ChannelAcceptResponse do
   field :max_htlc_count, 8, type: :uint32, json_name: "maxHtlcCount"
   field :min_htlc_in, 9, type: :uint64, json_name: "minHtlcIn"
   field :min_accept_depth, 10, type: :uint32, json_name: "minAcceptDepth"
+  field :zero_conf, 11, type: :bool, json_name: "zeroConf"
 end
 
 defmodule Lnrpc.ChannelPoint do
@@ -471,6 +497,14 @@ defmodule Lnrpc.OutPoint do
   field :txid_bytes, 1, type: :bytes, json_name: "txidBytes"
   field :txid_str, 2, type: :string, json_name: "txidStr"
   field :output_index, 3, type: :uint32, json_name: "outputIndex"
+end
+
+defmodule Lnrpc.PreviousOutPoint do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :outpoint, 1, type: :string
+  field :is_our_output, 2, type: :bool, json_name: "isOurOutput"
 end
 
 defmodule Lnrpc.LightningAddress do
@@ -718,6 +752,12 @@ defmodule Lnrpc.Channel do
   field :thaw_height, 28, type: :uint32, json_name: "thawHeight"
   field :local_constraints, 29, type: Lnrpc.ChannelConstraints, json_name: "localConstraints"
   field :remote_constraints, 30, type: Lnrpc.ChannelConstraints, json_name: "remoteConstraints"
+  field :alias_scids, 31, repeated: true, type: :uint64, json_name: "aliasScids"
+  field :zero_conf, 32, type: :bool, json_name: "zeroConf"
+  field :zero_conf_confirmed_scid, 33, type: :uint64, json_name: "zeroConfConfirmedScid"
+  field :peer_alias, 34, type: :string, json_name: "peerAlias"
+  field :peer_scid_alias, 35, type: :uint64, json_name: "peerScidAlias", deprecated: false
+  field :memo, 36, type: :string
 end
 
 defmodule Lnrpc.ListChannelsRequest do
@@ -729,6 +769,7 @@ defmodule Lnrpc.ListChannelsRequest do
   field :public_only, 3, type: :bool, json_name: "publicOnly"
   field :private_only, 4, type: :bool, json_name: "privateOnly"
   field :peer, 5, type: :bytes
+  field :peer_alias_lookup, 6, type: :bool, json_name: "peerAliasLookup"
 end
 
 defmodule Lnrpc.ListChannelsResponse do
@@ -736,6 +777,26 @@ defmodule Lnrpc.ListChannelsResponse do
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :channels, 11, repeated: true, type: Lnrpc.Channel
+end
+
+defmodule Lnrpc.AliasMap do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :base_scid, 1, type: :uint64, json_name: "baseScid"
+  field :aliases, 2, repeated: true, type: :uint64
+end
+
+defmodule Lnrpc.ListAliasesRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+end
+
+defmodule Lnrpc.ListAliasesResponse do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :alias_maps, 1, repeated: true, type: Lnrpc.AliasMap, json_name: "aliasMaps"
 end
 
 defmodule Lnrpc.ChannelCloseSummary do
@@ -760,6 +821,12 @@ defmodule Lnrpc.ChannelCloseSummary do
   field :open_initiator, 11, type: Lnrpc.Initiator, json_name: "openInitiator", enum: true
   field :close_initiator, 12, type: Lnrpc.Initiator, json_name: "closeInitiator", enum: true
   field :resolutions, 13, repeated: true, type: Lnrpc.Resolution
+  field :alias_scids, 14, repeated: true, type: :uint64, json_name: "aliasScids"
+
+  field :zero_conf_confirmed_scid, 15,
+    type: :uint64,
+    json_name: "zeroConfConfirmedScid",
+    deprecated: false
 end
 
 defmodule Lnrpc.Resolution do
@@ -891,6 +958,7 @@ defmodule Lnrpc.GetInfoResponse do
   field :uris, 12, repeated: true, type: :string
   field :features, 19, repeated: true, type: Lnrpc.GetInfoResponse.FeaturesEntry, map: true
   field :require_htlc_interceptor, 21, type: :bool, json_name: "requireHtlcInterceptor"
+  field :store_final_htlc_resolutions, 22, type: :bool, json_name: "storeFinalHtlcResolutions"
 end
 
 defmodule Lnrpc.GetRecoveryInfoRequest do
@@ -949,6 +1017,7 @@ defmodule Lnrpc.CloseChannelRequest do
   field :sat_per_byte, 4, type: :int64, json_name: "satPerByte", deprecated: true
   field :delivery_address, 5, type: :string, json_name: "deliveryAddress"
   field :sat_per_vbyte, 6, type: :uint64, json_name: "satPerVbyte"
+  field :max_fee_per_vbyte, 7, type: :uint64, json_name: "maxFeePerVbyte"
 end
 
 defmodule Lnrpc.CloseStatusUpdate do
@@ -1003,6 +1072,21 @@ defmodule Lnrpc.BatchOpenChannel do
   field :close_address, 7, type: :string, json_name: "closeAddress"
   field :pending_chan_id, 8, type: :bytes, json_name: "pendingChanId"
   field :commitment_type, 9, type: Lnrpc.CommitmentType, json_name: "commitmentType", enum: true
+
+  field :remote_max_value_in_flight_msat, 10,
+    type: :uint64,
+    json_name: "remoteMaxValueInFlightMsat"
+
+  field :remote_max_htlcs, 11, type: :uint32, json_name: "remoteMaxHtlcs"
+  field :max_local_csv, 12, type: :uint32, json_name: "maxLocalCsv"
+  field :zero_conf, 13, type: :bool, json_name: "zeroConf"
+  field :scid_alias, 14, type: :bool, json_name: "scidAlias"
+  field :base_fee, 15, type: :uint64, json_name: "baseFee"
+  field :fee_rate, 16, type: :uint64, json_name: "feeRate"
+  field :use_base_fee, 17, type: :bool, json_name: "useBaseFee"
+  field :use_fee_rate, 18, type: :bool, json_name: "useFeeRate"
+  field :remote_chan_reserve_sat, 19, type: :uint64, json_name: "remoteChanReserveSat"
+  field :memo, 20, type: :string
 end
 
 defmodule Lnrpc.BatchOpenChannelResponse do
@@ -1041,6 +1125,16 @@ defmodule Lnrpc.OpenChannelRequest do
   field :remote_max_htlcs, 16, type: :uint32, json_name: "remoteMaxHtlcs"
   field :max_local_csv, 17, type: :uint32, json_name: "maxLocalCsv"
   field :commitment_type, 18, type: Lnrpc.CommitmentType, json_name: "commitmentType", enum: true
+  field :zero_conf, 19, type: :bool, json_name: "zeroConf"
+  field :scid_alias, 20, type: :bool, json_name: "scidAlias"
+  field :base_fee, 21, type: :uint64, json_name: "baseFee"
+  field :fee_rate, 22, type: :uint64, json_name: "feeRate"
+  field :use_base_fee, 23, type: :bool, json_name: "useBaseFee"
+  field :use_fee_rate, 24, type: :bool, json_name: "useFeeRate"
+  field :remote_chan_reserve_sat, 25, type: :uint64, json_name: "remoteChanReserveSat"
+  field :fund_max, 26, type: :bool, json_name: "fundMax"
+  field :memo, 27, type: :string
+  field :outpoints, 28, repeated: true, type: Lnrpc.OutPoint
 end
 
 defmodule Lnrpc.OpenStatusUpdate do
@@ -1081,6 +1175,7 @@ defmodule Lnrpc.ChanPointShim do
   field :remote_key, 4, type: :bytes, json_name: "remoteKey"
   field :pending_chan_id, 5, type: :bytes, json_name: "pendingChanId"
   field :thaw_height, 6, type: :uint32, json_name: "thawHeight"
+  field :musig2, 7, type: :bool
 end
 
 defmodule Lnrpc.PsbtShim do
@@ -1177,6 +1272,7 @@ defmodule Lnrpc.PendingChannelsResponse.PendingChannel do
   field :num_forwarding_packages, 10, type: :int64, json_name: "numForwardingPackages"
   field :chan_status_flags, 11, type: :string, json_name: "chanStatusFlags"
   field :private, 12, type: :bool
+  field :memo, 13, type: :string
 end
 
 defmodule Lnrpc.PendingChannelsResponse.PendingOpenChannel do
@@ -1187,6 +1283,7 @@ defmodule Lnrpc.PendingChannelsResponse.PendingOpenChannel do
   field :commit_fee, 4, type: :int64, json_name: "commitFee"
   field :commit_weight, 5, type: :int64, json_name: "commitWeight"
   field :fee_per_kw, 6, type: :int64, json_name: "feePerKw"
+  field :funding_expiry_blocks, 3, type: :int32, json_name: "fundingExpiryBlocks"
 end
 
 defmodule Lnrpc.PendingChannelsResponse.WaitingCloseChannel do
@@ -1301,6 +1398,8 @@ end
 defmodule Lnrpc.WalletBalanceRequest do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :account, 1, type: :string
 end
 
 defmodule Lnrpc.WalletBalanceResponse.AccountBalanceEntry do
@@ -1319,6 +1418,7 @@ defmodule Lnrpc.WalletBalanceResponse do
   field :confirmed_balance, 2, type: :int64, json_name: "confirmedBalance"
   field :unconfirmed_balance, 3, type: :int64, json_name: "unconfirmedBalance"
   field :locked_balance, 5, type: :int64, json_name: "lockedBalance"
+  field :reserved_balance_anchor_chan, 6, type: :int64, json_name: "reservedBalanceAnchorChan"
 
   field :account_balance, 4,
     repeated: true,
@@ -1515,6 +1615,14 @@ defmodule Lnrpc.LightningNode.FeaturesEntry do
   field :value, 2, type: Lnrpc.Feature
 end
 
+defmodule Lnrpc.LightningNode.CustomRecordsEntry do
+  @moduledoc false
+  use Protobuf, map: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :key, 1, type: :uint64
+  field :value, 2, type: :bytes
+end
+
 defmodule Lnrpc.LightningNode do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -1525,6 +1633,12 @@ defmodule Lnrpc.LightningNode do
   field :addresses, 4, repeated: true, type: Lnrpc.NodeAddress
   field :color, 5, type: :string
   field :features, 6, repeated: true, type: Lnrpc.LightningNode.FeaturesEntry, map: true
+
+  field :custom_records, 7,
+    repeated: true,
+    type: Lnrpc.LightningNode.CustomRecordsEntry,
+    json_name: "customRecords",
+    map: true
 end
 
 defmodule Lnrpc.NodeAddress do
@@ -1533,6 +1647,14 @@ defmodule Lnrpc.NodeAddress do
 
   field :network, 1, type: :string
   field :addr, 2, type: :string
+end
+
+defmodule Lnrpc.RoutingPolicy.CustomRecordsEntry do
+  @moduledoc false
+  use Protobuf, map: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :key, 1, type: :uint64
+  field :value, 2, type: :bytes
 end
 
 defmodule Lnrpc.RoutingPolicy do
@@ -1546,6 +1668,20 @@ defmodule Lnrpc.RoutingPolicy do
   field :disabled, 5, type: :bool
   field :max_htlc_msat, 6, type: :uint64, json_name: "maxHtlcMsat"
   field :last_update, 7, type: :uint32, json_name: "lastUpdate"
+
+  field :custom_records, 8,
+    repeated: true,
+    type: Lnrpc.RoutingPolicy.CustomRecordsEntry,
+    json_name: "customRecords",
+    map: true
+end
+
+defmodule Lnrpc.ChannelEdge.CustomRecordsEntry do
+  @moduledoc false
+  use Protobuf, map: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :key, 1, type: :uint64
+  field :value, 2, type: :bytes
 end
 
 defmodule Lnrpc.ChannelEdge do
@@ -1560,6 +1696,12 @@ defmodule Lnrpc.ChannelEdge do
   field :capacity, 6, type: :int64
   field :node1_policy, 7, type: Lnrpc.RoutingPolicy, json_name: "node1Policy"
   field :node2_policy, 8, type: Lnrpc.RoutingPolicy, json_name: "node2Policy"
+
+  field :custom_records, 9,
+    repeated: true,
+    type: Lnrpc.ChannelEdge.CustomRecordsEntry,
+    json_name: "customRecords",
+    map: true
 end
 
 defmodule Lnrpc.ChannelGraphRequest do
@@ -1872,6 +2014,8 @@ defmodule Lnrpc.ListInvoiceRequest do
   field :index_offset, 4, type: :uint64, json_name: "indexOffset"
   field :num_max_invoices, 5, type: :uint64, json_name: "numMaxInvoices"
   field :reversed, 6, type: :bool
+  field :creation_date_start, 7, type: :uint64, json_name: "creationDateStart"
+  field :creation_date_end, 8, type: :uint64, json_name: "creationDateEnd"
 end
 
 defmodule Lnrpc.ListInvoiceResponse do
@@ -1938,6 +2082,8 @@ defmodule Lnrpc.ListPaymentsRequest do
   field :max_payments, 3, type: :uint64, json_name: "maxPayments"
   field :reversed, 4, type: :bool
   field :count_total_payments, 5, type: :bool, json_name: "countTotalPayments"
+  field :creation_date_start, 6, type: :uint64, json_name: "creationDateStart"
+  field :creation_date_end, 7, type: :uint64, json_name: "creationDateEnd"
 end
 
 defmodule Lnrpc.ListPaymentsResponse do
@@ -2115,6 +2261,7 @@ defmodule Lnrpc.ForwardingHistoryRequest do
   field :end_time, 2, type: :uint64, json_name: "endTime"
   field :index_offset, 3, type: :uint32, json_name: "indexOffset"
   field :num_max_events, 4, type: :uint32, json_name: "numMaxEvents"
+  field :peer_alias_lookup, 5, type: :bool, json_name: "peerAliasLookup"
 end
 
 defmodule Lnrpc.ForwardingEvent do
@@ -2131,6 +2278,8 @@ defmodule Lnrpc.ForwardingEvent do
   field :amt_in_msat, 9, type: :uint64, json_name: "amtInMsat"
   field :amt_out_msat, 10, type: :uint64, json_name: "amtOutMsat"
   field :timestamp_ns, 11, type: :uint64, json_name: "timestampNs"
+  field :peer_alias_in, 12, type: :string, json_name: "peerAliasIn"
+  field :peer_alias_out, 13, type: :string, json_name: "peerAliasOut"
 end
 
 defmodule Lnrpc.ForwardingHistoryResponse do
@@ -2371,6 +2520,7 @@ defmodule Lnrpc.RPCMiddlewareRequest do
   field :stream_auth, 4, type: Lnrpc.StreamAuth, json_name: "streamAuth", oneof: 0
   field :request, 5, type: Lnrpc.RPCMessage, oneof: 0
   field :response, 6, type: Lnrpc.RPCMessage, oneof: 0
+  field :reg_complete, 8, type: :bool, json_name: "regComplete", oneof: 0
   field :msg_id, 7, type: :uint64, json_name: "msgId"
 end
 
@@ -2389,6 +2539,7 @@ defmodule Lnrpc.RPCMessage do
   field :stream_rpc, 2, type: :bool, json_name: "streamRpc"
   field :type_name, 3, type: :string, json_name: "typeName"
   field :serialized, 4, type: :bytes
+  field :is_error, 5, type: :bool, json_name: "isError"
 end
 
 defmodule Lnrpc.RPCMiddlewareResponse do
@@ -2555,6 +2706,10 @@ defmodule Lnrpc.Lightning.Service do
   rpc :SendCustomMessage, Lnrpc.SendCustomMessageRequest, Lnrpc.SendCustomMessageResponse
 
   rpc :SubscribeCustomMessages, Lnrpc.SubscribeCustomMessagesRequest, stream(Lnrpc.CustomMessage)
+
+  rpc :ListAliases, Lnrpc.ListAliasesRequest, Lnrpc.ListAliasesResponse
+
+  rpc :LookupHtlcResolution, Lnrpc.LookupHtlcResolutionRequest, Lnrpc.LookupHtlcResolutionResponse
 end
 
 defmodule Lnrpc.Lightning.Stub do

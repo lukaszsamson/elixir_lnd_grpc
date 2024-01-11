@@ -58,6 +58,14 @@ defmodule Routerrpc.ChanStatusAction do
   field :AUTO, 2
 end
 
+defmodule Routerrpc.MissionControlConfig.ProbabilityModel do
+  @moduledoc false
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :APRIORI, 0
+  field :BIMODAL, 1
+end
+
 defmodule Routerrpc.HtlcEvent.EventType do
   @moduledoc false
   use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -125,6 +133,13 @@ defmodule Routerrpc.TrackPaymentRequest do
   field :no_inflight_updates, 2, type: :bool, json_name: "noInflightUpdates"
 end
 
+defmodule Routerrpc.TrackPaymentsRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :no_inflight_updates, 1, type: :bool, json_name: "noInflightUpdates"
+end
+
 defmodule Routerrpc.RouteFeeRequest do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
@@ -147,6 +162,7 @@ defmodule Routerrpc.SendToRouteRequest do
 
   field :payment_hash, 1, type: :bytes, json_name: "paymentHash"
   field :route, 2, type: Lnrpc.Route
+  field :skip_temp_err, 3, type: :bool, json_name: "skipTempErr"
 end
 
 defmodule Routerrpc.SendToRouteResponse do
@@ -241,14 +257,39 @@ defmodule Routerrpc.MissionControlConfig do
   @moduledoc false
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
-  field :half_life_seconds, 1, type: :uint64, json_name: "halfLifeSeconds"
-  field :hop_probability, 2, type: :float, json_name: "hopProbability"
-  field :weight, 3, type: :float
+  oneof :EstimatorConfig, 0
+
+  field :half_life_seconds, 1, type: :uint64, json_name: "halfLifeSeconds", deprecated: true
+  field :hop_probability, 2, type: :float, json_name: "hopProbability", deprecated: true
+  field :weight, 3, type: :float, deprecated: true
   field :maximum_payment_results, 4, type: :uint32, json_name: "maximumPaymentResults"
 
   field :minimum_failure_relax_interval, 5,
     type: :uint64,
     json_name: "minimumFailureRelaxInterval"
+
+  field :model, 6, type: Routerrpc.MissionControlConfig.ProbabilityModel, enum: true
+  field :apriori, 7, type: Routerrpc.AprioriParameters, oneof: 0
+  field :bimodal, 8, type: Routerrpc.BimodalParameters, oneof: 0
+end
+
+defmodule Routerrpc.BimodalParameters do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :node_weight, 1, type: :double, json_name: "nodeWeight"
+  field :scale_msat, 2, type: :uint64, json_name: "scaleMsat"
+  field :decay_time, 3, type: :uint64, json_name: "decayTime"
+end
+
+defmodule Routerrpc.AprioriParameters do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :half_life_seconds, 1, type: :uint64, json_name: "halfLifeSeconds"
+  field :hop_probability, 2, type: :double, json_name: "hopProbability"
+  field :weight, 3, type: :double
+  field :capacity_fraction, 4, type: :double, json_name: "capacityFraction"
 end
 
 defmodule Routerrpc.QueryProbabilityRequest do
@@ -312,6 +353,16 @@ defmodule Routerrpc.HtlcEvent do
 
   field :settle_event, 9, type: Routerrpc.SettleEvent, json_name: "settleEvent", oneof: 0
   field :link_fail_event, 10, type: Routerrpc.LinkFailEvent, json_name: "linkFailEvent", oneof: 0
+
+  field :subscribed_event, 11,
+    type: Routerrpc.SubscribedEvent,
+    json_name: "subscribedEvent",
+    oneof: 0
+
+  field :final_htlc_event, 12,
+    type: Routerrpc.FinalHtlcEvent,
+    json_name: "finalHtlcEvent",
+    oneof: 0
 end
 
 defmodule Routerrpc.HtlcInfo do
@@ -341,6 +392,19 @@ defmodule Routerrpc.SettleEvent do
   use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field :preimage, 1, type: :bytes
+end
+
+defmodule Routerrpc.FinalHtlcEvent do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field :settled, 1, type: :bool
+  field :offchain, 2, type: :bool
+end
+
+defmodule Routerrpc.SubscribedEvent do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 end
 
 defmodule Routerrpc.LinkFailEvent do
@@ -397,6 +461,7 @@ defmodule Routerrpc.ForwardHtlcInterceptRequest do
     map: true
 
   field :onion_blob, 9, type: :bytes, json_name: "onionBlob"
+  field :auto_fail_height, 10, type: :int32, json_name: "autoFailHeight"
 end
 
 defmodule Routerrpc.ForwardHtlcInterceptResponse do
@@ -430,6 +495,8 @@ defmodule Routerrpc.Router.Service do
   rpc :SendPaymentV2, Routerrpc.SendPaymentRequest, stream(Lnrpc.Payment)
 
   rpc :TrackPaymentV2, Routerrpc.TrackPaymentRequest, stream(Lnrpc.Payment)
+
+  rpc :TrackPayments, Routerrpc.TrackPaymentsRequest, stream(Lnrpc.Payment)
 
   rpc :EstimateRouteFee, Routerrpc.RouteFeeRequest, Routerrpc.RouteFeeResponse
 
