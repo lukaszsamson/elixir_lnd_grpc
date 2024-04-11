@@ -1,11 +1,13 @@
 defmodule Neutrinorpc.StatusRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Neutrinorpc.StatusResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :active, 1, type: :bool
   field :synced, 2, type: :bool
@@ -16,52 +18,60 @@ end
 
 defmodule Neutrinorpc.AddPeerRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :peer_addrs, 1, type: :string, json_name: "peerAddrs"
 end
 
 defmodule Neutrinorpc.AddPeerResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Neutrinorpc.DisconnectPeerRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :peer_addrs, 1, type: :string, json_name: "peerAddrs"
 end
 
 defmodule Neutrinorpc.DisconnectPeerResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Neutrinorpc.IsBannedRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :peer_addrs, 1, type: :string, json_name: "peerAddrs"
 end
 
 defmodule Neutrinorpc.IsBannedResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :banned, 1, type: :bool
 end
 
 defmodule Neutrinorpc.GetBlockHeaderRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :hash, 1, type: :string
 end
 
 defmodule Neutrinorpc.GetBlockHeaderResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :hash, 1, type: :string
   field :confirmations, 2, type: :int64
@@ -82,14 +92,16 @@ end
 
 defmodule Neutrinorpc.GetBlockRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :hash, 1, type: :string
 end
 
 defmodule Neutrinorpc.GetBlockResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :hash, 1, type: :string
   field :confirmations, 2, type: :int64
@@ -111,35 +123,40 @@ end
 
 defmodule Neutrinorpc.GetCFilterRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :hash, 1, type: :string
 end
 
 defmodule Neutrinorpc.GetCFilterResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :filter, 1, type: :bytes
 end
 
 defmodule Neutrinorpc.GetBlockHashRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :height, 1, type: :int32
 end
 
 defmodule Neutrinorpc.GetBlockHashResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :hash, 1, type: :string
 end
 
 defmodule Neutrinorpc.NeutrinoKit.Service do
   @moduledoc false
-  use GRPC.Service, name: "neutrinorpc.NeutrinoKit", protoc_gen_elixir_version: "0.11.0"
+
+  use GRPC.Service, name: "neutrinorpc.NeutrinoKit", protoc_gen_elixir_version: "0.12.0"
 
   rpc :Status, Neutrinorpc.StatusRequest, Neutrinorpc.StatusResponse
 
@@ -160,5 +177,6 @@ end
 
 defmodule Neutrinorpc.NeutrinoKit.Stub do
   @moduledoc false
+
   use GRPC.Stub, service: Neutrinorpc.NeutrinoKit.Service
 end

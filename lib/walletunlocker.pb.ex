@@ -1,6 +1,7 @@
 defmodule Lnrpc.GenSeedRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :aezeed_passphrase, 1, type: :bytes, json_name: "aezeedPassphrase"
   field :seed_entropy, 2, type: :bytes, json_name: "seedEntropy"
@@ -8,7 +9,8 @@ end
 
 defmodule Lnrpc.GenSeedResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :cipher_seed_mnemonic, 1, repeated: true, type: :string, json_name: "cipherSeedMnemonic"
   field :enciphered_seed, 2, type: :bytes, json_name: "encipheredSeed"
@@ -16,7 +18,8 @@ end
 
 defmodule Lnrpc.InitWalletRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :wallet_password, 1, type: :bytes, json_name: "walletPassword"
   field :cipher_seed_mnemonic, 2, repeated: true, type: :string, json_name: "cipherSeedMnemonic"
@@ -36,14 +39,16 @@ end
 
 defmodule Lnrpc.InitWalletResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :admin_macaroon, 1, type: :bytes, json_name: "adminMacaroon"
 end
 
 defmodule Lnrpc.WatchOnly do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :master_key_birthday_timestamp, 1, type: :uint64, json_name: "masterKeyBirthdayTimestamp"
   field :master_key_fingerprint, 2, type: :bytes, json_name: "masterKeyFingerprint"
@@ -52,7 +57,8 @@ end
 
 defmodule Lnrpc.WatchOnlyAccount do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :purpose, 1, type: :uint32
   field :coin_type, 2, type: :uint32, json_name: "coinType"
@@ -62,7 +68,8 @@ end
 
 defmodule Lnrpc.UnlockWalletRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :wallet_password, 1, type: :bytes, json_name: "walletPassword"
   field :recovery_window, 2, type: :int32, json_name: "recoveryWindow"
@@ -72,12 +79,14 @@ end
 
 defmodule Lnrpc.UnlockWalletResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Lnrpc.ChangePasswordRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :current_password, 1, type: :bytes, json_name: "currentPassword"
   field :new_password, 2, type: :bytes, json_name: "newPassword"
@@ -87,14 +96,16 @@ end
 
 defmodule Lnrpc.ChangePasswordResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :admin_macaroon, 1, type: :bytes, json_name: "adminMacaroon"
 end
 
 defmodule Lnrpc.WalletUnlocker.Service do
   @moduledoc false
-  use GRPC.Service, name: "lnrpc.WalletUnlocker", protoc_gen_elixir_version: "0.11.0"
+
+  use GRPC.Service, name: "lnrpc.WalletUnlocker", protoc_gen_elixir_version: "0.12.0"
 
   rpc :GenSeed, Lnrpc.GenSeedRequest, Lnrpc.GenSeedResponse
 
@@ -107,5 +118,6 @@ end
 
 defmodule Lnrpc.WalletUnlocker.Stub do
   @moduledoc false
+
   use GRPC.Stub, service: Lnrpc.WalletUnlocker.Service
 end

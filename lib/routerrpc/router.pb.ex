@@ -1,6 +1,7 @@
 defmodule Routerrpc.FailureDetail do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :UNKNOWN, 0
   field :NO_DETAIL, 1
@@ -29,7 +30,8 @@ end
 
 defmodule Routerrpc.PaymentState do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :IN_FLIGHT, 0
   field :SUCCEEDED, 1
@@ -42,7 +44,8 @@ end
 
 defmodule Routerrpc.ResolveHoldForwardAction do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :SETTLE, 0
   field :FAIL, 1
@@ -51,7 +54,8 @@ end
 
 defmodule Routerrpc.ChanStatusAction do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :ENABLE, 0
   field :DISABLE, 1
@@ -60,7 +64,8 @@ end
 
 defmodule Routerrpc.MissionControlConfig.ProbabilityModel do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :APRIORI, 0
   field :BIMODAL, 1
@@ -68,7 +73,8 @@ end
 
 defmodule Routerrpc.HtlcEvent.EventType do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :UNKNOWN, 0
   field :SEND, 1
@@ -78,7 +84,8 @@ end
 
 defmodule Routerrpc.SendPaymentRequest.DestCustomRecordsEntry do
   @moduledoc false
-  use Protobuf, map: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :key, 1, type: :uint64
   field :value, 2, type: :bytes
@@ -86,7 +93,8 @@ end
 
 defmodule Routerrpc.SendPaymentRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :dest, 1, type: :bytes
   field :amt, 2, type: :int64
@@ -127,7 +135,8 @@ end
 
 defmodule Routerrpc.TrackPaymentRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :payment_hash, 1, type: :bytes, json_name: "paymentHash"
   field :no_inflight_updates, 2, type: :bool, json_name: "noInflightUpdates"
@@ -135,14 +144,16 @@ end
 
 defmodule Routerrpc.TrackPaymentsRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :no_inflight_updates, 1, type: :bool, json_name: "noInflightUpdates"
 end
 
 defmodule Routerrpc.RouteFeeRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :dest, 1, type: :bytes
   field :amt_sat, 2, type: :int64, json_name: "amtSat"
@@ -150,7 +161,8 @@ end
 
 defmodule Routerrpc.RouteFeeResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :routing_fee_msat, 1, type: :int64, json_name: "routingFeeMsat"
   field :time_lock_delay, 2, type: :int64, json_name: "timeLockDelay"
@@ -158,7 +170,8 @@ end
 
 defmodule Routerrpc.SendToRouteRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :payment_hash, 1, type: :bytes, json_name: "paymentHash"
   field :route, 2, type: Lnrpc.Route
@@ -167,7 +180,8 @@ end
 
 defmodule Routerrpc.SendToRouteResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :preimage, 1, type: :bytes
   field :failure, 2, type: Lnrpc.Failure
@@ -175,29 +189,34 @@ end
 
 defmodule Routerrpc.ResetMissionControlRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Routerrpc.ResetMissionControlResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Routerrpc.QueryMissionControlRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Routerrpc.QueryMissionControlResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :pairs, 2, repeated: true, type: Routerrpc.PairHistory
 end
 
 defmodule Routerrpc.XImportMissionControlRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :pairs, 1, repeated: true, type: Routerrpc.PairHistory
   field :force, 2, type: :bool
@@ -205,12 +224,14 @@ end
 
 defmodule Routerrpc.XImportMissionControlResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Routerrpc.PairHistory do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :node_from, 1, type: :bytes, json_name: "nodeFrom"
   field :node_to, 2, type: :bytes, json_name: "nodeTo"
@@ -219,7 +240,8 @@ end
 
 defmodule Routerrpc.PairData do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :fail_time, 1, type: :int64, json_name: "failTime"
   field :fail_amt_sat, 2, type: :int64, json_name: "failAmtSat"
@@ -231,31 +253,36 @@ end
 
 defmodule Routerrpc.GetMissionControlConfigRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Routerrpc.GetMissionControlConfigResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :config, 1, type: Routerrpc.MissionControlConfig
 end
 
 defmodule Routerrpc.SetMissionControlConfigRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :config, 1, type: Routerrpc.MissionControlConfig
 end
 
 defmodule Routerrpc.SetMissionControlConfigResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Routerrpc.MissionControlConfig do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   oneof :EstimatorConfig, 0
 
@@ -275,7 +302,8 @@ end
 
 defmodule Routerrpc.BimodalParameters do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :node_weight, 1, type: :double, json_name: "nodeWeight"
   field :scale_msat, 2, type: :uint64, json_name: "scaleMsat"
@@ -284,7 +312,8 @@ end
 
 defmodule Routerrpc.AprioriParameters do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :half_life_seconds, 1, type: :uint64, json_name: "halfLifeSeconds"
   field :hop_probability, 2, type: :double, json_name: "hopProbability"
@@ -294,7 +323,8 @@ end
 
 defmodule Routerrpc.QueryProbabilityRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :from_node, 1, type: :bytes, json_name: "fromNode"
   field :to_node, 2, type: :bytes, json_name: "toNode"
@@ -303,7 +333,8 @@ end
 
 defmodule Routerrpc.QueryProbabilityResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :probability, 1, type: :double
   field :history, 2, type: Routerrpc.PairData
@@ -311,7 +342,8 @@ end
 
 defmodule Routerrpc.BuildRouteRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :amt_msat, 1, type: :int64, json_name: "amtMsat"
   field :final_cltv_delta, 2, type: :int32, json_name: "finalCltvDelta"
@@ -322,19 +354,22 @@ end
 
 defmodule Routerrpc.BuildRouteResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :route, 1, type: Lnrpc.Route
 end
 
 defmodule Routerrpc.SubscribeHtlcEventsRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Routerrpc.HtlcEvent do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   oneof :event, 0
 
@@ -367,7 +402,8 @@ end
 
 defmodule Routerrpc.HtlcInfo do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :incoming_timelock, 1, type: :uint32, json_name: "incomingTimelock"
   field :outgoing_timelock, 2, type: :uint32, json_name: "outgoingTimelock"
@@ -377,26 +413,30 @@ end
 
 defmodule Routerrpc.ForwardEvent do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :info, 1, type: Routerrpc.HtlcInfo
 end
 
 defmodule Routerrpc.ForwardFailEvent do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Routerrpc.SettleEvent do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :preimage, 1, type: :bytes
 end
 
 defmodule Routerrpc.FinalHtlcEvent do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :settled, 1, type: :bool
   field :offchain, 2, type: :bool
@@ -404,12 +444,14 @@ end
 
 defmodule Routerrpc.SubscribedEvent do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Routerrpc.LinkFailEvent do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :info, 1, type: Routerrpc.HtlcInfo
   field :wire_failure, 2, type: Lnrpc.Failure.FailureCode, json_name: "wireFailure", enum: true
@@ -419,7 +461,8 @@ end
 
 defmodule Routerrpc.PaymentStatus do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :state, 1, type: Routerrpc.PaymentState, enum: true
   field :preimage, 2, type: :bytes
@@ -428,7 +471,8 @@ end
 
 defmodule Routerrpc.CircuitKey do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :chan_id, 1, type: :uint64, json_name: "chanId"
   field :htlc_id, 2, type: :uint64, json_name: "htlcId"
@@ -436,7 +480,8 @@ end
 
 defmodule Routerrpc.ForwardHtlcInterceptRequest.CustomRecordsEntry do
   @moduledoc false
-  use Protobuf, map: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :key, 1, type: :uint64
   field :value, 2, type: :bytes
@@ -444,7 +489,8 @@ end
 
 defmodule Routerrpc.ForwardHtlcInterceptRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :incoming_circuit_key, 1, type: Routerrpc.CircuitKey, json_name: "incomingCircuitKey"
   field :incoming_amount_msat, 5, type: :uint64, json_name: "incomingAmountMsat"
@@ -466,7 +512,8 @@ end
 
 defmodule Routerrpc.ForwardHtlcInterceptResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :incoming_circuit_key, 1, type: Routerrpc.CircuitKey, json_name: "incomingCircuitKey"
   field :action, 2, type: Routerrpc.ResolveHoldForwardAction, enum: true
@@ -477,7 +524,8 @@ end
 
 defmodule Routerrpc.UpdateChanStatusRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :chan_point, 1, type: Lnrpc.ChannelPoint, json_name: "chanPoint"
   field :action, 2, type: Routerrpc.ChanStatusAction, enum: true
@@ -485,12 +533,14 @@ end
 
 defmodule Routerrpc.UpdateChanStatusResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Routerrpc.Router.Service do
   @moduledoc false
-  use GRPC.Service, name: "routerrpc.Router", protoc_gen_elixir_version: "0.11.0"
+
+  use GRPC.Service, name: "routerrpc.Router", protoc_gen_elixir_version: "0.12.0"
 
   rpc :SendPaymentV2, Routerrpc.SendPaymentRequest, stream(Lnrpc.Payment)
 
@@ -543,5 +593,6 @@ end
 
 defmodule Routerrpc.Router.Stub do
   @moduledoc false
+
   use GRPC.Stub, service: Routerrpc.Router.Service
 end

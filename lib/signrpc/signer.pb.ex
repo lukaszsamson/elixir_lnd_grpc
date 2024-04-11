@@ -1,6 +1,7 @@
 defmodule Signrpc.SignMethod do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :SIGN_METHOD_WITNESS_V0, 0
   field :SIGN_METHOD_TAPROOT_KEY_SPEND_BIP0086, 1
@@ -10,7 +11,8 @@ end
 
 defmodule Signrpc.MuSig2Version do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :MUSIG2_VERSION_UNDEFINED, 0
   field :MUSIG2_VERSION_V040, 1
@@ -19,7 +21,8 @@ end
 
 defmodule Signrpc.KeyLocator do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :key_family, 1, type: :int32, json_name: "keyFamily"
   field :key_index, 2, type: :int32, json_name: "keyIndex"
@@ -27,7 +30,8 @@ end
 
 defmodule Signrpc.KeyDescriptor do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :raw_key_bytes, 1, type: :bytes, json_name: "rawKeyBytes"
   field :key_loc, 2, type: Signrpc.KeyLocator, json_name: "keyLoc"
@@ -35,7 +39,8 @@ end
 
 defmodule Signrpc.TxOut do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :value, 1, type: :int64
   field :pk_script, 2, type: :bytes, json_name: "pkScript"
@@ -43,7 +48,8 @@ end
 
 defmodule Signrpc.SignDescriptor do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :key_desc, 1, type: Signrpc.KeyDescriptor, json_name: "keyDesc"
   field :single_tweak, 2, type: :bytes, json_name: "singleTweak"
@@ -58,7 +64,8 @@ end
 
 defmodule Signrpc.SignReq do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :raw_tx_bytes, 1, type: :bytes, json_name: "rawTxBytes"
   field :sign_descs, 2, repeated: true, type: Signrpc.SignDescriptor, json_name: "signDescs"
@@ -67,14 +74,16 @@ end
 
 defmodule Signrpc.SignResp do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :raw_sigs, 1, repeated: true, type: :bytes, json_name: "rawSigs"
 end
 
 defmodule Signrpc.InputScript do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :witness, 1, repeated: true, type: :bytes
   field :sig_script, 2, type: :bytes, json_name: "sigScript"
@@ -82,14 +91,16 @@ end
 
 defmodule Signrpc.InputScriptResp do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :input_scripts, 1, repeated: true, type: Signrpc.InputScript, json_name: "inputScripts"
 end
 
 defmodule Signrpc.SignMessageReq do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :msg, 1, type: :bytes
   field :key_loc, 2, type: Signrpc.KeyLocator, json_name: "keyLoc"
@@ -101,14 +112,16 @@ end
 
 defmodule Signrpc.SignMessageResp do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :signature, 1, type: :bytes
 end
 
 defmodule Signrpc.VerifyMessageReq do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :msg, 1, type: :bytes
   field :signature, 2, type: :bytes
@@ -118,14 +131,16 @@ end
 
 defmodule Signrpc.VerifyMessageResp do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :valid, 1, type: :bool
 end
 
 defmodule Signrpc.SharedKeyRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :ephemeral_pubkey, 1, type: :bytes, json_name: "ephemeralPubkey"
   field :key_loc, 2, type: Signrpc.KeyLocator, json_name: "keyLoc", deprecated: true
@@ -134,14 +149,16 @@ end
 
 defmodule Signrpc.SharedKeyResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :shared_key, 1, type: :bytes, json_name: "sharedKey"
 end
 
 defmodule Signrpc.TweakDesc do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :tweak, 1, type: :bytes
   field :is_x_only, 2, type: :bool, json_name: "isXOnly"
@@ -149,7 +166,8 @@ end
 
 defmodule Signrpc.TaprootTweakDesc do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :script_root, 1, type: :bytes, json_name: "scriptRoot"
   field :key_spend_only, 2, type: :bool, json_name: "keySpendOnly"
@@ -157,7 +175,8 @@ end
 
 defmodule Signrpc.MuSig2CombineKeysRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :all_signer_pubkeys, 1, repeated: true, type: :bytes, json_name: "allSignerPubkeys"
   field :tweaks, 2, repeated: true, type: Signrpc.TweakDesc
@@ -167,7 +186,8 @@ end
 
 defmodule Signrpc.MuSig2CombineKeysResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :combined_key, 1, type: :bytes, json_name: "combinedKey"
   field :taproot_internal_key, 2, type: :bytes, json_name: "taprootInternalKey"
@@ -176,7 +196,8 @@ end
 
 defmodule Signrpc.MuSig2SessionRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :key_loc, 1, type: Signrpc.KeyLocator, json_name: "keyLoc"
   field :all_signer_pubkeys, 2, repeated: true, type: :bytes, json_name: "allSignerPubkeys"
@@ -194,7 +215,8 @@ end
 
 defmodule Signrpc.MuSig2SessionResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :session_id, 1, type: :bytes, json_name: "sessionId"
   field :combined_key, 2, type: :bytes, json_name: "combinedKey"
@@ -206,7 +228,8 @@ end
 
 defmodule Signrpc.MuSig2RegisterNoncesRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :session_id, 1, type: :bytes, json_name: "sessionId"
 
@@ -218,14 +241,16 @@ end
 
 defmodule Signrpc.MuSig2RegisterNoncesResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :have_all_nonces, 1, type: :bool, json_name: "haveAllNonces"
 end
 
 defmodule Signrpc.MuSig2SignRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :session_id, 1, type: :bytes, json_name: "sessionId"
   field :message_digest, 2, type: :bytes, json_name: "messageDigest"
@@ -234,14 +259,16 @@ end
 
 defmodule Signrpc.MuSig2SignResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :local_partial_signature, 1, type: :bytes, json_name: "localPartialSignature"
 end
 
 defmodule Signrpc.MuSig2CombineSigRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :session_id, 1, type: :bytes, json_name: "sessionId"
 
@@ -253,7 +280,8 @@ end
 
 defmodule Signrpc.MuSig2CombineSigResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :have_all_signatures, 1, type: :bool, json_name: "haveAllSignatures"
   field :final_signature, 2, type: :bytes, json_name: "finalSignature"
@@ -261,19 +289,22 @@ end
 
 defmodule Signrpc.MuSig2CleanupRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :session_id, 1, type: :bytes, json_name: "sessionId"
 end
 
 defmodule Signrpc.MuSig2CleanupResponse do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Signrpc.Signer.Service do
   @moduledoc false
-  use GRPC.Service, name: "signrpc.Signer", protoc_gen_elixir_version: "0.11.0"
+
+  use GRPC.Service, name: "signrpc.Signer", protoc_gen_elixir_version: "0.12.0"
 
   rpc :SignOutputRaw, Signrpc.SignReq, Signrpc.SignResp
 
@@ -302,5 +333,6 @@ end
 
 defmodule Signrpc.Signer.Stub do
   @moduledoc false
+
   use GRPC.Stub, service: Signrpc.Signer.Service
 end

@@ -1,6 +1,7 @@
 defmodule Invoicesrpc.LookupModifier do
   @moduledoc false
-  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :DEFAULT, 0
   field :HTLC_SET_ONLY, 1
@@ -9,19 +10,22 @@ end
 
 defmodule Invoicesrpc.CancelInvoiceMsg do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :payment_hash, 1, type: :bytes, json_name: "paymentHash"
 end
 
 defmodule Invoicesrpc.CancelInvoiceResp do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Invoicesrpc.AddHoldInvoiceRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :memo, 1, type: :string
   field :hash, 2, type: :bytes
@@ -37,7 +41,8 @@ end
 
 defmodule Invoicesrpc.AddHoldInvoiceResp do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :payment_request, 1, type: :string, json_name: "paymentRequest"
   field :add_index, 2, type: :uint64, json_name: "addIndex"
@@ -46,26 +51,30 @@ end
 
 defmodule Invoicesrpc.SettleInvoiceMsg do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :preimage, 1, type: :bytes
 end
 
 defmodule Invoicesrpc.SettleInvoiceResp do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Invoicesrpc.SubscribeSingleInvoiceRequest do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :r_hash, 2, type: :bytes, json_name: "rHash"
 end
 
 defmodule Invoicesrpc.LookupInvoiceMsg do
   @moduledoc false
-  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   oneof :invoice_ref, 0
 
@@ -81,7 +90,8 @@ end
 
 defmodule Invoicesrpc.Invoices.Service do
   @moduledoc false
-  use GRPC.Service, name: "invoicesrpc.Invoices", protoc_gen_elixir_version: "0.11.0"
+
+  use GRPC.Service, name: "invoicesrpc.Invoices", protoc_gen_elixir_version: "0.12.0"
 
   rpc :SubscribeSingleInvoice, Invoicesrpc.SubscribeSingleInvoiceRequest, stream(Lnrpc.Invoice)
 
@@ -96,5 +106,6 @@ end
 
 defmodule Invoicesrpc.Invoices.Stub do
   @moduledoc false
+
   use GRPC.Stub, service: Invoicesrpc.Invoices.Service
 end
