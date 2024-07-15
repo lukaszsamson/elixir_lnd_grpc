@@ -15,6 +15,16 @@ defmodule Lnrpc.OutputScriptType do
   field :SCRIPT_TYPE_WITNESS_V1_TAPROOT, 9
 end
 
+defmodule Lnrpc.CoinSelectionStrategy do
+  @moduledoc false
+
+  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :STRATEGY_USE_GLOBAL_CONFIG, 0
+  field :STRATEGY_LARGEST, 1
+  field :STRATEGY_RANDOM, 2
+end
+
 defmodule Lnrpc.AddressType do
   @moduledoc false
 
@@ -137,6 +147,8 @@ defmodule Lnrpc.FeatureBit do
   field :ANCHORS_OPT, 21
   field :ANCHORS_ZERO_FEE_HTLC_REQ, 22
   field :ANCHORS_ZERO_FEE_HTLC_OPT, 23
+  field :ROUTE_BLINDING_REQUIRED, 24
+  field :ROUTE_BLINDING_OPTIONAL, 25
   field :AMP_REQ, 30
   field :AMP_OPT, 31
 end
@@ -229,6 +241,7 @@ defmodule Lnrpc.Payment.PaymentStatus do
   field :IN_FLIGHT, 1
   field :SUCCEEDED, 2
   field :FAILED, 3
+  field :INITIATED, 4
 end
 
 defmodule Lnrpc.HTLCAttempt.HTLCStatus do
@@ -271,6 +284,7 @@ defmodule Lnrpc.Failure.FailureCode do
   field :EXPIRY_TOO_FAR, 22
   field :MPP_TIMEOUT, 23
   field :INVALID_ONION_PAYLOAD, 24
+  field :INVALID_ONION_BLINDING, 25
   field :INTERNAL_FAILURE, 997
   field :UNKNOWN_FAILURE, 998
   field :UNREADABLE_FAILURE, 999
@@ -579,6 +593,11 @@ defmodule Lnrpc.EstimateFeeRequest do
   field :target_conf, 2, type: :int32, json_name: "targetConf"
   field :min_confs, 3, type: :int32, json_name: "minConfs"
   field :spend_unconfirmed, 4, type: :bool, json_name: "spendUnconfirmed"
+
+  field :coin_selection_strategy, 5,
+    type: Lnrpc.CoinSelectionStrategy,
+    json_name: "coinSelectionStrategy",
+    enum: true
 end
 
 defmodule Lnrpc.EstimateFeeResponse do
@@ -612,6 +631,11 @@ defmodule Lnrpc.SendManyRequest do
   field :label, 6, type: :string
   field :min_confs, 7, type: :int32, json_name: "minConfs"
   field :spend_unconfirmed, 8, type: :bool, json_name: "spendUnconfirmed"
+
+  field :coin_selection_strategy, 9,
+    type: Lnrpc.CoinSelectionStrategy,
+    json_name: "coinSelectionStrategy",
+    enum: true
 end
 
 defmodule Lnrpc.SendManyResponse do
@@ -636,6 +660,11 @@ defmodule Lnrpc.SendCoinsRequest do
   field :label, 7, type: :string
   field :min_confs, 8, type: :int32, json_name: "minConfs"
   field :spend_unconfirmed, 9, type: :bool, json_name: "spendUnconfirmed"
+
+  field :coin_selection_strategy, 10,
+    type: Lnrpc.CoinSelectionStrategy,
+    json_name: "coinSelectionStrategy",
+    enum: true
 end
 
 defmodule Lnrpc.SendCoinsResponse do
@@ -1045,6 +1074,30 @@ defmodule Lnrpc.GetInfoResponse do
   field :store_final_htlc_resolutions, 22, type: :bool, json_name: "storeFinalHtlcResolutions"
 end
 
+defmodule Lnrpc.GetDebugInfoRequest do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+end
+
+defmodule Lnrpc.GetDebugInfoResponse.ConfigEntry do
+  @moduledoc false
+
+  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :key, 1, type: :string
+  field :value, 2, type: :string
+end
+
+defmodule Lnrpc.GetDebugInfoResponse do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :config, 1, repeated: true, type: Lnrpc.GetDebugInfoResponse.ConfigEntry, map: true
+  field :log, 2, repeated: true, type: :string
+end
+
 defmodule Lnrpc.GetRecoveryInfoRequest do
   @moduledoc false
 
@@ -1066,7 +1119,7 @@ defmodule Lnrpc.Chain do
 
   use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
-  field :chain, 1, type: :string
+  field :chain, 1, type: :string, deprecated: true
   field :network, 2, type: :string
 end
 
@@ -1109,6 +1162,7 @@ defmodule Lnrpc.CloseChannelRequest do
   field :delivery_address, 5, type: :string, json_name: "deliveryAddress"
   field :sat_per_vbyte, 6, type: :uint64, json_name: "satPerVbyte"
   field :max_fee_per_vbyte, 7, type: :uint64, json_name: "maxFeePerVbyte"
+  field :no_wait, 8, type: :bool, json_name: "noWait"
 end
 
 defmodule Lnrpc.CloseStatusUpdate do
@@ -1120,6 +1174,7 @@ defmodule Lnrpc.CloseStatusUpdate do
 
   field :close_pending, 1, type: Lnrpc.PendingUpdate, json_name: "closePending", oneof: 0
   field :chan_close, 3, type: Lnrpc.ChannelCloseUpdate, json_name: "chanClose", oneof: 0
+  field :close_instant, 4, type: Lnrpc.InstantUpdate, json_name: "closeInstant", oneof: 0
 end
 
 defmodule Lnrpc.PendingUpdate do
@@ -1129,6 +1184,12 @@ defmodule Lnrpc.PendingUpdate do
 
   field :txid, 1, type: :bytes
   field :output_index, 2, type: :uint32, json_name: "outputIndex"
+end
+
+defmodule Lnrpc.InstantUpdate do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
 defmodule Lnrpc.ReadyForPsbtFunding do
@@ -1152,6 +1213,11 @@ defmodule Lnrpc.BatchOpenChannelRequest do
   field :min_confs, 4, type: :int32, json_name: "minConfs"
   field :spend_unconfirmed, 5, type: :bool, json_name: "spendUnconfirmed"
   field :label, 6, type: :string
+
+  field :coin_selection_strategy, 7,
+    type: Lnrpc.CoinSelectionStrategy,
+    json_name: "coinSelectionStrategy",
+    enum: true
 end
 
 defmodule Lnrpc.BatchOpenChannel do
@@ -1365,6 +1431,8 @@ defmodule Lnrpc.PendingChannelsRequest do
   @moduledoc false
 
   use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :include_raw_tx, 1, type: :bool, json_name: "includeRawTx"
 end
 
 defmodule Lnrpc.PendingChannelsResponse.PendingChannel do
@@ -1408,6 +1476,7 @@ defmodule Lnrpc.PendingChannelsResponse.WaitingCloseChannel do
   field :limbo_balance, 2, type: :int64, json_name: "limboBalance"
   field :commitments, 3, type: Lnrpc.PendingChannelsResponse.Commitments
   field :closing_txid, 4, type: :string, json_name: "closingTxid"
+  field :closing_tx_hex, 5, type: :string, json_name: "closingTxHex"
 end
 
 defmodule Lnrpc.PendingChannelsResponse.Commitments do
@@ -1522,6 +1591,7 @@ defmodule Lnrpc.WalletBalanceRequest do
   use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :account, 1, type: :string
+  field :min_confs, 2, type: :int32, json_name: "minConfs"
 end
 
 defmodule Lnrpc.WalletBalanceResponse.AccountBalanceEntry do
@@ -1623,6 +1693,11 @@ defmodule Lnrpc.QueryRoutesRequest do
   field :last_hop_pubkey, 15, type: :bytes, json_name: "lastHopPubkey"
   field :route_hints, 16, repeated: true, type: Lnrpc.RouteHint, json_name: "routeHints"
 
+  field :blinded_payment_paths, 19,
+    repeated: true,
+    type: Lnrpc.BlindedPaymentPath,
+    json_name: "blindedPaymentPaths"
+
   field :dest_features, 17,
     repeated: true,
     type: Lnrpc.FeatureBit,
@@ -1692,6 +1767,9 @@ defmodule Lnrpc.Hop do
     map: true
 
   field :metadata, 13, type: :bytes
+  field :blinding_point, 14, type: :bytes, json_name: "blindingPoint"
+  field :encrypted_data, 15, type: :bytes, json_name: "encryptedData"
+  field :total_amt_msat, 16, type: :uint64, json_name: "totalAmtMsat"
 end
 
 defmodule Lnrpc.MPPRecord do
@@ -1819,6 +1897,9 @@ defmodule Lnrpc.RoutingPolicy do
     type: Lnrpc.RoutingPolicy.CustomRecordsEntry,
     json_name: "customRecords",
     map: true
+
+  field :inbound_fee_base_msat, 9, type: :int32, json_name: "inboundFeeBaseMsat"
+  field :inbound_fee_rate_milli_msat, 10, type: :int32, json_name: "inboundFeeRateMilliMsat"
 end
 
 defmodule Lnrpc.ChannelEdge.CustomRecordsEntry do
@@ -2047,6 +2128,39 @@ defmodule Lnrpc.RouteHint do
   use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 
   field :hop_hints, 1, repeated: true, type: Lnrpc.HopHint, json_name: "hopHints"
+end
+
+defmodule Lnrpc.BlindedPaymentPath do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :blinded_path, 1, type: Lnrpc.BlindedPath, json_name: "blindedPath"
+  field :base_fee_msat, 2, type: :uint64, json_name: "baseFeeMsat"
+  field :proportional_fee_rate, 3, type: :uint32, json_name: "proportionalFeeRate"
+  field :total_cltv_delta, 4, type: :uint32, json_name: "totalCltvDelta"
+  field :htlc_min_msat, 5, type: :uint64, json_name: "htlcMinMsat"
+  field :htlc_max_msat, 6, type: :uint64, json_name: "htlcMaxMsat"
+  field :features, 7, repeated: true, type: Lnrpc.FeatureBit, enum: true
+end
+
+defmodule Lnrpc.BlindedPath do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :introduction_node, 1, type: :bytes, json_name: "introductionNode"
+  field :blinding_point, 2, type: :bytes, json_name: "blindingPoint"
+  field :blinded_hops, 3, repeated: true, type: Lnrpc.BlindedHop, json_name: "blindedHops"
+end
+
+defmodule Lnrpc.BlindedHop do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :blinded_node, 1, type: :bytes, json_name: "blindedNode"
+  field :encrypted_data, 2, type: :bytes, json_name: "encryptedData"
 end
 
 defmodule Lnrpc.AMPInvoiceState do
@@ -2295,6 +2409,7 @@ defmodule Lnrpc.DeleteAllPaymentsRequest do
 
   field :failed_payments_only, 1, type: :bool, json_name: "failedPaymentsOnly"
   field :failed_htlcs_only, 2, type: :bool, json_name: "failedHtlcsOnly"
+  field :all_payments, 3, type: :bool, json_name: "allPayments"
 end
 
 defmodule Lnrpc.DeletePaymentResponse do
@@ -2405,6 +2520,8 @@ defmodule Lnrpc.ChannelFeeReport do
   field :base_fee_msat, 2, type: :int64, json_name: "baseFeeMsat"
   field :fee_per_mil, 3, type: :int64, json_name: "feePerMil"
   field :fee_rate, 4, type: :double, json_name: "feeRate"
+  field :inbound_base_fee_msat, 6, type: :int32, json_name: "inboundBaseFeeMsat"
+  field :inbound_fee_per_mil, 7, type: :int32, json_name: "inboundFeePerMil"
 end
 
 defmodule Lnrpc.FeeReportResponse do
@@ -2416,6 +2533,15 @@ defmodule Lnrpc.FeeReportResponse do
   field :day_fee_sum, 2, type: :uint64, json_name: "dayFeeSum"
   field :week_fee_sum, 3, type: :uint64, json_name: "weekFeeSum"
   field :month_fee_sum, 4, type: :uint64, json_name: "monthFeeSum"
+end
+
+defmodule Lnrpc.InboundFee do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :base_fee_msat, 1, type: :int32, json_name: "baseFeeMsat"
+  field :fee_rate_ppm, 2, type: :int32, json_name: "feeRatePpm"
 end
 
 defmodule Lnrpc.PolicyUpdateRequest do
@@ -2434,6 +2560,7 @@ defmodule Lnrpc.PolicyUpdateRequest do
   field :max_htlc_msat, 6, type: :uint64, json_name: "maxHtlcMsat"
   field :min_htlc_msat, 7, type: :uint64, json_name: "minHtlcMsat"
   field :min_htlc_msat_specified, 8, type: :bool, json_name: "minHtlcMsatSpecified"
+  field :inbound_fee, 10, type: Lnrpc.InboundFee, json_name: "inboundFee"
 end
 
 defmodule Lnrpc.FailedUpdate do
@@ -2844,6 +2971,8 @@ defmodule Lnrpc.Lightning.Service do
   rpc :SubscribePeerEvents, Lnrpc.PeerEventSubscription, stream(Lnrpc.PeerEvent)
 
   rpc :GetInfo, Lnrpc.GetInfoRequest, Lnrpc.GetInfoResponse
+
+  rpc :GetDebugInfo, Lnrpc.GetDebugInfoRequest, Lnrpc.GetDebugInfoResponse
 
   rpc :GetRecoveryInfo, Lnrpc.GetRecoveryInfoRequest, Lnrpc.GetRecoveryInfoResponse
 

@@ -38,6 +38,19 @@ defmodule Walletrpc.WitnessType do
   field :LEASE_HTLC_OFFERED_TIMEOUT_SECOND_LEVEL, 20
   field :LEASE_HTLC_ACCEPTED_SUCCESS_SECOND_LEVEL, 21
   field :TAPROOT_PUB_KEY_SPEND, 22
+  field :TAPROOT_LOCAL_COMMIT_SPEND, 23
+  field :TAPROOT_REMOTE_COMMIT_SPEND, 24
+  field :TAPROOT_ANCHOR_SWEEP_SPEND, 25
+  field :TAPROOT_HTLC_OFFERED_TIMEOUT_SECOND_LEVEL, 26
+  field :TAPROOT_HTLC_ACCEPTED_SUCCESS_SECOND_LEVEL, 27
+  field :TAPROOT_HTLC_SECOND_LEVEL_REVOKE, 28
+  field :TAPROOT_HTLC_ACCEPTED_REVOKE, 29
+  field :TAPROOT_HTLC_OFFERED_REVOKE, 30
+  field :TAPROOT_HTLC_OFFERED_REMOTE_TIMEOUT, 31
+  field :TAPROOT_HTLC_LOCAL_OFFERED_TIMEOUT, 32
+  field :TAPROOT_HTLC_ACCEPTED_REMOTE_SUCCESS, 33
+  field :TAPROOT_HTLC_ACCEPTED_LOCAL_SUCCESS, 34
+  field :TAPROOT_COMMITMENT_REVOKE, 35
 end
 
 defmodule Walletrpc.ChangeAddressType do
@@ -151,6 +164,8 @@ defmodule Walletrpc.AddressProperty do
   field :address, 1, type: :string
   field :is_internal, 2, type: :bool, json_name: "isInternal"
   field :balance, 3, type: :int64
+  field :derivation_path, 4, type: :string, json_name: "derivationPath"
+  field :public_key, 5, type: :bytes, json_name: "publicKey"
 end
 
 defmodule Walletrpc.AccountWithAddresses do
@@ -215,6 +230,14 @@ defmodule Walletrpc.ListAddressesResponse do
     repeated: true,
     type: Walletrpc.AccountWithAddresses,
     json_name: "accountWithAddresses"
+end
+
+defmodule Walletrpc.GetTransactionRequest do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :txid, 1, type: :string
 end
 
 defmodule Walletrpc.SignMessageWithAddrRequest do
@@ -368,6 +391,14 @@ defmodule Walletrpc.PublishResponse do
   field :publish_error, 1, type: :string, json_name: "publishError"
 end
 
+defmodule Walletrpc.RemoveTransactionResponse do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :status, 1, type: :string
+end
+
 defmodule Walletrpc.SendOutputsRequest do
   @moduledoc false
 
@@ -378,6 +409,11 @@ defmodule Walletrpc.SendOutputsRequest do
   field :label, 3, type: :string
   field :min_confs, 4, type: :int32, json_name: "minConfs"
   field :spend_unconfirmed, 5, type: :bool, json_name: "spendUnconfirmed"
+
+  field :coin_selection_strategy, 6,
+    type: Lnrpc.CoinSelectionStrategy,
+    json_name: "coinSelectionStrategy",
+    enum: true
 end
 
 defmodule Walletrpc.SendOutputsResponse do
@@ -414,8 +450,18 @@ defmodule Walletrpc.PendingSweep do
   field :amount_sat, 3, type: :uint32, json_name: "amountSat"
   field :sat_per_byte, 4, type: :uint32, json_name: "satPerByte", deprecated: true
   field :broadcast_attempts, 5, type: :uint32, json_name: "broadcastAttempts"
-  field :next_broadcast_height, 6, type: :uint32, json_name: "nextBroadcastHeight"
-  field :requested_conf_target, 8, type: :uint32, json_name: "requestedConfTarget"
+
+  field :next_broadcast_height, 6,
+    type: :uint32,
+    json_name: "nextBroadcastHeight",
+    deprecated: true
+
+  field :force, 7, type: :bool, deprecated: true
+
+  field :requested_conf_target, 8,
+    type: :uint32,
+    json_name: "requestedConfTarget",
+    deprecated: true
 
   field :requested_sat_per_byte, 9,
     type: :uint32,
@@ -424,7 +470,9 @@ defmodule Walletrpc.PendingSweep do
 
   field :sat_per_vbyte, 10, type: :uint64, json_name: "satPerVbyte"
   field :requested_sat_per_vbyte, 11, type: :uint64, json_name: "requestedSatPerVbyte"
-  field :force, 7, type: :bool
+  field :immediate, 12, type: :bool
+  field :budget, 13, type: :uint64
+  field :deadline_height, 14, type: :uint32, json_name: "deadlineHeight"
 end
 
 defmodule Walletrpc.PendingSweepsRequest do
@@ -452,14 +500,18 @@ defmodule Walletrpc.BumpFeeRequest do
   field :outpoint, 1, type: Lnrpc.OutPoint
   field :target_conf, 2, type: :uint32, json_name: "targetConf"
   field :sat_per_byte, 3, type: :uint32, json_name: "satPerByte", deprecated: true
-  field :force, 4, type: :bool
+  field :force, 4, type: :bool, deprecated: true
   field :sat_per_vbyte, 5, type: :uint64, json_name: "satPerVbyte"
+  field :immediate, 6, type: :bool
+  field :budget, 7, type: :uint64
 end
 
 defmodule Walletrpc.BumpFeeResponse do
   @moduledoc false
 
   use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :status, 1, type: :string
 end
 
 defmodule Walletrpc.ListSweepsRequest do
@@ -524,12 +576,18 @@ defmodule Walletrpc.FundPsbtRequest do
 
   field :psbt, 1, type: :bytes, oneof: 0
   field :raw, 2, type: Walletrpc.TxTemplate, oneof: 0
+  field :coin_select, 9, type: Walletrpc.PsbtCoinSelect, json_name: "coinSelect", oneof: 0
   field :target_conf, 3, type: :uint32, json_name: "targetConf", oneof: 1
   field :sat_per_vbyte, 4, type: :uint64, json_name: "satPerVbyte", oneof: 1
   field :account, 5, type: :string
   field :min_confs, 6, type: :int32, json_name: "minConfs"
   field :spend_unconfirmed, 7, type: :bool, json_name: "spendUnconfirmed"
   field :change_type, 8, type: Walletrpc.ChangeAddressType, json_name: "changeType", enum: true
+
+  field :coin_selection_strategy, 10,
+    type: Lnrpc.CoinSelectionStrategy,
+    json_name: "coinSelectionStrategy",
+    enum: true
 end
 
 defmodule Walletrpc.FundPsbtResponse do
@@ -558,6 +616,18 @@ defmodule Walletrpc.TxTemplate do
 
   field :inputs, 1, repeated: true, type: Lnrpc.OutPoint
   field :outputs, 2, repeated: true, type: Walletrpc.TxTemplate.OutputsEntry, map: true
+end
+
+defmodule Walletrpc.PsbtCoinSelect do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  oneof :change_output, 0
+
+  field :psbt, 1, type: :bytes
+  field :existing_output_index, 2, type: :int32, json_name: "existingOutputIndex", oneof: 0
+  field :add, 3, type: :bool, oneof: 0
 end
 
 defmodule Walletrpc.UtxoLease do
@@ -640,6 +710,8 @@ defmodule Walletrpc.WalletKit.Service do
 
   rpc :NextAddr, Walletrpc.AddrRequest, Walletrpc.AddrResponse
 
+  rpc :GetTransaction, Walletrpc.GetTransactionRequest, Lnrpc.Transaction
+
   rpc :ListAccounts, Walletrpc.ListAccountsRequest, Walletrpc.ListAccountsResponse
 
   rpc :RequiredReserve, Walletrpc.RequiredReserveRequest, Walletrpc.RequiredReserveResponse
@@ -661,6 +733,8 @@ defmodule Walletrpc.WalletKit.Service do
   rpc :ImportTapscript, Walletrpc.ImportTapscriptRequest, Walletrpc.ImportTapscriptResponse
 
   rpc :PublishTransaction, Walletrpc.Transaction, Walletrpc.PublishResponse
+
+  rpc :RemoveTransaction, Walletrpc.GetTransactionRequest, Walletrpc.RemoveTransactionResponse
 
   rpc :SendOutputs, Walletrpc.SendOutputsRequest, Walletrpc.SendOutputsResponse
 

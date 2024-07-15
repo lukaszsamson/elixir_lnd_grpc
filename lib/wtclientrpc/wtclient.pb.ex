@@ -5,6 +5,7 @@ defmodule Wtclientrpc.PolicyType do
 
   field :LEGACY, 0
   field :ANCHOR, 1
+  field :TAPROOT, 2
 end
 
 defmodule Wtclientrpc.AddTowerRequest do
@@ -37,6 +38,38 @@ defmodule Wtclientrpc.RemoveTowerResponse do
   use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
 end
 
+defmodule Wtclientrpc.DeactivateTowerRequest do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :pubkey, 1, type: :bytes
+end
+
+defmodule Wtclientrpc.DeactivateTowerResponse do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :status, 1, type: :string
+end
+
+defmodule Wtclientrpc.TerminateSessionRequest do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :session_id, 1, type: :bytes, json_name: "sessionId"
+end
+
+defmodule Wtclientrpc.TerminateSessionResponse do
+  @moduledoc false
+
+  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+
+  field :status, 1, type: :string
+end
+
 defmodule Wtclientrpc.GetTowerInfoRequest do
   @moduledoc false
 
@@ -57,6 +90,7 @@ defmodule Wtclientrpc.TowerSession do
   field :max_backups, 3, type: :uint32, json_name: "maxBackups"
   field :sweep_sat_per_byte, 4, type: :uint32, json_name: "sweepSatPerByte", deprecated: true
   field :sweep_sat_per_vbyte, 5, type: :uint32, json_name: "sweepSatPerVbyte"
+  field :id, 6, type: :bytes
 end
 
 defmodule Wtclientrpc.Tower do
@@ -153,6 +187,10 @@ defmodule Wtclientrpc.WatchtowerClient.Service do
   rpc :AddTower, Wtclientrpc.AddTowerRequest, Wtclientrpc.AddTowerResponse
 
   rpc :RemoveTower, Wtclientrpc.RemoveTowerRequest, Wtclientrpc.RemoveTowerResponse
+
+  rpc :DeactivateTower, Wtclientrpc.DeactivateTowerRequest, Wtclientrpc.DeactivateTowerResponse
+
+  rpc :TerminateSession, Wtclientrpc.TerminateSessionRequest, Wtclientrpc.TerminateSessionResponse
 
   rpc :ListTowers, Wtclientrpc.ListTowersRequest, Wtclientrpc.ListTowersResponse
 

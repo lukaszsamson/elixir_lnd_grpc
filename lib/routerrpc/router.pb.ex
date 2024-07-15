@@ -98,17 +98,12 @@ defmodule Routerrpc.SendPaymentRequest do
 
   field :dest, 1, type: :bytes
   field :amt, 2, type: :int64
-  field :amt_msat, 12, type: :int64, json_name: "amtMsat"
   field :payment_hash, 3, type: :bytes, json_name: "paymentHash"
   field :final_cltv_delta, 4, type: :int32, json_name: "finalCltvDelta"
-  field :payment_addr, 20, type: :bytes, json_name: "paymentAddr"
   field :payment_request, 5, type: :string, json_name: "paymentRequest"
   field :timeout_seconds, 6, type: :int32, json_name: "timeoutSeconds"
   field :fee_limit_sat, 7, type: :int64, json_name: "feeLimitSat"
-  field :fee_limit_msat, 13, type: :int64, json_name: "feeLimitMsat"
   field :outgoing_chan_id, 8, type: :uint64, json_name: "outgoingChanId", deprecated: true
-  field :outgoing_chan_ids, 19, repeated: true, type: :uint64, json_name: "outgoingChanIds"
-  field :last_hop_pubkey, 14, type: :bytes, json_name: "lastHopPubkey"
   field :cltv_limit, 9, type: :int32, json_name: "cltvLimit"
   field :route_hints, 10, repeated: true, type: Lnrpc.RouteHint, json_name: "routeHints"
 
@@ -118,6 +113,9 @@ defmodule Routerrpc.SendPaymentRequest do
     json_name: "destCustomRecords",
     map: true
 
+  field :amt_msat, 12, type: :int64, json_name: "amtMsat"
+  field :fee_limit_msat, 13, type: :int64, json_name: "feeLimitMsat"
+  field :last_hop_pubkey, 14, type: :bytes, json_name: "lastHopPubkey"
   field :allow_self_payment, 15, type: :bool, json_name: "allowSelfPayment"
 
   field :dest_features, 16,
@@ -128,6 +126,8 @@ defmodule Routerrpc.SendPaymentRequest do
 
   field :max_parts, 17, type: :uint32, json_name: "maxParts"
   field :no_inflight_updates, 18, type: :bool, json_name: "noInflightUpdates"
+  field :outgoing_chan_ids, 19, repeated: true, type: :uint64, json_name: "outgoingChanIds"
+  field :payment_addr, 20, type: :bytes, json_name: "paymentAddr"
   field :max_shard_size_msat, 21, type: :uint64, json_name: "maxShardSizeMsat"
   field :amp, 22, type: :bool
   field :time_pref, 23, type: :double, json_name: "timePref"
@@ -157,6 +157,8 @@ defmodule Routerrpc.RouteFeeRequest do
 
   field :dest, 1, type: :bytes
   field :amt_sat, 2, type: :int64, json_name: "amtSat"
+  field :payment_request, 3, type: :string, json_name: "paymentRequest"
+  field :timeout, 4, type: :uint32
 end
 
 defmodule Routerrpc.RouteFeeResponse do
@@ -166,6 +168,11 @@ defmodule Routerrpc.RouteFeeResponse do
 
   field :routing_fee_msat, 1, type: :int64, json_name: "routingFeeMsat"
   field :time_lock_delay, 2, type: :int64, json_name: "timeLockDelay"
+
+  field :failure_reason, 5,
+    type: Lnrpc.PaymentFailureReason,
+    json_name: "failureReason",
+    enum: true
 end
 
 defmodule Routerrpc.SendToRouteRequest do

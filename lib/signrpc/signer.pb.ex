@@ -108,6 +108,7 @@ defmodule Signrpc.SignMessageReq do
   field :compact_sig, 4, type: :bool, json_name: "compactSig"
   field :schnorr_sig, 5, type: :bool, json_name: "schnorrSig"
   field :schnorr_sig_tap_tweak, 6, type: :bytes, json_name: "schnorrSigTapTweak"
+  field :tag, 7, type: :bytes
 end
 
 defmodule Signrpc.SignMessageResp do
@@ -127,6 +128,7 @@ defmodule Signrpc.VerifyMessageReq do
   field :signature, 2, type: :bytes
   field :pubkey, 3, type: :bytes
   field :is_schnorr_sig, 4, type: :bool, json_name: "isSchnorrSig"
+  field :tag, 5, type: :bytes
 end
 
 defmodule Signrpc.VerifyMessageResp do
