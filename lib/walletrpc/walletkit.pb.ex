@@ -1,7 +1,11 @@
 defmodule Walletrpc.AddressType do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "walletrpc.AddressType",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :UNKNOWN, 0
   field :WITNESS_PUBKEY_HASH, 1
@@ -13,7 +17,11 @@ end
 defmodule Walletrpc.WitnessType do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "walletrpc.WitnessType",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :UNKNOWN_WITNESS, 0
   field :COMMITMENT_TIME_LOCK, 1
@@ -56,7 +64,11 @@ end
 defmodule Walletrpc.ChangeAddressType do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "walletrpc.ChangeAddressType",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :CHANGE_ADDRESS_TYPE_UNSPECIFIED, 0
   field :CHANGE_ADDRESS_TYPE_P2TR, 1
@@ -65,7 +77,10 @@ end
 defmodule Walletrpc.ListUnspentRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ListUnspentRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :min_confs, 1, type: :int32, json_name: "minConfs"
   field :max_confs, 2, type: :int32, json_name: "maxConfs"
@@ -76,7 +91,10 @@ end
 defmodule Walletrpc.ListUnspentResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ListUnspentResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :utxos, 1, repeated: true, type: Lnrpc.Utxo
 end
@@ -84,7 +102,10 @@ end
 defmodule Walletrpc.LeaseOutputRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.LeaseOutputRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :id, 1, type: :bytes
   field :outpoint, 2, type: Lnrpc.OutPoint
@@ -94,7 +115,10 @@ end
 defmodule Walletrpc.LeaseOutputResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.LeaseOutputResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :expiration, 1, type: :uint64
 end
@@ -102,7 +126,10 @@ end
 defmodule Walletrpc.ReleaseOutputRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ReleaseOutputRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :id, 1, type: :bytes
   field :outpoint, 2, type: Lnrpc.OutPoint
@@ -111,13 +138,19 @@ end
 defmodule Walletrpc.ReleaseOutputResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ReleaseOutputResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Walletrpc.KeyReq do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.KeyReq",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key_finger_print, 1, type: :int32, json_name: "keyFingerPrint"
   field :key_family, 2, type: :int32, json_name: "keyFamily"
@@ -126,7 +159,10 @@ end
 defmodule Walletrpc.AddrRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.AddrRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :account, 1, type: :string
   field :type, 2, type: Walletrpc.AddressType, enum: true
@@ -136,7 +172,10 @@ end
 defmodule Walletrpc.AddrResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.AddrResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :addr, 1, type: :string
 end
@@ -144,7 +183,10 @@ end
 defmodule Walletrpc.Account do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.Account",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :name, 1, type: :string
   field :address_type, 2, type: Walletrpc.AddressType, json_name: "addressType", enum: true
@@ -159,7 +201,10 @@ end
 defmodule Walletrpc.AddressProperty do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.AddressProperty",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :address, 1, type: :string
   field :is_internal, 2, type: :bool, json_name: "isInternal"
@@ -171,7 +216,10 @@ end
 defmodule Walletrpc.AccountWithAddresses do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.AccountWithAddresses",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :name, 1, type: :string
   field :address_type, 2, type: Walletrpc.AddressType, json_name: "addressType", enum: true
@@ -182,7 +230,10 @@ end
 defmodule Walletrpc.ListAccountsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ListAccountsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :name, 1, type: :string
   field :address_type, 2, type: Walletrpc.AddressType, json_name: "addressType", enum: true
@@ -191,7 +242,10 @@ end
 defmodule Walletrpc.ListAccountsResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ListAccountsResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :accounts, 1, repeated: true, type: Walletrpc.Account
 end
@@ -199,7 +253,10 @@ end
 defmodule Walletrpc.RequiredReserveRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.RequiredReserveRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :additional_public_channels, 1, type: :uint32, json_name: "additionalPublicChannels"
 end
@@ -207,7 +264,10 @@ end
 defmodule Walletrpc.RequiredReserveResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.RequiredReserveResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :required_reserve, 1, type: :int64, json_name: "requiredReserve"
 end
@@ -215,7 +275,10 @@ end
 defmodule Walletrpc.ListAddressesRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ListAddressesRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :account_name, 1, type: :string, json_name: "accountName"
   field :show_custom_accounts, 2, type: :bool, json_name: "showCustomAccounts"
@@ -224,7 +287,10 @@ end
 defmodule Walletrpc.ListAddressesResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ListAddressesResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :account_with_addresses, 1,
     repeated: true,
@@ -235,7 +301,10 @@ end
 defmodule Walletrpc.GetTransactionRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.GetTransactionRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :txid, 1, type: :string
 end
@@ -243,7 +312,10 @@ end
 defmodule Walletrpc.SignMessageWithAddrRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.SignMessageWithAddrRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :msg, 1, type: :bytes
   field :addr, 2, type: :string
@@ -252,7 +324,10 @@ end
 defmodule Walletrpc.SignMessageWithAddrResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.SignMessageWithAddrResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :signature, 1, type: :string
 end
@@ -260,7 +335,10 @@ end
 defmodule Walletrpc.VerifyMessageWithAddrRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.VerifyMessageWithAddrRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :msg, 1, type: :bytes
   field :signature, 2, type: :string
@@ -270,7 +348,10 @@ end
 defmodule Walletrpc.VerifyMessageWithAddrResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.VerifyMessageWithAddrResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :valid, 1, type: :bool
   field :pubkey, 2, type: :bytes
@@ -279,7 +360,10 @@ end
 defmodule Walletrpc.ImportAccountRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ImportAccountRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :name, 1, type: :string
   field :extended_public_key, 2, type: :string, json_name: "extendedPublicKey"
@@ -291,7 +375,10 @@ end
 defmodule Walletrpc.ImportAccountResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ImportAccountResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :account, 1, type: Walletrpc.Account
 
@@ -309,7 +396,10 @@ end
 defmodule Walletrpc.ImportPublicKeyRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ImportPublicKeyRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :public_key, 1, type: :bytes, json_name: "publicKey"
   field :address_type, 2, type: Walletrpc.AddressType, json_name: "addressType", enum: true
@@ -318,13 +408,19 @@ end
 defmodule Walletrpc.ImportPublicKeyResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ImportPublicKeyResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Walletrpc.ImportTapscriptRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ImportTapscriptRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :script, 0
 
@@ -343,7 +439,10 @@ end
 defmodule Walletrpc.TapscriptFullTree do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.TapscriptFullTree",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :all_leaves, 1, repeated: true, type: Walletrpc.TapLeaf, json_name: "allLeaves"
 end
@@ -351,7 +450,10 @@ end
 defmodule Walletrpc.TapLeaf do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.TapLeaf",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :leaf_version, 1, type: :uint32, json_name: "leafVersion"
   field :script, 2, type: :bytes
@@ -360,7 +462,10 @@ end
 defmodule Walletrpc.TapscriptPartialReveal do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.TapscriptPartialReveal",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :revealed_leaf, 1, type: Walletrpc.TapLeaf, json_name: "revealedLeaf"
   field :full_inclusion_proof, 2, type: :bytes, json_name: "fullInclusionProof"
@@ -369,7 +474,10 @@ end
 defmodule Walletrpc.ImportTapscriptResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ImportTapscriptResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :p2tr_address, 1, type: :string, json_name: "p2trAddress"
 end
@@ -377,7 +485,10 @@ end
 defmodule Walletrpc.Transaction do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.Transaction",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :tx_hex, 1, type: :bytes, json_name: "txHex"
   field :label, 2, type: :string
@@ -386,7 +497,10 @@ end
 defmodule Walletrpc.PublishResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.PublishResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :publish_error, 1, type: :string, json_name: "publishError"
 end
@@ -394,7 +508,10 @@ end
 defmodule Walletrpc.RemoveTransactionResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.RemoveTransactionResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :status, 1, type: :string
 end
@@ -402,7 +519,10 @@ end
 defmodule Walletrpc.SendOutputsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.SendOutputsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :sat_per_kw, 1, type: :int64, json_name: "satPerKw"
   field :outputs, 2, repeated: true, type: Signrpc.TxOut
@@ -419,7 +539,10 @@ end
 defmodule Walletrpc.SendOutputsResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.SendOutputsResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :raw_tx, 1, type: :bytes, json_name: "rawTx"
 end
@@ -427,7 +550,10 @@ end
 defmodule Walletrpc.EstimateFeeRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.EstimateFeeRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :conf_target, 1, type: :int32, json_name: "confTarget"
 end
@@ -435,7 +561,10 @@ end
 defmodule Walletrpc.EstimateFeeResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.EstimateFeeResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :sat_per_kw, 1, type: :int64, json_name: "satPerKw"
 end
@@ -443,7 +572,10 @@ end
 defmodule Walletrpc.PendingSweep do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.PendingSweep",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :outpoint, 1, type: Lnrpc.OutPoint
   field :witness_type, 2, type: Walletrpc.WitnessType, json_name: "witnessType", enum: true
@@ -478,13 +610,19 @@ end
 defmodule Walletrpc.PendingSweepsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.PendingSweepsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Walletrpc.PendingSweepsResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.PendingSweepsResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :pending_sweeps, 1,
     repeated: true,
@@ -495,7 +633,10 @@ end
 defmodule Walletrpc.BumpFeeRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.BumpFeeRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :outpoint, 1, type: Lnrpc.OutPoint
   field :target_conf, 2, type: :uint32, json_name: "targetConf"
@@ -509,7 +650,10 @@ end
 defmodule Walletrpc.BumpFeeResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.BumpFeeResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :status, 1, type: :string
 end
@@ -517,7 +661,10 @@ end
 defmodule Walletrpc.ListSweepsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ListSweepsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :verbose, 1, type: :bool
   field :start_height, 2, type: :int32, json_name: "startHeight"
@@ -526,7 +673,10 @@ end
 defmodule Walletrpc.ListSweepsResponse.TransactionIDs do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ListSweepsResponse.TransactionIDs",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :transaction_ids, 1, repeated: true, type: :string, json_name: "transactionIds"
 end
@@ -534,7 +684,10 @@ end
 defmodule Walletrpc.ListSweepsResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ListSweepsResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :sweeps, 0
 
@@ -552,7 +705,10 @@ end
 defmodule Walletrpc.LabelTransactionRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.LabelTransactionRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :txid, 1, type: :bytes
   field :label, 2, type: :string
@@ -562,13 +718,19 @@ end
 defmodule Walletrpc.LabelTransactionResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.LabelTransactionResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Walletrpc.FundPsbtRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.FundPsbtRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :template, 0
 
@@ -593,7 +755,10 @@ end
 defmodule Walletrpc.FundPsbtResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.FundPsbtResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :funded_psbt, 1, type: :bytes, json_name: "fundedPsbt"
   field :change_output_index, 2, type: :int32, json_name: "changeOutputIndex"
@@ -603,7 +768,11 @@ end
 defmodule Walletrpc.TxTemplate.OutputsEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.TxTemplate.OutputsEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :string
   field :value, 2, type: :uint64
@@ -612,7 +781,10 @@ end
 defmodule Walletrpc.TxTemplate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.TxTemplate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :inputs, 1, repeated: true, type: Lnrpc.OutPoint
   field :outputs, 2, repeated: true, type: Walletrpc.TxTemplate.OutputsEntry, map: true
@@ -621,7 +793,10 @@ end
 defmodule Walletrpc.PsbtCoinSelect do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.PsbtCoinSelect",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :change_output, 0
 
@@ -633,7 +808,10 @@ end
 defmodule Walletrpc.UtxoLease do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.UtxoLease",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :id, 1, type: :bytes
   field :outpoint, 2, type: Lnrpc.OutPoint
@@ -645,7 +823,10 @@ end
 defmodule Walletrpc.SignPsbtRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.SignPsbtRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :funded_psbt, 1, type: :bytes, json_name: "fundedPsbt"
 end
@@ -653,7 +834,10 @@ end
 defmodule Walletrpc.SignPsbtResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.SignPsbtResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :signed_psbt, 1, type: :bytes, json_name: "signedPsbt"
   field :signed_inputs, 2, repeated: true, type: :uint32, json_name: "signedInputs"
@@ -662,7 +846,10 @@ end
 defmodule Walletrpc.FinalizePsbtRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.FinalizePsbtRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :funded_psbt, 1, type: :bytes, json_name: "fundedPsbt"
   field :account, 5, type: :string
@@ -671,7 +858,10 @@ end
 defmodule Walletrpc.FinalizePsbtResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.FinalizePsbtResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :signed_psbt, 1, type: :bytes, json_name: "signedPsbt"
   field :raw_final_tx, 2, type: :bytes, json_name: "rawFinalTx"
@@ -680,13 +870,19 @@ end
 defmodule Walletrpc.ListLeasesRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ListLeasesRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Walletrpc.ListLeasesResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "walletrpc.ListLeasesResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :locked_utxos, 1, repeated: true, type: Walletrpc.UtxoLease, json_name: "lockedUtxos"
 end
@@ -694,7 +890,7 @@ end
 defmodule Walletrpc.WalletKit.Service do
   @moduledoc false
 
-  use GRPC.Service, name: "walletrpc.WalletKit", protoc_gen_elixir_version: "0.12.0"
+  use GRPC.Service, name: "walletrpc.WalletKit", protoc_gen_elixir_version: "0.17.1"
 
   rpc :ListUnspent, Walletrpc.ListUnspentRequest, Walletrpc.ListUnspentResponse
 

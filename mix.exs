@@ -21,8 +21,8 @@ defmodule LndGrpc.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:grpc, "~> 0.8"},
-      {:protobuf, "~> 0.12"}
+      {:grpc, "~> 1.0"},
+      {:protobuf, "~> 0.17"}
     ]
   end
 end
