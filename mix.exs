@@ -21,6 +21,7 @@ defmodule LndGrpc.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:spec_lint, "~> 0.1", only: [:dev, :test], runtime: false},
       {:grpc, "~> 1.0"},
       {:protobuf, "~> 0.17"}
     ]

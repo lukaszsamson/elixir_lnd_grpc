@@ -10,5 +10,6 @@
   "mint": {:hex, :mint, "1.6.2", "af6d97a4051eee4f05b5500671d47c3a67dac7386045d87a904126fd4bbcea2e", [:mix], [{:castore, "~> 0.1.0 or ~> 1.0", [hex: :castore, repo: "hexpm", optional: true]}, {:hpax, "~> 0.1.1 or ~> 0.2.0 or ~> 1.0", [hex: :hpax, repo: "hexpm", optional: false]}], "hexpm", "5ee441dffc1892f1ae59127f74afe8fd82fda6587794278d924e4d90ea3d63f9"},
   "protobuf": {:hex, :protobuf, "0.17.1", "5c058a4abbdf3c094bbdab142022b22950dd25214fcfdc624ae9bf0c60f9346f", [:mix], [{:jason, "~> 1.2", [hex: :jason, repo: "hexpm", optional: true]}], "hexpm", "76770ecda0ef057e540932f15b5a143ba8877875e88727f53429a7dc4dbf8b6c"},
   "ranch": {:hex, :ranch, "1.8.0", "8c7a100a139fd57f17327b6413e4167ac559fbc04ca7448e9be9057311597a1d", [:make, :rebar3], [], "hexpm", "49fbcfd3682fab1f5d109351b61257676da1a2fdbe295904176d5e521a2ddfe5"},
+  "spec_lint": {:hex, :spec_lint, "0.1.1", "e40649140dc96a32a2d4a7b98e8fbd3035d138b87154a35716f2cca76955cdae", [:mix], [], "hexpm", "67d7cc8d2e2cb29595518ee042b470a71de619ca250440e526c7987e06adeada"},
   "telemetry": {:hex, :telemetry, "1.4.2", "a0cb522801dffb1c49fe6e30561badffc7b6d0e180db1300df759faa22062855", [:rebar3], [], "hexpm", "928f6495066506077862c0d1646609eed891a4326bee3126ba54b60af61febb1"},
 }
