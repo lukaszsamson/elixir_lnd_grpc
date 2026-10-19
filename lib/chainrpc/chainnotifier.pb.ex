@@ -1,7 +1,10 @@
 defmodule Chainrpc.ConfRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "chainrpc.ConfRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :txid, 1, type: :bytes
   field :script, 2, type: :bytes
@@ -13,7 +16,10 @@ end
 defmodule Chainrpc.ConfDetails do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "chainrpc.ConfDetails",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :raw_tx, 1, type: :bytes, json_name: "rawTx"
   field :block_hash, 2, type: :bytes, json_name: "blockHash"
@@ -25,13 +31,16 @@ end
 defmodule Chainrpc.Reorg do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "chainrpc.Reorg", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 end
 
 defmodule Chainrpc.ConfEvent do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "chainrpc.ConfEvent",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :event, 0
 
@@ -42,7 +51,10 @@ end
 defmodule Chainrpc.Outpoint do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "chainrpc.Outpoint",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :hash, 1, type: :bytes
   field :index, 2, type: :uint32
@@ -51,7 +63,10 @@ end
 defmodule Chainrpc.SpendRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "chainrpc.SpendRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :outpoint, 1, type: Chainrpc.Outpoint
   field :script, 2, type: :bytes
@@ -61,7 +76,10 @@ end
 defmodule Chainrpc.SpendDetails do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "chainrpc.SpendDetails",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :spending_outpoint, 1, type: Chainrpc.Outpoint, json_name: "spendingOutpoint"
   field :raw_spending_tx, 2, type: :bytes, json_name: "rawSpendingTx"
@@ -73,7 +91,10 @@ end
 defmodule Chainrpc.SpendEvent do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "chainrpc.SpendEvent",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :event, 0
 
@@ -84,7 +105,10 @@ end
 defmodule Chainrpc.BlockEpoch do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "chainrpc.BlockEpoch",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :hash, 1, type: :bytes
   field :height, 2, type: :uint32
@@ -93,7 +117,7 @@ end
 defmodule Chainrpc.ChainNotifier.Service do
   @moduledoc false
 
-  use GRPC.Service, name: "chainrpc.ChainNotifier", protoc_gen_elixir_version: "0.12.0"
+  use GRPC.Service, name: "chainrpc.ChainNotifier", protoc_gen_elixir_version: "0.17.1"
 
   rpc :RegisterConfirmationsNtfn, Chainrpc.ConfRequest, stream(Chainrpc.ConfEvent)
 

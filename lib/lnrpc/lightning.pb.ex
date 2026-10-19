@@ -1,7 +1,11 @@
 defmodule Lnrpc.OutputScriptType do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.OutputScriptType",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :SCRIPT_TYPE_PUBKEY_HASH, 0
   field :SCRIPT_TYPE_SCRIPT_HASH, 1
@@ -18,7 +22,11 @@ end
 defmodule Lnrpc.CoinSelectionStrategy do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.CoinSelectionStrategy",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :STRATEGY_USE_GLOBAL_CONFIG, 0
   field :STRATEGY_LARGEST, 1
@@ -28,7 +36,11 @@ end
 defmodule Lnrpc.AddressType do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.AddressType",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :WITNESS_PUBKEY_HASH, 0
   field :NESTED_PUBKEY_HASH, 1
@@ -41,7 +53,11 @@ end
 defmodule Lnrpc.CommitmentType do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.CommitmentType",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :UNKNOWN_COMMITMENT_TYPE, 0
   field :LEGACY, 1
@@ -54,7 +70,11 @@ end
 defmodule Lnrpc.Initiator do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.Initiator",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :INITIATOR_UNKNOWN, 0
   field :INITIATOR_LOCAL, 1
@@ -65,7 +85,11 @@ end
 defmodule Lnrpc.ResolutionType do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.ResolutionType",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :TYPE_UNKNOWN, 0
   field :ANCHOR, 1
@@ -77,7 +101,11 @@ end
 defmodule Lnrpc.ResolutionOutcome do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.ResolutionOutcome",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :OUTCOME_UNKNOWN, 0
   field :CLAIMED, 1
@@ -90,7 +118,11 @@ end
 defmodule Lnrpc.NodeMetricType do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.NodeMetricType",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :UNKNOWN, 0
   field :BETWEENNESS_CENTRALITY, 1
@@ -99,7 +131,11 @@ end
 defmodule Lnrpc.InvoiceHTLCState do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.InvoiceHTLCState",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :ACCEPTED, 0
   field :SETTLED, 1
@@ -109,7 +145,11 @@ end
 defmodule Lnrpc.PaymentFailureReason do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.PaymentFailureReason",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :FAILURE_REASON_NONE, 0
   field :FAILURE_REASON_TIMEOUT, 1
@@ -122,7 +162,11 @@ end
 defmodule Lnrpc.FeatureBit do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.FeatureBit",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :DATALOSS_PROTECT_REQ, 0
   field :DATALOSS_PROTECT_OPT, 1
@@ -156,7 +200,11 @@ end
 defmodule Lnrpc.UpdateFailure do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.UpdateFailure",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :UPDATE_FAILURE_UNKNOWN, 0
   field :UPDATE_FAILURE_PENDING, 1
@@ -168,7 +216,11 @@ end
 defmodule Lnrpc.ChannelCloseSummary.ClosureType do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.ChannelCloseSummary.ClosureType",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :COOPERATIVE_CLOSE, 0
   field :LOCAL_FORCE_CLOSE, 1
@@ -181,7 +233,11 @@ end
 defmodule Lnrpc.Peer.SyncType do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.Peer.SyncType",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :UNKNOWN_SYNC, 0
   field :ACTIVE_SYNC, 1
@@ -192,7 +248,11 @@ end
 defmodule Lnrpc.PeerEvent.EventType do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.PeerEvent.EventType",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :PEER_ONLINE, 0
   field :PEER_OFFLINE, 1
@@ -201,7 +261,11 @@ end
 defmodule Lnrpc.PendingChannelsResponse.ForceClosedChannel.AnchorState do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.PendingChannelsResponse.ForceClosedChannel.AnchorState",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :LIMBO, 0
   field :RECOVERED, 1
@@ -211,7 +275,11 @@ end
 defmodule Lnrpc.ChannelEventUpdate.UpdateType do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.ChannelEventUpdate.UpdateType",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :OPEN_CHANNEL, 0
   field :CLOSED_CHANNEL, 1
@@ -224,7 +292,11 @@ end
 defmodule Lnrpc.Invoice.InvoiceState do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.Invoice.InvoiceState",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :OPEN, 0
   field :SETTLED, 1
@@ -235,7 +307,11 @@ end
 defmodule Lnrpc.Payment.PaymentStatus do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.Payment.PaymentStatus",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :UNKNOWN, 0
   field :IN_FLIGHT, 1
@@ -247,7 +323,11 @@ end
 defmodule Lnrpc.HTLCAttempt.HTLCStatus do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.HTLCAttempt.HTLCStatus",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :IN_FLIGHT, 0
   field :SUCCEEDED, 1
@@ -257,7 +337,11 @@ end
 defmodule Lnrpc.Failure.FailureCode do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "lnrpc.Failure.FailureCode",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :RESERVED, 0
   field :INCORRECT_OR_UNKNOWN_PAYMENT_DETAILS, 1
@@ -293,7 +377,10 @@ end
 defmodule Lnrpc.LookupHtlcResolutionRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.LookupHtlcResolutionRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :chan_id, 1, type: :uint64, json_name: "chanId"
   field :htlc_index, 2, type: :uint64, json_name: "htlcIndex"
@@ -302,7 +389,10 @@ end
 defmodule Lnrpc.LookupHtlcResolutionResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.LookupHtlcResolutionResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :settled, 1, type: :bool
   field :offchain, 2, type: :bool
@@ -311,13 +401,19 @@ end
 defmodule Lnrpc.SubscribeCustomMessagesRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SubscribeCustomMessagesRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.CustomMessage do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.CustomMessage",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :peer, 1, type: :bytes
   field :type, 2, type: :uint32
@@ -327,7 +423,10 @@ end
 defmodule Lnrpc.SendCustomMessageRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SendCustomMessageRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :peer, 1, type: :bytes
   field :type, 2, type: :uint32
@@ -337,13 +436,16 @@ end
 defmodule Lnrpc.SendCustomMessageResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SendCustomMessageResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.Utxo do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.Utxo", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :address_type, 1, type: Lnrpc.AddressType, json_name: "addressType", enum: true
   field :address, 2, type: :string
@@ -356,7 +458,10 @@ end
 defmodule Lnrpc.OutputDetail do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.OutputDetail",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :output_type, 1, type: Lnrpc.OutputScriptType, json_name: "outputType", enum: true
   field :address, 2, type: :string
@@ -369,7 +474,10 @@ end
 defmodule Lnrpc.Transaction do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.Transaction",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :tx_hash, 1, type: :string, json_name: "txHash"
   field :amount, 2, type: :int64
@@ -398,7 +506,10 @@ end
 defmodule Lnrpc.GetTransactionsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.GetTransactionsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :start_height, 1, type: :int32, json_name: "startHeight"
   field :end_height, 2, type: :int32, json_name: "endHeight"
@@ -408,7 +519,10 @@ end
 defmodule Lnrpc.TransactionDetails do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.TransactionDetails",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :transactions, 1, repeated: true, type: Lnrpc.Transaction
 end
@@ -416,7 +530,7 @@ end
 defmodule Lnrpc.FeeLimit do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.FeeLimit", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   oneof :limit, 0
 
@@ -428,7 +542,11 @@ end
 defmodule Lnrpc.SendRequest.DestCustomRecordsEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SendRequest.DestCustomRecordsEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :uint64
   field :value, 2, type: :bytes
@@ -437,7 +555,10 @@ end
 defmodule Lnrpc.SendRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SendRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :dest, 1, type: :bytes
   field :dest_string, 2, type: :string, json_name: "destString", deprecated: true
@@ -472,7 +593,10 @@ end
 defmodule Lnrpc.SendResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SendResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :payment_error, 1, type: :string, json_name: "paymentError"
   field :payment_preimage, 2, type: :bytes, json_name: "paymentPreimage"
@@ -483,7 +607,10 @@ end
 defmodule Lnrpc.SendToRouteRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SendToRouteRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :payment_hash, 1, type: :bytes, json_name: "paymentHash"
   field :payment_hash_string, 2, type: :string, json_name: "paymentHashString", deprecated: true
@@ -493,7 +620,10 @@ end
 defmodule Lnrpc.ChannelAcceptRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelAcceptRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :node_pubkey, 1, type: :bytes, json_name: "nodePubkey"
   field :chain_hash, 2, type: :bytes, json_name: "chainHash"
@@ -516,7 +646,10 @@ end
 defmodule Lnrpc.ChannelAcceptResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelAcceptResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :accept, 1, type: :bool
   field :pending_chan_id, 2, type: :bytes, json_name: "pendingChanId"
@@ -534,7 +667,10 @@ end
 defmodule Lnrpc.ChannelPoint do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelPoint",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :funding_txid, 0
 
@@ -546,7 +682,7 @@ end
 defmodule Lnrpc.OutPoint do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.OutPoint", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :txid_bytes, 1, type: :bytes, json_name: "txidBytes"
   field :txid_str, 2, type: :string, json_name: "txidStr"
@@ -556,7 +692,10 @@ end
 defmodule Lnrpc.PreviousOutPoint do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PreviousOutPoint",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :outpoint, 1, type: :string
   field :is_our_output, 2, type: :bool, json_name: "isOurOutput"
@@ -565,7 +704,10 @@ end
 defmodule Lnrpc.LightningAddress do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.LightningAddress",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :pubkey, 1, type: :string
   field :host, 2, type: :string
@@ -574,7 +716,11 @@ end
 defmodule Lnrpc.EstimateFeeRequest.AddrToAmountEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.EstimateFeeRequest.AddrToAmountEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :string
   field :value, 2, type: :int64
@@ -583,7 +729,10 @@ end
 defmodule Lnrpc.EstimateFeeRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.EstimateFeeRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :AddrToAmount, 1,
     repeated: true,
@@ -603,7 +752,10 @@ end
 defmodule Lnrpc.EstimateFeeResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.EstimateFeeResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :fee_sat, 1, type: :int64, json_name: "feeSat"
   field :feerate_sat_per_byte, 2, type: :int64, json_name: "feerateSatPerByte", deprecated: true
@@ -613,7 +765,11 @@ end
 defmodule Lnrpc.SendManyRequest.AddrToAmountEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SendManyRequest.AddrToAmountEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :string
   field :value, 2, type: :int64
@@ -622,7 +778,10 @@ end
 defmodule Lnrpc.SendManyRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SendManyRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :AddrToAmount, 1, repeated: true, type: Lnrpc.SendManyRequest.AddrToAmountEntry, map: true
   field :target_conf, 3, type: :int32, json_name: "targetConf"
@@ -641,7 +800,10 @@ end
 defmodule Lnrpc.SendManyResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SendManyResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :txid, 1, type: :string
 end
@@ -649,7 +811,10 @@ end
 defmodule Lnrpc.SendCoinsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SendCoinsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :addr, 1, type: :string
   field :amount, 2, type: :int64
@@ -670,7 +835,10 @@ end
 defmodule Lnrpc.SendCoinsResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SendCoinsResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :txid, 1, type: :string
 end
@@ -678,7 +846,10 @@ end
 defmodule Lnrpc.ListUnspentRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListUnspentRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :min_confs, 1, type: :int32, json_name: "minConfs"
   field :max_confs, 2, type: :int32, json_name: "maxConfs"
@@ -688,7 +859,10 @@ end
 defmodule Lnrpc.ListUnspentResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListUnspentResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :utxos, 1, repeated: true, type: Lnrpc.Utxo
 end
@@ -696,7 +870,10 @@ end
 defmodule Lnrpc.NewAddressRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.NewAddressRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :type, 1, type: Lnrpc.AddressType, enum: true
   field :account, 2, type: :string
@@ -705,7 +882,10 @@ end
 defmodule Lnrpc.NewAddressResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.NewAddressResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :address, 1, type: :string
 end
@@ -713,7 +893,10 @@ end
 defmodule Lnrpc.SignMessageRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SignMessageRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :msg, 1, type: :bytes
   field :single_hash, 2, type: :bool, json_name: "singleHash"
@@ -722,7 +905,10 @@ end
 defmodule Lnrpc.SignMessageResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.SignMessageResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :signature, 1, type: :string
 end
@@ -730,7 +916,10 @@ end
 defmodule Lnrpc.VerifyMessageRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.VerifyMessageRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :msg, 1, type: :bytes
   field :signature, 2, type: :string
@@ -739,7 +928,10 @@ end
 defmodule Lnrpc.VerifyMessageResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.VerifyMessageResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :valid, 1, type: :bool
   field :pubkey, 2, type: :string
@@ -748,7 +940,10 @@ end
 defmodule Lnrpc.ConnectPeerRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ConnectPeerRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :addr, 1, type: Lnrpc.LightningAddress
   field :perm, 2, type: :bool
@@ -758,13 +953,19 @@ end
 defmodule Lnrpc.ConnectPeerResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ConnectPeerResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.DisconnectPeerRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.DisconnectPeerRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :pub_key, 1, type: :string, json_name: "pubKey"
 end
@@ -772,13 +973,16 @@ end
 defmodule Lnrpc.DisconnectPeerResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.DisconnectPeerResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.HTLC do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.HTLC", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :incoming, 1, type: :bool
   field :amount, 2, type: :int64
@@ -792,7 +996,10 @@ end
 defmodule Lnrpc.ChannelConstraints do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelConstraints",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :csv_delay, 1, type: :uint32, json_name: "csvDelay"
   field :chan_reserve_sat, 2, type: :uint64, json_name: "chanReserveSat"
@@ -805,7 +1012,7 @@ end
 defmodule Lnrpc.Channel do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.Channel", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :active, 1, type: :bool
   field :remote_pubkey, 2, type: :string, json_name: "remotePubkey"
@@ -857,7 +1064,10 @@ end
 defmodule Lnrpc.ListChannelsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListChannelsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :active_only, 1, type: :bool, json_name: "activeOnly"
   field :inactive_only, 2, type: :bool, json_name: "inactiveOnly"
@@ -870,7 +1080,10 @@ end
 defmodule Lnrpc.ListChannelsResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListChannelsResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channels, 11, repeated: true, type: Lnrpc.Channel
 end
@@ -878,7 +1091,7 @@ end
 defmodule Lnrpc.AliasMap do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.AliasMap", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :base_scid, 1, type: :uint64, json_name: "baseScid"
   field :aliases, 2, repeated: true, type: :uint64
@@ -887,13 +1100,19 @@ end
 defmodule Lnrpc.ListAliasesRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListAliasesRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.ListAliasesResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListAliasesResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :alias_maps, 1, repeated: true, type: Lnrpc.AliasMap, json_name: "aliasMaps"
 end
@@ -901,7 +1120,10 @@ end
 defmodule Lnrpc.ChannelCloseSummary do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelCloseSummary",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channel_point, 1, type: :string, json_name: "channelPoint"
   field :chan_id, 2, type: :uint64, json_name: "chanId", deprecated: false
@@ -932,7 +1154,10 @@ end
 defmodule Lnrpc.Resolution do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.Resolution",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :resolution_type, 1, type: Lnrpc.ResolutionType, json_name: "resolutionType", enum: true
   field :outcome, 2, type: Lnrpc.ResolutionOutcome, enum: true
@@ -944,7 +1169,10 @@ end
 defmodule Lnrpc.ClosedChannelsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ClosedChannelsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :cooperative, 1, type: :bool
   field :local_force, 2, type: :bool, json_name: "localForce"
@@ -957,7 +1185,10 @@ end
 defmodule Lnrpc.ClosedChannelsResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ClosedChannelsResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channels, 1, repeated: true, type: Lnrpc.ChannelCloseSummary
 end
@@ -965,7 +1196,11 @@ end
 defmodule Lnrpc.Peer.FeaturesEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.Peer.FeaturesEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :uint32
   field :value, 2, type: Lnrpc.Feature
@@ -974,7 +1209,7 @@ end
 defmodule Lnrpc.Peer do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.Peer", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :pub_key, 1, type: :string, json_name: "pubKey"
   field :address, 3, type: :string
@@ -995,7 +1230,10 @@ end
 defmodule Lnrpc.TimestampedError do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.TimestampedError",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :timestamp, 1, type: :uint64
   field :error, 2, type: :string
@@ -1004,7 +1242,10 @@ end
 defmodule Lnrpc.ListPeersRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListPeersRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :latest_error, 1, type: :bool, json_name: "latestError"
 end
@@ -1012,7 +1253,10 @@ end
 defmodule Lnrpc.ListPeersResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListPeersResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :peers, 1, repeated: true, type: Lnrpc.Peer
 end
@@ -1020,13 +1264,16 @@ end
 defmodule Lnrpc.PeerEventSubscription do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PeerEventSubscription",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.PeerEvent do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.PeerEvent", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :pub_key, 1, type: :string, json_name: "pubKey"
   field :type, 2, type: Lnrpc.PeerEvent.EventType, enum: true
@@ -1035,13 +1282,20 @@ end
 defmodule Lnrpc.GetInfoRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.GetInfoRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.GetInfoResponse.FeaturesEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.GetInfoResponse.FeaturesEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :uint32
   field :value, 2, type: Lnrpc.Feature
@@ -1050,7 +1304,10 @@ end
 defmodule Lnrpc.GetInfoResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.GetInfoResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :version, 14, type: :string
   field :commit_hash, 20, type: :string, json_name: "commitHash"
@@ -1077,13 +1334,20 @@ end
 defmodule Lnrpc.GetDebugInfoRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.GetDebugInfoRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.GetDebugInfoResponse.ConfigEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.GetDebugInfoResponse.ConfigEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :string
   field :value, 2, type: :string
@@ -1092,7 +1356,10 @@ end
 defmodule Lnrpc.GetDebugInfoResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.GetDebugInfoResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :config, 1, repeated: true, type: Lnrpc.GetDebugInfoResponse.ConfigEntry, map: true
   field :log, 2, repeated: true, type: :string
@@ -1101,13 +1368,19 @@ end
 defmodule Lnrpc.GetRecoveryInfoRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.GetRecoveryInfoRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.GetRecoveryInfoResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.GetRecoveryInfoResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :recovery_mode, 1, type: :bool, json_name: "recoveryMode"
   field :recovery_finished, 2, type: :bool, json_name: "recoveryFinished"
@@ -1117,7 +1390,7 @@ end
 defmodule Lnrpc.Chain do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.Chain", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :chain, 1, type: :string, deprecated: true
   field :network, 2, type: :string
@@ -1126,7 +1399,10 @@ end
 defmodule Lnrpc.ConfirmationUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ConfirmationUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :block_sha, 1, type: :bytes, json_name: "blockSha"
   field :block_height, 2, type: :int32, json_name: "blockHeight"
@@ -1136,7 +1412,10 @@ end
 defmodule Lnrpc.ChannelOpenUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelOpenUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channel_point, 1, type: Lnrpc.ChannelPoint, json_name: "channelPoint"
 end
@@ -1144,7 +1423,10 @@ end
 defmodule Lnrpc.ChannelCloseUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelCloseUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :closing_txid, 1, type: :bytes, json_name: "closingTxid"
   field :success, 2, type: :bool
@@ -1153,7 +1435,10 @@ end
 defmodule Lnrpc.CloseChannelRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.CloseChannelRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channel_point, 1, type: Lnrpc.ChannelPoint, json_name: "channelPoint"
   field :force, 2, type: :bool
@@ -1168,7 +1453,10 @@ end
 defmodule Lnrpc.CloseStatusUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.CloseStatusUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :update, 0
 
@@ -1180,7 +1468,10 @@ end
 defmodule Lnrpc.PendingUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PendingUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :txid, 1, type: :bytes
   field :output_index, 2, type: :uint32, json_name: "outputIndex"
@@ -1189,13 +1480,19 @@ end
 defmodule Lnrpc.InstantUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.InstantUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.ReadyForPsbtFunding do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ReadyForPsbtFunding",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :funding_address, 1, type: :string, json_name: "fundingAddress"
   field :funding_amount, 2, type: :int64, json_name: "fundingAmount"
@@ -1205,7 +1502,10 @@ end
 defmodule Lnrpc.BatchOpenChannelRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.BatchOpenChannelRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channels, 1, repeated: true, type: Lnrpc.BatchOpenChannel
   field :target_conf, 2, type: :int32, json_name: "targetConf"
@@ -1223,7 +1523,10 @@ end
 defmodule Lnrpc.BatchOpenChannel do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.BatchOpenChannel",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :node_pubkey, 1, type: :bytes, json_name: "nodePubkey"
   field :local_funding_amount, 2, type: :int64, json_name: "localFundingAmount"
@@ -1254,7 +1557,10 @@ end
 defmodule Lnrpc.BatchOpenChannelResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.BatchOpenChannelResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :pending_channels, 1,
     repeated: true,
@@ -1265,7 +1571,10 @@ end
 defmodule Lnrpc.OpenChannelRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.OpenChannelRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :sat_per_vbyte, 1, type: :uint64, json_name: "satPerVbyte"
   field :node_pubkey, 2, type: :bytes, json_name: "nodePubkey"
@@ -1304,7 +1613,10 @@ end
 defmodule Lnrpc.OpenStatusUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.OpenStatusUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :update, 0
 
@@ -1317,7 +1629,10 @@ end
 defmodule Lnrpc.KeyLocator do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.KeyLocator",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key_family, 1, type: :int32, json_name: "keyFamily"
   field :key_index, 2, type: :int32, json_name: "keyIndex"
@@ -1326,7 +1641,10 @@ end
 defmodule Lnrpc.KeyDescriptor do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.KeyDescriptor",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :raw_key_bytes, 1, type: :bytes, json_name: "rawKeyBytes"
   field :key_loc, 2, type: Lnrpc.KeyLocator, json_name: "keyLoc"
@@ -1335,7 +1653,10 @@ end
 defmodule Lnrpc.ChanPointShim do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChanPointShim",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :amt, 1, type: :int64
   field :chan_point, 2, type: Lnrpc.ChannelPoint, json_name: "chanPoint"
@@ -1349,7 +1670,7 @@ end
 defmodule Lnrpc.PsbtShim do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.PsbtShim", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :pending_chan_id, 1, type: :bytes, json_name: "pendingChanId"
   field :base_psbt, 2, type: :bytes, json_name: "basePsbt"
@@ -1359,7 +1680,10 @@ end
 defmodule Lnrpc.FundingShim do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.FundingShim",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :shim, 0
 
@@ -1370,7 +1694,10 @@ end
 defmodule Lnrpc.FundingShimCancel do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.FundingShimCancel",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :pending_chan_id, 1, type: :bytes, json_name: "pendingChanId"
 end
@@ -1378,7 +1705,10 @@ end
 defmodule Lnrpc.FundingPsbtVerify do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.FundingPsbtVerify",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :funded_psbt, 1, type: :bytes, json_name: "fundedPsbt"
   field :pending_chan_id, 2, type: :bytes, json_name: "pendingChanId"
@@ -1388,7 +1718,10 @@ end
 defmodule Lnrpc.FundingPsbtFinalize do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.FundingPsbtFinalize",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :signed_psbt, 1, type: :bytes, json_name: "signedPsbt"
   field :pending_chan_id, 2, type: :bytes, json_name: "pendingChanId"
@@ -1398,7 +1731,10 @@ end
 defmodule Lnrpc.FundingTransitionMsg do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.FundingTransitionMsg",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :trigger, 0
 
@@ -1411,13 +1747,19 @@ end
 defmodule Lnrpc.FundingStateStepResp do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.FundingStateStepResp",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.PendingHTLC do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PendingHTLC",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :incoming, 1, type: :bool
   field :amount, 2, type: :int64
@@ -1430,7 +1772,10 @@ end
 defmodule Lnrpc.PendingChannelsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PendingChannelsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :include_raw_tx, 1, type: :bool, json_name: "includeRawTx"
 end
@@ -1438,7 +1783,10 @@ end
 defmodule Lnrpc.PendingChannelsResponse.PendingChannel do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PendingChannelsResponse.PendingChannel",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :remote_node_pub, 1, type: :string, json_name: "remoteNodePub"
   field :channel_point, 2, type: :string, json_name: "channelPoint"
@@ -1458,7 +1806,10 @@ end
 defmodule Lnrpc.PendingChannelsResponse.PendingOpenChannel do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PendingChannelsResponse.PendingOpenChannel",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channel, 1, type: Lnrpc.PendingChannelsResponse.PendingChannel
   field :commit_fee, 4, type: :int64, json_name: "commitFee"
@@ -1470,7 +1821,10 @@ end
 defmodule Lnrpc.PendingChannelsResponse.WaitingCloseChannel do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PendingChannelsResponse.WaitingCloseChannel",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channel, 1, type: Lnrpc.PendingChannelsResponse.PendingChannel
   field :limbo_balance, 2, type: :int64, json_name: "limboBalance"
@@ -1482,7 +1836,10 @@ end
 defmodule Lnrpc.PendingChannelsResponse.Commitments do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PendingChannelsResponse.Commitments",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :local_txid, 1, type: :string, json_name: "localTxid"
   field :remote_txid, 2, type: :string, json_name: "remoteTxid"
@@ -1495,7 +1852,10 @@ end
 defmodule Lnrpc.PendingChannelsResponse.ClosedChannel do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PendingChannelsResponse.ClosedChannel",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channel, 1, type: Lnrpc.PendingChannelsResponse.PendingChannel
   field :closing_txid, 2, type: :string, json_name: "closingTxid"
@@ -1504,7 +1864,10 @@ end
 defmodule Lnrpc.PendingChannelsResponse.ForceClosedChannel do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PendingChannelsResponse.ForceClosedChannel",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channel, 1, type: Lnrpc.PendingChannelsResponse.PendingChannel
   field :closing_txid, 2, type: :string, json_name: "closingTxid"
@@ -1519,7 +1882,10 @@ end
 defmodule Lnrpc.PendingChannelsResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PendingChannelsResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :total_limbo_balance, 1, type: :int64, json_name: "totalLimboBalance"
 
@@ -1548,13 +1914,19 @@ end
 defmodule Lnrpc.ChannelEventSubscription do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelEventSubscription",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.ChannelEventUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelEventUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :channel, 0
 
@@ -1579,7 +1951,10 @@ end
 defmodule Lnrpc.WalletAccountBalance do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.WalletAccountBalance",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :confirmed_balance, 1, type: :int64, json_name: "confirmedBalance"
   field :unconfirmed_balance, 2, type: :int64, json_name: "unconfirmedBalance"
@@ -1588,7 +1963,10 @@ end
 defmodule Lnrpc.WalletBalanceRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.WalletBalanceRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :account, 1, type: :string
   field :min_confs, 2, type: :int32, json_name: "minConfs"
@@ -1597,7 +1975,11 @@ end
 defmodule Lnrpc.WalletBalanceResponse.AccountBalanceEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.WalletBalanceResponse.AccountBalanceEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :string
   field :value, 2, type: Lnrpc.WalletAccountBalance
@@ -1606,7 +1988,10 @@ end
 defmodule Lnrpc.WalletBalanceResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.WalletBalanceResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :total_balance, 1, type: :int64, json_name: "totalBalance"
   field :confirmed_balance, 2, type: :int64, json_name: "confirmedBalance"
@@ -1624,7 +2009,7 @@ end
 defmodule Lnrpc.Amount do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.Amount", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :sat, 1, type: :uint64
   field :msat, 2, type: :uint64
@@ -1633,13 +2018,19 @@ end
 defmodule Lnrpc.ChannelBalanceRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelBalanceRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.ChannelBalanceResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelBalanceResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :balance, 1, type: :int64, deprecated: true
   field :pending_open_balance, 2, type: :int64, json_name: "pendingOpenBalance", deprecated: true
@@ -1654,7 +2045,11 @@ end
 defmodule Lnrpc.QueryRoutesRequest.DestCustomRecordsEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.QueryRoutesRequest.DestCustomRecordsEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :uint64
   field :value, 2, type: :bytes
@@ -1663,7 +2058,10 @@ end
 defmodule Lnrpc.QueryRoutesRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.QueryRoutesRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :pub_key, 1, type: :string, json_name: "pubKey"
   field :amt, 2, type: :int64
@@ -1710,7 +2108,7 @@ end
 defmodule Lnrpc.NodePair do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.NodePair", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :from, 1, type: :bytes
   field :to, 2, type: :bytes
@@ -1719,7 +2117,10 @@ end
 defmodule Lnrpc.EdgeLocator do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.EdgeLocator",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channel_id, 1, type: :uint64, json_name: "channelId", deprecated: false
   field :direction_reverse, 2, type: :bool, json_name: "directionReverse"
@@ -1728,7 +2129,10 @@ end
 defmodule Lnrpc.QueryRoutesResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.QueryRoutesResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :routes, 1, repeated: true, type: Lnrpc.Route
   field :success_prob, 2, type: :double, json_name: "successProb"
@@ -1737,7 +2141,11 @@ end
 defmodule Lnrpc.Hop.CustomRecordsEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.Hop.CustomRecordsEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :uint64
   field :value, 2, type: :bytes
@@ -1746,7 +2154,7 @@ end
 defmodule Lnrpc.Hop do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.Hop", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :chan_id, 1, type: :uint64, json_name: "chanId", deprecated: false
   field :chan_capacity, 2, type: :int64, json_name: "chanCapacity", deprecated: true
@@ -1775,7 +2183,7 @@ end
 defmodule Lnrpc.MPPRecord do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.MPPRecord", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :payment_addr, 11, type: :bytes, json_name: "paymentAddr"
   field :total_amt_msat, 10, type: :int64, json_name: "totalAmtMsat"
@@ -1784,7 +2192,7 @@ end
 defmodule Lnrpc.AMPRecord do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.AMPRecord", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :root_share, 1, type: :bytes, json_name: "rootShare"
   field :set_id, 2, type: :bytes, json_name: "setId"
@@ -1794,7 +2202,7 @@ end
 defmodule Lnrpc.Route do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.Route", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :total_time_lock, 1, type: :uint32, json_name: "totalTimeLock"
   field :total_fees, 2, type: :int64, json_name: "totalFees", deprecated: true
@@ -1807,7 +2215,10 @@ end
 defmodule Lnrpc.NodeInfoRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.NodeInfoRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :pub_key, 1, type: :string, json_name: "pubKey"
   field :include_channels, 2, type: :bool, json_name: "includeChannels"
@@ -1816,7 +2227,7 @@ end
 defmodule Lnrpc.NodeInfo do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.NodeInfo", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :node, 1, type: Lnrpc.LightningNode
   field :num_channels, 2, type: :uint32, json_name: "numChannels"
@@ -1827,7 +2238,11 @@ end
 defmodule Lnrpc.LightningNode.FeaturesEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.LightningNode.FeaturesEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :uint32
   field :value, 2, type: Lnrpc.Feature
@@ -1836,7 +2251,11 @@ end
 defmodule Lnrpc.LightningNode.CustomRecordsEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.LightningNode.CustomRecordsEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :uint64
   field :value, 2, type: :bytes
@@ -1845,7 +2264,10 @@ end
 defmodule Lnrpc.LightningNode do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.LightningNode",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :last_update, 1, type: :uint32, json_name: "lastUpdate"
   field :pub_key, 2, type: :string, json_name: "pubKey"
@@ -1864,7 +2286,10 @@ end
 defmodule Lnrpc.NodeAddress do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.NodeAddress",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :network, 1, type: :string
   field :addr, 2, type: :string
@@ -1873,7 +2298,11 @@ end
 defmodule Lnrpc.RoutingPolicy.CustomRecordsEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.RoutingPolicy.CustomRecordsEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :uint64
   field :value, 2, type: :bytes
@@ -1882,7 +2311,10 @@ end
 defmodule Lnrpc.RoutingPolicy do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.RoutingPolicy",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :time_lock_delta, 1, type: :uint32, json_name: "timeLockDelta"
   field :min_htlc, 2, type: :int64, json_name: "minHtlc"
@@ -1905,7 +2337,11 @@ end
 defmodule Lnrpc.ChannelEdge.CustomRecordsEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelEdge.CustomRecordsEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :uint64
   field :value, 2, type: :bytes
@@ -1914,7 +2350,10 @@ end
 defmodule Lnrpc.ChannelEdge do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelEdge",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channel_id, 1, type: :uint64, json_name: "channelId", deprecated: false
   field :chan_point, 2, type: :string, json_name: "chanPoint"
@@ -1935,7 +2374,10 @@ end
 defmodule Lnrpc.ChannelGraphRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelGraphRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :include_unannounced, 1, type: :bool, json_name: "includeUnannounced"
 end
@@ -1943,7 +2385,10 @@ end
 defmodule Lnrpc.ChannelGraph do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelGraph",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :nodes, 1, repeated: true, type: Lnrpc.LightningNode
   field :edges, 2, repeated: true, type: Lnrpc.ChannelEdge
@@ -1952,7 +2397,10 @@ end
 defmodule Lnrpc.NodeMetricsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.NodeMetricsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :types, 1, repeated: true, type: Lnrpc.NodeMetricType, enum: true
 end
@@ -1960,7 +2408,11 @@ end
 defmodule Lnrpc.NodeMetricsResponse.BetweennessCentralityEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.NodeMetricsResponse.BetweennessCentralityEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :string
   field :value, 2, type: Lnrpc.FloatMetric
@@ -1969,7 +2421,10 @@ end
 defmodule Lnrpc.NodeMetricsResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.NodeMetricsResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :betweenness_centrality, 1,
     repeated: true,
@@ -1981,7 +2436,10 @@ end
 defmodule Lnrpc.FloatMetric do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.FloatMetric",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :value, 1, type: :double
   field :normalized_value, 2, type: :double, json_name: "normalizedValue"
@@ -1990,7 +2448,10 @@ end
 defmodule Lnrpc.ChanInfoRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChanInfoRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :chan_id, 1, type: :uint64, json_name: "chanId", deprecated: false
 end
@@ -1998,13 +2459,19 @@ end
 defmodule Lnrpc.NetworkInfoRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.NetworkInfoRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.NetworkInfo do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.NetworkInfo",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :graph_diameter, 1, type: :uint32, json_name: "graphDiameter"
   field :avg_out_degree, 2, type: :double, json_name: "avgOutDegree"
@@ -2022,25 +2489,37 @@ end
 defmodule Lnrpc.StopRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.StopRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.StopResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.StopResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.GraphTopologySubscription do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.GraphTopologySubscription",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.GraphTopologyUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.GraphTopologyUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :node_updates, 1, repeated: true, type: Lnrpc.NodeUpdate, json_name: "nodeUpdates"
 
@@ -2058,7 +2537,11 @@ end
 defmodule Lnrpc.NodeUpdate.FeaturesEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.NodeUpdate.FeaturesEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :uint32
   field :value, 2, type: Lnrpc.Feature
@@ -2067,7 +2550,10 @@ end
 defmodule Lnrpc.NodeUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.NodeUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :addresses, 1, repeated: true, type: :string, deprecated: true
   field :identity_key, 2, type: :string, json_name: "identityKey"
@@ -2081,7 +2567,10 @@ end
 defmodule Lnrpc.ChannelEdgeUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelEdgeUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :chan_id, 1, type: :uint64, json_name: "chanId", deprecated: false
   field :chan_point, 2, type: Lnrpc.ChannelPoint, json_name: "chanPoint"
@@ -2094,7 +2583,10 @@ end
 defmodule Lnrpc.ClosedChannelUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ClosedChannelUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :chan_id, 1, type: :uint64, json_name: "chanId", deprecated: false
   field :capacity, 2, type: :int64
@@ -2105,7 +2597,7 @@ end
 defmodule Lnrpc.HopHint do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.HopHint", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :node_id, 1, type: :string, json_name: "nodeId"
   field :chan_id, 2, type: :uint64, json_name: "chanId", deprecated: false
@@ -2117,7 +2609,7 @@ end
 defmodule Lnrpc.SetID do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.SetID", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :set_id, 1, type: :bytes, json_name: "setId"
 end
@@ -2125,7 +2617,7 @@ end
 defmodule Lnrpc.RouteHint do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.RouteHint", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :hop_hints, 1, repeated: true, type: Lnrpc.HopHint, json_name: "hopHints"
 end
@@ -2133,7 +2625,10 @@ end
 defmodule Lnrpc.BlindedPaymentPath do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.BlindedPaymentPath",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :blinded_path, 1, type: Lnrpc.BlindedPath, json_name: "blindedPath"
   field :base_fee_msat, 2, type: :uint64, json_name: "baseFeeMsat"
@@ -2147,7 +2642,10 @@ end
 defmodule Lnrpc.BlindedPath do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.BlindedPath",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :introduction_node, 1, type: :bytes, json_name: "introductionNode"
   field :blinding_point, 2, type: :bytes, json_name: "blindingPoint"
@@ -2157,7 +2655,10 @@ end
 defmodule Lnrpc.BlindedHop do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.BlindedHop",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :blinded_node, 1, type: :bytes, json_name: "blindedNode"
   field :encrypted_data, 2, type: :bytes, json_name: "encryptedData"
@@ -2166,7 +2667,10 @@ end
 defmodule Lnrpc.AMPInvoiceState do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.AMPInvoiceState",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :state, 1, type: Lnrpc.InvoiceHTLCState, enum: true
   field :settle_index, 2, type: :uint64, json_name: "settleIndex"
@@ -2177,7 +2681,11 @@ end
 defmodule Lnrpc.Invoice.FeaturesEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.Invoice.FeaturesEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :uint32
   field :value, 2, type: Lnrpc.Feature
@@ -2186,7 +2694,11 @@ end
 defmodule Lnrpc.Invoice.AmpInvoiceStateEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.Invoice.AmpInvoiceStateEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :string
   field :value, 2, type: Lnrpc.AMPInvoiceState
@@ -2195,7 +2707,7 @@ end
 defmodule Lnrpc.Invoice do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.Invoice", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :memo, 1, type: :string
   field :r_preimage, 3, type: :bytes, json_name: "rPreimage"
@@ -2234,7 +2746,11 @@ end
 defmodule Lnrpc.InvoiceHTLC.CustomRecordsEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.InvoiceHTLC.CustomRecordsEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :uint64
   field :value, 2, type: :bytes
@@ -2243,7 +2759,10 @@ end
 defmodule Lnrpc.InvoiceHTLC do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.InvoiceHTLC",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :chan_id, 1, type: :uint64, json_name: "chanId", deprecated: false
   field :htlc_index, 2, type: :uint64, json_name: "htlcIndex"
@@ -2267,7 +2786,7 @@ end
 defmodule Lnrpc.AMP do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.AMP", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :root_share, 1, type: :bytes, json_name: "rootShare"
   field :set_id, 2, type: :bytes, json_name: "setId"
@@ -2279,7 +2798,10 @@ end
 defmodule Lnrpc.AddInvoiceResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.AddInvoiceResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :r_hash, 1, type: :bytes, json_name: "rHash"
   field :payment_request, 2, type: :string, json_name: "paymentRequest"
@@ -2290,7 +2812,10 @@ end
 defmodule Lnrpc.PaymentHash do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PaymentHash",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :r_hash_str, 1, type: :string, json_name: "rHashStr", deprecated: true
   field :r_hash, 2, type: :bytes, json_name: "rHash"
@@ -2299,7 +2824,10 @@ end
 defmodule Lnrpc.ListInvoiceRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListInvoiceRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :pending_only, 1, type: :bool, json_name: "pendingOnly"
   field :index_offset, 4, type: :uint64, json_name: "indexOffset"
@@ -2312,7 +2840,10 @@ end
 defmodule Lnrpc.ListInvoiceResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListInvoiceResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :invoices, 1, repeated: true, type: Lnrpc.Invoice
   field :last_index_offset, 2, type: :uint64, json_name: "lastIndexOffset"
@@ -2322,7 +2853,10 @@ end
 defmodule Lnrpc.InvoiceSubscription do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.InvoiceSubscription",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :add_index, 1, type: :uint64, json_name: "addIndex"
   field :settle_index, 2, type: :uint64, json_name: "settleIndex"
@@ -2331,7 +2865,7 @@ end
 defmodule Lnrpc.Payment do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.Payment", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :payment_hash, 1, type: :string, json_name: "paymentHash"
   field :value, 2, type: :int64, deprecated: true
@@ -2357,7 +2891,10 @@ end
 defmodule Lnrpc.HTLCAttempt do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.HTLCAttempt",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :attempt_id, 7, type: :uint64, json_name: "attemptId"
   field :status, 1, type: Lnrpc.HTLCAttempt.HTLCStatus, enum: true
@@ -2371,7 +2908,10 @@ end
 defmodule Lnrpc.ListPaymentsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListPaymentsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :include_incomplete, 1, type: :bool, json_name: "includeIncomplete"
   field :index_offset, 2, type: :uint64, json_name: "indexOffset"
@@ -2385,7 +2925,10 @@ end
 defmodule Lnrpc.ListPaymentsResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListPaymentsResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :payments, 1, repeated: true, type: Lnrpc.Payment
   field :first_index_offset, 2, type: :uint64, json_name: "firstIndexOffset"
@@ -2396,7 +2939,10 @@ end
 defmodule Lnrpc.DeletePaymentRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.DeletePaymentRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :payment_hash, 1, type: :bytes, json_name: "paymentHash"
   field :failed_htlcs_only, 2, type: :bool, json_name: "failedHtlcsOnly"
@@ -2405,7 +2951,10 @@ end
 defmodule Lnrpc.DeleteAllPaymentsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.DeleteAllPaymentsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :failed_payments_only, 1, type: :bool, json_name: "failedPaymentsOnly"
   field :failed_htlcs_only, 2, type: :bool, json_name: "failedHtlcsOnly"
@@ -2415,19 +2964,28 @@ end
 defmodule Lnrpc.DeletePaymentResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.DeletePaymentResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.DeleteAllPaymentsResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.DeleteAllPaymentsResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.AbandonChannelRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.AbandonChannelRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channel_point, 1, type: Lnrpc.ChannelPoint, json_name: "channelPoint"
   field :pending_funding_shim_only, 2, type: :bool, json_name: "pendingFundingShimOnly"
@@ -2437,13 +2995,19 @@ end
 defmodule Lnrpc.AbandonChannelResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.AbandonChannelResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.DebugLevelRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.DebugLevelRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :show, 1, type: :bool
   field :level_spec, 2, type: :string, json_name: "levelSpec"
@@ -2452,7 +3016,10 @@ end
 defmodule Lnrpc.DebugLevelResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.DebugLevelResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :sub_systems, 1, type: :string, json_name: "subSystems"
 end
@@ -2460,7 +3027,10 @@ end
 defmodule Lnrpc.PayReqString do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PayReqString",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :pay_req, 1, type: :string, json_name: "payReq"
 end
@@ -2468,7 +3038,11 @@ end
 defmodule Lnrpc.PayReq.FeaturesEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PayReq.FeaturesEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :uint32
   field :value, 2, type: Lnrpc.Feature
@@ -2477,7 +3051,7 @@ end
 defmodule Lnrpc.PayReq do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.PayReq", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :destination, 1, type: :string
   field :payment_hash, 2, type: :string, json_name: "paymentHash"
@@ -2497,7 +3071,7 @@ end
 defmodule Lnrpc.Feature do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.Feature", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :name, 2, type: :string
   field :is_required, 3, type: :bool, json_name: "isRequired"
@@ -2507,13 +3081,19 @@ end
 defmodule Lnrpc.FeeReportRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.FeeReportRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.ChannelFeeReport do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelFeeReport",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :chan_id, 5, type: :uint64, json_name: "chanId", deprecated: false
   field :channel_point, 1, type: :string, json_name: "channelPoint"
@@ -2527,7 +3107,10 @@ end
 defmodule Lnrpc.FeeReportResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.FeeReportResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :channel_fees, 1, repeated: true, type: Lnrpc.ChannelFeeReport, json_name: "channelFees"
   field :day_fee_sum, 2, type: :uint64, json_name: "dayFeeSum"
@@ -2538,7 +3121,10 @@ end
 defmodule Lnrpc.InboundFee do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.InboundFee",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :base_fee_msat, 1, type: :int32, json_name: "baseFeeMsat"
   field :fee_rate_ppm, 2, type: :int32, json_name: "feeRatePpm"
@@ -2547,7 +3133,10 @@ end
 defmodule Lnrpc.PolicyUpdateRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PolicyUpdateRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :scope, 0
 
@@ -2566,7 +3155,10 @@ end
 defmodule Lnrpc.FailedUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.FailedUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :outpoint, 1, type: Lnrpc.OutPoint
   field :reason, 2, type: Lnrpc.UpdateFailure, enum: true
@@ -2576,7 +3168,10 @@ end
 defmodule Lnrpc.PolicyUpdateResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.PolicyUpdateResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :failed_updates, 1, repeated: true, type: Lnrpc.FailedUpdate, json_name: "failedUpdates"
 end
@@ -2584,7 +3179,10 @@ end
 defmodule Lnrpc.ForwardingHistoryRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ForwardingHistoryRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :start_time, 1, type: :uint64, json_name: "startTime"
   field :end_time, 2, type: :uint64, json_name: "endTime"
@@ -2596,7 +3194,10 @@ end
 defmodule Lnrpc.ForwardingEvent do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ForwardingEvent",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :timestamp, 1, type: :uint64, deprecated: true
   field :chan_id_in, 2, type: :uint64, json_name: "chanIdIn", deprecated: false
@@ -2615,7 +3216,10 @@ end
 defmodule Lnrpc.ForwardingHistoryResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ForwardingHistoryResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :forwarding_events, 1,
     repeated: true,
@@ -2628,7 +3232,10 @@ end
 defmodule Lnrpc.ExportChannelBackupRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ExportChannelBackupRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :chan_point, 1, type: Lnrpc.ChannelPoint, json_name: "chanPoint"
 end
@@ -2636,7 +3243,10 @@ end
 defmodule Lnrpc.ChannelBackup do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelBackup",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :chan_point, 1, type: Lnrpc.ChannelPoint, json_name: "chanPoint"
   field :chan_backup, 2, type: :bytes, json_name: "chanBackup"
@@ -2645,7 +3255,10 @@ end
 defmodule Lnrpc.MultiChanBackup do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.MultiChanBackup",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :chan_points, 1, repeated: true, type: Lnrpc.ChannelPoint, json_name: "chanPoints"
   field :multi_chan_backup, 2, type: :bytes, json_name: "multiChanBackup"
@@ -2654,13 +3267,19 @@ end
 defmodule Lnrpc.ChanBackupExportRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChanBackupExportRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.ChanBackupSnapshot do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChanBackupSnapshot",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :single_chan_backups, 1, type: Lnrpc.ChannelBackups, json_name: "singleChanBackups"
   field :multi_chan_backup, 2, type: Lnrpc.MultiChanBackup, json_name: "multiChanBackup"
@@ -2669,7 +3288,10 @@ end
 defmodule Lnrpc.ChannelBackups do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelBackups",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :chan_backups, 1, repeated: true, type: Lnrpc.ChannelBackup, json_name: "chanBackups"
 end
@@ -2677,7 +3299,10 @@ end
 defmodule Lnrpc.RestoreChanBackupRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.RestoreChanBackupRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :backup, 0
 
@@ -2688,25 +3313,37 @@ end
 defmodule Lnrpc.RestoreBackupResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.RestoreBackupResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.ChannelBackupSubscription do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelBackupSubscription",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.VerifyChanBackupResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.VerifyChanBackupResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.MacaroonPermission do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.MacaroonPermission",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :entity, 1, type: :string
   field :action, 2, type: :string
@@ -2715,7 +3352,10 @@ end
 defmodule Lnrpc.BakeMacaroonRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.BakeMacaroonRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :permissions, 1, repeated: true, type: Lnrpc.MacaroonPermission
   field :root_key_id, 2, type: :uint64, json_name: "rootKeyId"
@@ -2725,7 +3365,10 @@ end
 defmodule Lnrpc.BakeMacaroonResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.BakeMacaroonResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :macaroon, 1, type: :string
 end
@@ -2733,13 +3376,19 @@ end
 defmodule Lnrpc.ListMacaroonIDsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListMacaroonIDsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.ListMacaroonIDsResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListMacaroonIDsResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :root_key_ids, 1, repeated: true, type: :uint64, json_name: "rootKeyIds"
 end
@@ -2747,7 +3396,10 @@ end
 defmodule Lnrpc.DeleteMacaroonIDRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.DeleteMacaroonIDRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :root_key_id, 1, type: :uint64, json_name: "rootKeyId"
 end
@@ -2755,7 +3407,10 @@ end
 defmodule Lnrpc.DeleteMacaroonIDResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.DeleteMacaroonIDResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :deleted, 1, type: :bool
 end
@@ -2763,7 +3418,10 @@ end
 defmodule Lnrpc.MacaroonPermissionList do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.MacaroonPermissionList",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :permissions, 1, repeated: true, type: Lnrpc.MacaroonPermission
 end
@@ -2771,13 +3429,20 @@ end
 defmodule Lnrpc.ListPermissionsRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListPermissionsRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 end
 
 defmodule Lnrpc.ListPermissionsResponse.MethodPermissionsEntry do
   @moduledoc false
 
-  use Protobuf, map: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListPermissionsResponse.MethodPermissionsEntry",
+    map: true,
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :key, 1, type: :string
   field :value, 2, type: Lnrpc.MacaroonPermissionList
@@ -2786,7 +3451,10 @@ end
 defmodule Lnrpc.ListPermissionsResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ListPermissionsResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :method_permissions, 1,
     repeated: true,
@@ -2798,7 +3466,7 @@ end
 defmodule Lnrpc.Failure do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.Failure", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :code, 1, type: Lnrpc.Failure.FailureCode, enum: true
   field :channel_update, 3, type: Lnrpc.ChannelUpdate, json_name: "channelUpdate"
@@ -2813,7 +3481,10 @@ end
 defmodule Lnrpc.ChannelUpdate do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.ChannelUpdate",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :signature, 1, type: :bytes
   field :chain_hash, 2, type: :bytes, json_name: "chainHash"
@@ -2832,7 +3503,10 @@ end
 defmodule Lnrpc.MacaroonId do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.MacaroonId",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :nonce, 1, type: :bytes
   field :storageId, 2, type: :bytes
@@ -2842,7 +3516,7 @@ end
 defmodule Lnrpc.Op do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf, full_name: "lnrpc.Op", protoc_gen_elixir_version: "0.17.1", syntax: :proto3
 
   field :entity, 1, type: :string
   field :actions, 2, repeated: true, type: :string
@@ -2851,7 +3525,10 @@ end
 defmodule Lnrpc.CheckMacPermRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.CheckMacPermRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :macaroon, 1, type: :bytes
   field :permissions, 2, repeated: true, type: Lnrpc.MacaroonPermission
@@ -2861,7 +3538,10 @@ end
 defmodule Lnrpc.CheckMacPermResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.CheckMacPermResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :valid, 1, type: :bool
 end
@@ -2869,7 +3549,10 @@ end
 defmodule Lnrpc.RPCMiddlewareRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.RPCMiddlewareRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :intercept_type, 0
 
@@ -2886,7 +3569,10 @@ end
 defmodule Lnrpc.StreamAuth do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.StreamAuth",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :method_full_uri, 1, type: :string, json_name: "methodFullUri"
 end
@@ -2894,7 +3580,10 @@ end
 defmodule Lnrpc.RPCMessage do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.RPCMessage",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :method_full_uri, 1, type: :string, json_name: "methodFullUri"
   field :stream_rpc, 2, type: :bool, json_name: "streamRpc"
@@ -2906,7 +3595,10 @@ end
 defmodule Lnrpc.RPCMiddlewareResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.RPCMiddlewareResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   oneof :middleware_message, 0
 
@@ -2918,7 +3610,10 @@ end
 defmodule Lnrpc.MiddlewareRegistration do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.MiddlewareRegistration",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :middleware_name, 1, type: :string, json_name: "middlewareName"
   field :custom_macaroon_caveat_name, 2, type: :string, json_name: "customMacaroonCaveatName"
@@ -2928,7 +3623,10 @@ end
 defmodule Lnrpc.InterceptFeedback do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "lnrpc.InterceptFeedback",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :error, 1, type: :string
   field :replace_response, 2, type: :bool, json_name: "replaceResponse"
@@ -2938,7 +3636,7 @@ end
 defmodule Lnrpc.Lightning.Service do
   @moduledoc false
 
-  use GRPC.Service, name: "lnrpc.Lightning", protoc_gen_elixir_version: "0.12.0"
+  use GRPC.Service, name: "lnrpc.Lightning", protoc_gen_elixir_version: "0.17.1"
 
   rpc :WalletBalance, Lnrpc.WalletBalanceRequest, Lnrpc.WalletBalanceResponse
 

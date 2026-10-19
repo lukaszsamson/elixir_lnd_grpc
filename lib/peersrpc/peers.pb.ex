@@ -1,7 +1,11 @@
 defmodule Peersrpc.UpdateAction do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "peersrpc.UpdateAction",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :ADD, 0
   field :REMOVE, 1
@@ -10,7 +14,11 @@ end
 defmodule Peersrpc.FeatureSet do
   @moduledoc false
 
-  use Protobuf, enum: true, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    enum: true,
+    full_name: "peersrpc.FeatureSet",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :SET_INIT, 0
   field :SET_LEGACY_GLOBAL, 1
@@ -22,7 +30,10 @@ end
 defmodule Peersrpc.UpdateAddressAction do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "peersrpc.UpdateAddressAction",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :action, 1, type: Peersrpc.UpdateAction, enum: true
   field :address, 2, type: :string
@@ -31,7 +42,10 @@ end
 defmodule Peersrpc.UpdateFeatureAction do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "peersrpc.UpdateFeatureAction",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :action, 1, type: Peersrpc.UpdateAction, enum: true
   field :feature_bit, 2, type: Lnrpc.FeatureBit, json_name: "featureBit", enum: true
@@ -40,7 +54,10 @@ end
 defmodule Peersrpc.NodeAnnouncementUpdateRequest do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "peersrpc.NodeAnnouncementUpdateRequest",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :feature_updates, 1,
     repeated: true,
@@ -59,7 +76,10 @@ end
 defmodule Peersrpc.NodeAnnouncementUpdateResponse do
   @moduledoc false
 
-  use Protobuf, syntax: :proto3, protoc_gen_elixir_version: "0.12.0"
+  use Protobuf,
+    full_name: "peersrpc.NodeAnnouncementUpdateResponse",
+    protoc_gen_elixir_version: "0.17.1",
+    syntax: :proto3
 
   field :ops, 1, repeated: true, type: Lnrpc.Op
 end
@@ -67,7 +87,7 @@ end
 defmodule Peersrpc.Peers.Service do
   @moduledoc false
 
-  use GRPC.Service, name: "peersrpc.Peers", protoc_gen_elixir_version: "0.12.0"
+  use GRPC.Service, name: "peersrpc.Peers", protoc_gen_elixir_version: "0.17.1"
 
   rpc :UpdateNodeAnnouncement,
       Peersrpc.NodeAnnouncementUpdateRequest,

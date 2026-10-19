@@ -25,3 +25,6 @@ lnd_grpc-*.tar
 
 # Temporary files for e.g. tests
 /tmp
+
+# Dialyzer PLTs
+/priv/plts/
