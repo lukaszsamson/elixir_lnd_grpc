@@ -7,7 +7,8 @@ defmodule LndGrpc.MixProject do
       version: "0.1.0",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      dialyzer: [plt_local_path: "priv/plts", plt_core_path: "priv/plts"]
     ]
   end
 
@@ -21,6 +22,7 @@ defmodule LndGrpc.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:spec_lint, "~> 0.1", only: [:dev, :test], runtime: false},
       {:grpc, "~> 1.0"},
       {:protobuf, "~> 0.17"}
